@@ -3,7 +3,7 @@
 ## Qué es esto
 
 Trabajo del curso Analítica de Datos (709749, semestre 2026-2): un EDA completo sobre ventas de BigMart.
-El entregable actual es **un solo cuaderno**, `EDA_bigmart_sales.ipynb` (70 celdas: 45 de código y 25 de markdown). Analiza `datos/archive/train.csv`, con 8.523 filas × 12 columnas: una fila representa un producto en una tienda.
+El entregable actual es **un solo cuaderno**, `EDA_bigmart_sales.ipynb` (71 celdas: 46 de código y 25 de markdown). Analiza `datos/archive/train.csv`, con 8.523 filas × 12 columnas: una fila representa un producto en una tienda.
 
 El cuaderno cubre los cinco pasos del workflow de limpieza, análisis univariado y bivariado, agregaciones y cinco preguntas de investigación. Es un EDA: no entrena modelos ni genera predicciones. `test.csv` y `sample_submission.csv` se conservan como parte del conjunto BigMart, pero no son insumos de este entregable.
 
@@ -17,17 +17,19 @@ Siempre desde la raíz de la carpeta, porque la ruta `datos/archive/train.csv` e
 
 La ejecución debe cerrar con `Afirmaciones comprobadas: 24 de 24` y `RESULTADO: las afirmaciones de la seccion 15 se sostienen en los datos.` Si alguno no aparece, el cuaderno está roto y no se entrega.
 
-`EDA_bigmart_sales.nbconvert.ipynb` es el artefacto de una ejecución anterior; no es el cuaderno canónico. Al momento de esta actualización guarda las 45 salidas y las 24 comprobaciones correctas, mientras que el cuaderno canónico aún debe ejecutarse *in place* para guardar sus salidas.
+`EDA_bigmart_sales.nbconvert.ipynb` es el artefacto de una ejecución anterior; no es el cuaderno canónico. El cuaderno canónico ya está ejecutado *in place* y tiene sus salidas guardadas.
 
 Para trabajar el cuaderno a mano: `.venv/bin/jupyter lab`, o abrir el `.ipynb` en VS Code, que ya selecciona `.venv` por `.vscode/settings.json`.
 
 ## Convenciones
 
-- Todo en español; los nombres de librerías, métodos, columnas y tipos de la fuente permanecen en inglés. Sin emojis en ningún archivo.
+- Todo en español. En el **código** los nombres de librerías, métodos, columnas y tipos de la fuente permanecen en inglés, porque son los que se analizan. Sin emojis en ningún archivo.
+- **Las tablas sí se muestran en español, y solo al mostrarse.** `df` conserva los nombres y los valores de la fuente; lo que las traduce es `en_espanol`, el ayudante de la primera celda, que se invoca desde `tabla`. Los diccionarios son `COLUMNAS` (nombre de columna → rótulo), `VALORES` (columna de la fuente → valor → traducción), `VALORES_DERIVADOS` (columnas que crea este cuaderno), `ETIQUETAS` (rótulos de columnas derivadas) y `ETIQUETAS_VALOR` (todas las categorías juntas, para un valor suelto dentro de una celda). Paratraducir una categoría nueva hay que añadirla a su diccionario, no tocar `df`. Los códigos (`FDA15`, `OUT010`) y las medidas numéricas no se traducen.
 - El comentario de arriba de una celda explica **por qué**, no qué hace el código. Lo obvio no se escribe.
-- Cada tramo abre y cierra con el mismo banner: `print('=' * 78)`, `print('TRAMO · n · qué hace')`, `print('=' * 78)`. El rótulo coincide con el título markdown de la sección.
+- La estructura la dan los títulos markdown (`## 1. ...`, `### ...`). **No hay banners ni rótulos de navegación en la salida**: ni `print('=' * 78)` ni una tabla de color que anuncie el tramo. El rótulo de una tabla va en su `titulo`, y el texto explicativo en la celda markdown que sigue a la de código.
+- **Los datos se muestran como tablas, nunca como texto monoespaciado.** Nada de `print(tabla.to_string())`. Todo pasa por los ayudantes de la primera celda: `tabla(marco, digitos, titulo)`, `tabla_dtypes(datos)` y `tabla_conteo(serie, titulo, columna, origen)`. `tabla` solo aplica formato a los números (separador de miles y precisión); **no aplica CSS, ni colores, ni `set_table_styles`, ni `set_properties`**: la tabla se dibuja con el estilo que pandas da por defecto, el mismo que produce `df.head()`. Ese es el diseño de los cuadernos de clase del profesor y no se personaliza.
 - Una celda = una comprobación. Si una transformación cambia datos, se cuenta antes y después en esa misma celda.
-- Las columnas de la fuente se conservan exactamente como llegan, incluidas las columnas identificadoras. Las variables auxiliares o derivadas usan nombres descriptivos en `snake_case` (`celdas_antes`, `r_fuerte`, `venta_promedio`). No renombrar ni convertir `Item_Identifier` y `Outlet_Identifier` a números: son códigos.
+- Las columnas de la fuente se conservan exactamente como llegan, incluidas las columnas identificadoras: la traducción es solo de presentación, nunca un `rename`. Las variables auxiliares o derivadas usan nombres descriptivos en `snake_case` (`celdas_antes`, `r_fuerte`, `venta_promedio`). No renombrar ni convertir `Item_Identifier` y `Outlet_Identifier` a números: son códigos.
 - `df` contiene los datos de trabajo y `df_original = df.copy()` conserva el crudo. `df_original` no se toca nunca y es el término de comparación del tramo 7. No crear una copia superficial con `df_original = df`.
 - Los tramos van numerados en el markdown y las preguntas de investigación como `P1`..`P5`; las conclusiones las responden en ese orden.
 - Números en la salida con separador de miles y precisión pertinente (`f'{x:,.2f}'`, `f'{n:,}'`). En el markdown, redactar números en español.
