@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Candados de LibreOffice sobre archivos abiertos
+.~lock.*#
