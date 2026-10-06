@@ -1,226 +1,262 @@
-# Clase 8 · Reto — La historia de tu proyecto en 4 slides
+# Clase 8 · Bloque 3 — Reto
 
-## De qué se trata
+## Cinco figuras publication-ready sobre ejecución presupuestal
 
-En el demo se contó la brecha del presupuesto nacional: 92 billones comprometidos, 25 pagados, y una
-cifra de 28,85 que aparecía sola cuando se cambiaba el recorte. Aquí haces lo mismo **con el dataset
-de tu equipo**, el que vienes usando desde el Momento 1.
+**Modalidad:** en equipo (1-2 personas)
+**Duración:** 60 minutos asistidos en clase + cierre en casa
+**Dataset:** `../../datasets/EJECUCION_PRESUPUESTAL.csv`
+**Entregable:** el cuaderno completo + carpeta `figuras/` con los cinco PNG exportados. El archivo
+que descarga se llama `reto.ipynb`; **al entregar se renombra a `reto_clase08_APELLIDO.ipynb`**
 
-Tu trabajo: calcular las tres cifras que sostienen tu historia, escribir los cuatro títulos que la
-cuentan, y presentarla en 5 minutos.
+**Publication-ready** quiere decir: una figura que se puede pegar en un informe **sin retocarla**
+—tamaño, resolución, tipografía y etiquetas ya resueltos—, no una figura bonita
 
-| Campo | Valor |
-|-------|-------|
-| Archivo de trabajo | `reto.ipynb` |
-| Dataset | **El de tu equipo.** No hay CSV asignado |
-| Tiempo en el salón | 60 minutos (25 de construcción, 25 de pitches, 10 de instrucción y cierre) |
-| Se termina | En casa: aplicar el feedback y ensayar con cronómetro |
-| Entrega | El notebook completado, corriendo de arriba a abajo sin errores, más el mini-deck |
-
-Este es el ensayo directo de la sustentación del **Momento 2 (clase 11)**.
+---
 
 ## Cómo está armado el cuaderno
 
 Este reto se recorre solo, leyendo. Nadie dicta los pasos desde el tablero: el profesor circula por
-el salón resolviendo dudas. Cada una de las nueve tareas trae, en este orden:
+el salón resolviendo dudas. Cada una de las **diez tareas** trae, en este orden:
 
 | Parte | Qué contiene |
 |-------|--------------|
 | **La pregunta** | Lo que hay que responder, en español |
 | **El concepto** | Qué técnica aplica y por qué esa y no otra |
-| **Los comandos** | Las instrucciones exactas que vas a usar, escritas de forma genérica |
-| **Lo que decides tú** | Qué columna, qué recorte, qué frase. Ahí no hay respuesta escrita |
-| **La celda** | Los pasos numerados en comentarios; las líneas las escribes tú |
-| **La comprobación** | `comprobar_cifra`, `revisar_titulo` o `comprobar_coherencia`, según el caso |
+| **Los comandos** | Las instrucciones exactas que va a usar, escritas de forma genérica |
+| **Lo que decide usted** | Qué recorte, qué color, qué orden, qué título. Ahí no hay respuesta escrita |
+| **La celda de código** | Los pasos numerados en comentarios; las líneas las escribe usted |
+| **La comprobación** | `comprobar('TN', ...)` dice si el resultado es el correcto, sin mostrarlo |
 
-Las nueve tareas están repartidas en tres partes:
+Las diez tareas están repartidas en tres partes: **A** (T1 y T2, las dos tablas agregadas), **B**
+(T3 a T8, las cinco figuras más la normalización de la figura 4) y **C** (T9 y T10, el ensamblaje y
+la exportación). **La parte C es la que más pesa y es la única donde no se le da el orden de los
+comandos.**
 
-| Parte | Tareas | Qué se hace |
-|-------|--------|-------------|
-| **A · Las cifras** | T1 a T3 | La cifra principal, el recorte que le da nombre propio, la segunda evidencia |
-| **B · Las cuatro slides** | T4 a T7 | Contexto, hallazgo, implicación y acción |
-| **C · La prueba** | T8 y T9 | Los cuatro títulos leídos seguidos, y la cifra del hallazgo recalculada desde cero |
+**Por qué esto sigue siendo un reto y no una copia.** Los comandos se dan; las decisiones no. Usted
+elige el recorte, el color, el orden, la unidad del eje y sobre todo el título, que tiene que decir
+una conclusión y **ser verdadero**. Eso es lo que se evalúa.
 
-**La parte C es la que más pesa**, y es la única donde no se te da el orden de los comandos.
+**Las tareas de gráfico se comprueban distinto.** No hay una única figura correcta, así que se revisa
+lo verificable: dibujada, titulada, con los ejes etiquetados, con el eje en cero donde la regla lo
+exige, con la línea de referencia donde hace falta y con la misma escala en todos los paneles. Los
+puntos 1, 7 y 8 de la checklist —los cinco segundos, la escala de grises y que el título sea
+verdadero— no los revisa ningún programa. Esos los juzga usted, y son los que más pesan.
 
-Antes de la parte A hay un **Paso 0.5** que no tiene código y que sin embargo decide el resto: dos
-frases donde escribes a quién le hablas y qué decisión debe habilitar tu deck. Después de la parte A
-hay un cierre donde escribes **una frase por cifra**, en español y sin nombrar columnas: tres números
-en verde no son tres hallazgos.
-
-## El bucle que ya tienes instalado
-
-Nada de esto es método nuevo. Es el bucle de la clase 3 —**especificar, planear, ejecutar,
-validar**— con las tareas de hoy repartidas en sus cuatro tramos:
-
-| Tramo | La skill | Qué es hoy |
-|-------|----------|------------|
-| **Especificar** | `especifica-encargo` | El Paso 0.5: audiencia y decisión, antes de calcular nada |
-| **Planear** | `planea-trabajo` | Qué tres cifras hacen falta y en qué orden salen |
-| **Ejecutar** | `ejecuta-plan` | T1 a T7, una por una, comprobando cada una |
-| **Validar** | `valida-resultado` | T8, T9 y la autoevaluación del final |
-
-**Por qué aquí pesa más que en las clases de cálculo.** Una cifra mal calculada se cae sola: revienta
-o es absurda. Un deck sin especificar **no se cae**: sale correcto, bonito y sin destinatario, y eso
-se descubre cuando ya lo presentaste. Especificar antes de dibujar es lo que evita la secuencia de
-gráficos correctos que no le sirve a nadie.
-
-**Y si la validación falla, se vuelve a especificar.** Un deck que no le cambia nada a nadie casi
-nunca se arregla reescribiendo la slide 4: se arregla volviendo al Paso 0.5.
-
-## Las cuatro preguntas, sobre un deck
-
-Las mismas cuatro de la clase 3, aplicadas a una historia en vez de a un número:
-
-| La pregunta | Qué miras aquí | Quién la contesta |
-|-------------|----------------|-------------------|
-| ¿El número tiene sentido? | La cifra de tu título, en la magnitud de tu dominio | T9, contra el archivo |
-| ¿La forma cuadra? | Cuatro slides, una idea por slide, hallazgo con cifra, implicación que no repite | `revisar_titulo` y `revisar_historia` |
-| ¿Responde lo que pregunté? | ¿Tu slide 4 cierra la pregunta que abrió tu slide 1? | Tú, en la autoevaluación |
-| ¿Cambió algo? | ¿Alguien haría algo distinto el lunes por haberte escuchado? | Tú, en la autoevaluación |
-
-**Las dos últimas son la prueba del intercambio**, la que este curso usa desde el bloque 1: si
-intercambias dos slides y la presentación funciona igual, no estabas respondiendo una pregunta ni
-cambiando nada. Eran una lista. No son un criterio aparte: son cómo se ven esas dos preguntas cuando
-el resultado es un deck, y por eso ninguna máquina las revisa.
-
-## Cómo se verifica un reto que no tiene respuesta correcta
-
-Esto es distinto a los retos de las clases 2, 4 y 5, y conviene decirlo claro para que nadie crea que
-el cuaderno le está calificando la historia.
-
-En los retos anteriores había **una** respuesta correcta, y el verificador comparaba una huella
-digital de tu resultado contra la suya. Aquí no se puede: el dataset es tuyo (nadie más sabe cuánto
-debe dar) y el entregable es una narrativa (no existe "el título correcto" de una slide de
-implicación). Fingir una comprobación automática ahí sería mentirte.
-
-Así que la verificación está partida en tres, y cada parte declara hasta dónde llega:
-
-| Qué comprueba | Cómo | Qué NO garantiza |
-|---------------|------|------------------|
-| `comprobar_cifra` | Que produjiste un número finito y legible, no un `None` ni una tabla | No sabe si el número es el correcto |
-| `revisar_titulo` · `revisar_historia` | Forma: que afirmen algo, que quepan en una línea, que el hallazgo lleve cifra, que la implicación no repita el hallazgo, que la acción concluya | No juzga si el título es **bueno** |
-| `comprobar_coherencia` | Que el número escrito en tu título sea el mismo que sale de recalcularlo desde el CSV | Nada. Esta sí es automática, y es la más importante del cuaderno |
-
-**Un título en verde no es un título bueno. Es un título con forma de título.** El juicio lo cierras
-tú, en la autoevaluación guiada del final del cuaderno, con criterios explícitos.
-
-**La solución no se publica**, ni antes ni después de la clase. El reto se resuelve en voz alta en el
-cierre de la sesión, y si te trabas, preguntas ahí mismo.
+> Que el verificador diga CORRECTO no quiere decir que la figura esté bien. Quiere decir que ya se
+> puede juzgar.
 
 ---
 
-## La estructura, sin negociación
+## Sí, es el mismo dataset del demo. Es a propósito
 
-Cuatro slides. Ni tres ni seis.
+En el resto del curso el reto usa datos que no vio en el demo. Esta clase es la excepción
+declarada.
 
-| # | Slide | La pregunta que responde | Cómo saber que está mal |
-|---|-------|--------------------------|-------------------------|
-| 1 | Contexto | ¿De qué estamos hablando y por qué ahora? | Si es la agenda de tu presentación, está mal |
-| 2 | Hallazgo | ¿Qué encontramos? En una frase, con cifra | Si tiene tres hallazgos, está mal |
-| 3 | Implicación | ¿Y eso qué significa para quien decide? | Si repite el hallazgo con otras palabras, está mal |
-| 4 | Acción | ¿Qué hay que hacer, quién y cuándo? | Si dice "se recomienda seguir investigando", está mal |
+Razón: hoy lo que se evalúa no es su capacidad de cargar y limpiar un dataset nuevo, es su
+**criterio visual**. Si tuviera que entender datos nuevos, gastaría 20 de sus 60 minutos en
+limpieza y llegaría a los gráficos con 40.
 
-## Requisitos del mini-deck
+**Lo que cambia entre el demo y el reto no son los datos: son los gráficos.** Cuatro de las
+cinco figuras son de tipos que no aparecieron en el demo.
 
-- [ ] Exactamente 4 slides.
-- [ ] Los 4 títulos son **afirmaciones con contenido**, no etiquetas.
-      Mal: "Análisis de consumo". Bien: "El 12% de los usuarios consume la mitad del agua".
-- [ ] Al menos 2 evidencias sacadas de tu propio EDA: dos cifras, o una cifra y un gráfico.
-- [ ] Toda cifra que pongas la puedes reproducir en tu notebook. **La tarea T9 lo comprueba.**
-- [ ] La slide de acción nombra **qué** hacer y **quién** lo hace.
-- [ ] Declaras cuál es tu audiencia principal: ejecutivo, gerente de área o técnico. Una sola.
-
-### Formato del entregable
-
-**Libre.** Se acepta HTML, PDF, Google Slides, o las cuatro celdas markdown del notebook
-renderizadas. **No hay plantilla obligatoria del curso.** Lo que se evalúa es la estructura
-narrativa, no la estética. El tiempo que gastes eligiendo colores es tiempo que no gastaste
-puliendo tus títulos.
+Los mismos números, cinco preguntas distintas, cinco gráficos distintos. Si el gráfico correcto
+dependiera de los datos, esto sería trivial. Depende de la pregunta.
 
 ---
 
-## Requisitos del pitch
+## La consigna
 
-5 minutos. Reparto sugerido:
+Cinco figuras listas para publicar. Cada una responde una pregunta analítica concreta, usa la
+paleta que definiste y pasa la checklist de diez puntos.
 
-| Tramo | Tiempo |
-|-------|--------|
-| Contexto | 45 seg |
-| Hallazgo | 90 seg |
-| Implicación | 90 seg |
-| Acción | 45 seg |
-| Colchón | 30 seg |
+| # | La pregunta | El gráfico | ¿Estuvo en el demo? |
+|---|-------------|-----------|---------------------|
+| 1 | ¿Qué sectores concentran el presupuesto? | Barras horizontales, top 10 | Sí. Es el calentamiento |
+| 2 | ¿Dónde es más grande la brecha entre lo autorizado y lo comprometido? | Barras agrupadas, top 8 | No |
+| 3 | ¿Qué entidades tienen mucho presupuesto y poca ejecución? | Gráfico de dispersión (*scatter*) con línea de referencia | No |
+| 4 | ¿Cómo cambia la composición del gasto entre sectores? | Barras apiladas al 100% | No |
+| 5 | ¿Qué sectores están por debajo del promedio de ejecución? | Small multiples | No |
 
-Reglas:
-
-- No leas las slides. Si las lees, la audiencia lee más rápido que tú y se aburre.
-- Explica cada gráfico en una sola frase, señalando el punto exacto del que hablas.
-- No abras pidiendo disculpas por tus datos.
-- No cierres con "eso es todo, ¿preguntas?". Cierra con tu recomendación.
-
-En la clase 11 el corte es duro y queda escrito en el acta. Hoy es el ensayo.
+Aproximadamente **9 minutos por figura**. Si se demora 20 en la primera, no va a terminar.
+La primera es la que ya sabe hacer: hágala rápido y siga.
 
 ---
 
-## Feedback: I like, I wish, What if
+## La checklist de diez puntos
 
-Después de cada pitch, cada persona que escuchó entrega tres frases, en este orden:
+Es la misma del Bloque 1 y del Bloque 2. **Es con lo que se califica.**
 
-- **I like...** qué funcionó. Concreto, no "estuvo bien".
-- **I wish...** qué faltó. Sobre el trabajo, nunca sobre la persona.
-- **What if...** una propuesta, no una queja.
-
-Ejemplo:
-
-- "I like que arrancaste con la cifra de la brecha, entendí el problema en 10 segundos."
-- "I wish el título de la tercera slide dijera qué concluir; me tocó deducirlo."
-- "What if muestras el gráfico por municipio antes del total? Creo que el contraste pega más fuerte."
-
-**El que presenta no defiende.** Escucha y anota. Discutir el feedback consume el tiempo
-del siguiente equipo.
-
-Hay una plantilla del formulario al final de `reto.ipynb`.
+- [ ] ¿Pasa la prueba de los 5 segundos con alguien ajeno al equipo?
+- [ ] ¿El tipo de gráfico corresponde a la pregunta?
+- [ ] ¿Las categorías están ordenadas por valor, no alfabéticamente?
+- [ ] ¿El eje empieza en cero, o hay una razón declarada para que no?
+- [ ] ¿Borré todo lo que se podía borrar sin perder información?
+- [ ] ¿Hay un solo elemento resaltado y el resto en gris?
+- [ ] ¿Funciona en escala de grises?
+- [ ] ¿El título dice la conclusión y es verdadero?
+- [ ] ¿Los ejes tienen unidades?
+- [ ] ¿Está la fuente del dato?
 
 ---
 
-## Cómo se ve un buen trabajo
+## Requisitos no negociables
 
-La retroalimentación de este reto usa el mismo instrumento de los momentos evaluativos: **Saber, Ser
-y Hacer, una banda por dimensión** (Excelente, Bueno, Aceptable, Insuficiente, No aceptable). Los
-elementos de cada fila **no tienen peso**: no se suman ni se promedian, alimentan una sola banda.
+1. **Una paleta, definida en una celda al inicio, usada en las cinco figuras.**
+   Es lo primero que se mira al calificar. Es lo que separa cinco figuras de un informe.
+2. **Ejes en billones de pesos**, no en notación científica. Si su eje dice `1e13`, la figura
+   está incompleta.
+3. **Título que enuncia la conclusión, y que es verdadero.** Si el título afirma algo que los
+   datos no sostienen, no es storytelling: es un dato falso en el renglón más grande.
+4. **Fuente citada** en las cinco.
+5. **Exportación a PNG con `dpi=300`**, `bbox_inches='tight'` y `facecolor='white'`.
 
-| Dimensión | Qué se mira hoy | Se cumple cuando |
-|-----------|-----------------|------------------|
-| **Saber** | Evidencia | Las cifras son reproducibles desde el notebook y sostienen lo que el título afirma |
-| **Ser** | Títulos · Acción | Leer solo los 4 títulos seguidos ya cuenta la historia, y alguien podría hacer algo distinto el lunes por haber escuchado esto |
-| **Hacer** | Estructura · Foco · Tiempo | Las 4 slides están en orden, hay una idea por slide y un hallazgo principal, y cupo en el pitch sin correr al final |
+### Nombres de archivo
 
-La autoevaluación del final del cuaderno está organizada con esos mismos tres bloques. Contéstala
-antes de presentar: en un ensayo, el resultado útil es saber qué no está listo.
-
----
-
-## Qué hacer en casa
-
-En clase alcanzas a construir la estructura y a ensayar una vez. El cierre es en casa:
-
-- [ ] Aplicar el feedback que recibiste. Al menos dos de los tres "I wish".
-- [ ] Ensayar con cronómetro, en voz alta. El ensayo mental no revela ni el tiempo ni las frases torpes.
-- [ ] Pulir el gráfico de la slide de hallazgo con lo que viste en la clase 7.
-
-**Opcional (no se evalúa hoy):** versión alterna del mismo deck para otra audiencia. Es el mejor
-ejercicio de los tres, pero no cabe en 60 minutos.
+```
+figuras/fig1_apropiacion_por_sector.png
+figuras/fig2_brecha_apropiacion_compromisos.png
+figuras/fig3_entidades_presupuesto_vs_ejecucion.png
+figuras/fig4_composicion_gasto_por_sector.png
+figuras/fig5_ejecucion_small_multiples.png
+```
 
 ---
 
-## Este reto no tiene nota
+## Dónde se va a atascar
 
-Y no la tiene por partida doble. **Los retos semanales no producen nota ni cumplido / no cumplido:**
-son práctica, y su retroalimentación usa el lenguaje de bandas para que llegues familiarizado a los
-momentos evaluativos.
+En orden de frecuencia real, del semestre pasado:
 
-Este es el ensayo directo de la sustentación del **Momento 2 (clase 11)**, que **tampoco produce
-nota**: produce retroalimentación por dimensión y un **cumplido / no cumplido** que **habilita el
-Momento 3**, la única evaluación calificada del semestre. Sustentar mal cuesta bandas; no sustentar
-cuesta el acceso al M3. La clase 10 es el laboratorio donde se ensaya completo.
+| Atasco | Tarea | Síntoma | Salida |
+|--------|-------|---------|--------|
+| Las magnitudes | T1 | El eje dice `1e13` | Divida entre 1e12 y ponga "billones de pesos" en la etiqueta |
+| Los nombres de las columnas derivadas | T1, T2 | La tabla se ve bien y `comprobar` dice que no coincide | Se llaman `'% Ejecución'` y `'Apropiación (billones)'`, con tilde y mayúscula |
+| La normalización por fila | T6 | Las filas suman 300, o salen números gigantes | Invirtió los `axis`: `.div(tabla.sum(axis=1), axis=0) * 100` |
+| Los small multiples | T8 | El verificador rechaza por escalas distintas | `sharex=True`. Sin eso la comparación visual es falsa, y la figura se ve bien igual |
+| Los títulos | todas | Cinco títulos que describen los ejes | "Eso me dice qué graficaste, no qué encontraste" |
+| La paleta | T5 en adelante | Las figuras 1 y 2 con paleta, las demás con los colores por defecto | Revísela a mitad de camino |
+| El tiempo | T3 | 25 minutos en la figura 1 | A los 15 minutos debería ir en la figura 2 |
+| El mensaje del verificador | cualquiera | "No sé qué le falta a mi gráfico" | El mensaje lo dice, línea por línea. Léalo |
+
+---
+
+## El bucle de la clase 3, sobre una figura
+
+Las cuatro skills que instaló en la clase 3 —`especifica-encargo`, `planea-trabajo`,
+`ejecuta-plan` y `valida-resultado`— se usan hoy. No se vuelven a explicar: hoy son la
+herramienta, no el tema.
+
+**Cada figura es una vuelta completa del bucle, no una sola vuelta para las cinco.**
+
+| Tramo | Qué escribe, y cuándo |
+|-------|------------------------|
+| **Especificar** | La pregunta que la figura responde, quién la mira, y **el título que espera poder escribir al final**. Antes de dibujar |
+| **Planear** | El tipo de gráfico y por qué ese y no el vecino, el recorte, la unidad del eje, qué se resalta |
+| **Ejecutar** | La figura. Es el único tramo que se delega entero |
+| **Validar** | El título contra la tabla, condición por condición |
+
+**Por qué esto importa hoy más que en otras clases.** Un gráfico bonito que no responde nada
+casi siempre salió de un encargo que no preguntaba nada. Si el título lo escribe **después**
+de ver la figura, va a describir la figura. Si lo escribe **antes**, la figura tiene que
+ganárselo. Ese cambio de orden es todo el tramo de especificar.
+
+Y la mitad que se olvida: si al validar el título resulta falso, **no parche el título**.
+Vuelva a especificar, porque el problema estaba en la pregunta.
+
+### Validar: las cuatro preguntas, traducidas a una figura
+
+La checklist dice **qué** revisar. Las cuatro preguntas del analista dicen **en qué orden**, y
+son las mismas de la clase 3: allá el resultado era un número, aquí es un gráfico. No son diez
+criterios más: son la forma de recorrer los diez que ya tiene.
+
+| La pregunta | Sobre la figura | Puntos de la checklist |
+|-------------|-----------------|------------------------|
+| **¿El número tiene sentido?** | Lea un valor en el eje y búsquelo en la tabla de la que salió. Un eje que dice `1e13` no le está mostrando un número: le está mostrando una notación | 9 y 10 |
+| **¿La forma cuadra?** | Aquí la forma es la **escala**: barras desde cero, paneles con el mismo rango, ninguna línea sobre categorías. Una escala mal puesta se ve perfectamente bien | 3 y 4 |
+| **¿Responde lo que pregunté?** | Cinco segundos con alguien de otro equipo, sin explicarle nada. Lo que le devuelva tiene que ser la pregunta que escribió al especificar, no otra parecida | 1, 2 y 8 |
+| **¿Cambió algo?** | Compare con el gráfico por defecto, el que sale sin tocar nada. Si el lector entiende lo mismo, no rediseñó: maquilló | 5, 6 y 7 |
+
+La tercera es la peligrosa, igual que en la clase 3: una figura puede pasar los otros nueve
+puntos y responder una pregunta que nadie hizo.
+
+**Y algo que vale la pena escribir esta semana:** un skill que verifique los diez puntos de la
+checklist. Le pasa el código de una figura y le dice qué puntos incumple. Hoy es el día en que
+sabe exactamente qué debe revisar, y lo va a usar en las clases 9, 10 y 11.
+
+> Por qué esta clase importa aunque le pida la figura a una IA: a "un gráfico bonito" le
+> responde algo genérico; a "barras horizontales ordenadas, top 10, todas en gris salvo la
+> primera, con etiquetas directas, eje desde cero y sin bordes" le responde exactamente eso.
+> **La diferencia entre las dos peticiones es el tramo de especificar, y es lo que aprendió
+> hoy.**
+
+---
+
+## Análisis crítico
+
+Al final del notebook, cinco preguntas. Cortas, con criterio:
+
+1. ¿Cuál de las cinco figuras comunica mejor el hallazgo más importante del dataset? ¿Por qué?
+2. ¿Qué se perdería si solo mostrara los sectores con más presupuesto?
+3. Si solo pudiera mostrar una figura a un tomador de decisiones, ¿cuál y qué pregunta
+   responde mejor?
+4. ¿Qué dato adicional (una columna que no está en este archivo) haría estas figuras mucho
+   más útiles?
+5. ¿Cuál de estos cinco tipos de gráfico va a usar en el dashboard del Momento 2, y para qué
+   pregunta?
+
+---
+
+## Entrega
+
+```
+reto_clase08_APELLIDO.ipynb
+figuras/
+    fig1_apropiacion_por_sector.png
+    fig2_brecha_apropiacion_compromisos.png
+    fig3_entidades_presupuesto_vs_ejecucion.png
+    fig4_composicion_gasto_por_sector.png
+    fig5_ejecucion_small_multiples.png
+```
+
+Antes de subirlo: **Kernel → Restart and Run All**, y el punto de control final tiene que decir
+**10 de 10 correctas**. Un cuaderno que no corre de arriba a abajo le pone techo a la dimensión
+Hacer.
+
+Y antes de eso, **valida**: las cuatro preguntas sobre las cinco figuras, en orden. La tercera
+—¿responde lo que pregunté?— es la que más figuras tumba, y la única que necesita a otra persona.
+
+**Fecha de entrega:** antes de la clase 9.
+
+---
+
+## Cómo se valora
+
+**Este reto no produce nota ni cumplido / no cumplido.** Es práctica. La retroalimentación usa el
+mismo instrumento de los momentos evaluativos —**Saber, Ser y Hacer, una banda por dimensión**:
+Excelente, Bueno, Aceptable, Insuficiente, No aceptable— para que llegue familiarizado a las
+sustentaciones de los tres momentos. **Las tres dimensiones pesan lo mismo** y los elementos de cada fila **no tienen peso**:
+no se suman ni se promedian, alimentan una sola banda por dimensión.
+
+| Dimensión | Qué se mira en este reto |
+|-----------|--------------------------|
+| **Saber** | El tipo de gráfico es el correcto para cada pregunta, y se puede explicar por qué ese y no otro |
+| **Ser** | Los títulos enuncian una conclusión **y son verdaderos**, y el análisis crítico muestra criterio propio |
+| **Hacer** | Paleta consistente aplicada en las cinco figuras, data-ink ratio (figuras limpias, sin basura visual), ejes con unidades legibles y fuente citada, exportación a 300 DPI con los nombres pedidos |
+
+**Topes por omisión** (techo a la banda, nunca resta, y no se acumulan):
+
+- Un título que afirma algo que los datos no sostienen: **Ser** no pasa de Insuficiente. Es un error
+  de análisis, no de diseño, y es el más grave que se puede cometer hoy.
+- Un eje de barras truncado sin razón declarada: **Hacer** no pasa de Aceptable.
+- Un gráfico de líneas sobre categorías: **Saber** no pasa de Aceptable. Este dataset no tiene tiempo.
+
+---
+
+## Opcional, para cerrar en casa
+
+Marcado como opcional: no se califica.
+
+- Exportar también en SVG (`format='svg'`), que es vectorial y escala sin pixelarse. Útil para
+  el dashboard del Momento 2.
+- Verificar las cinco figuras en un simulador de daltonismo y anotar si alguna falla.
+- Convertir su paleta y su función de limpieza de ejes en un archivo `estilo.py` reutilizable,
+  e importarlo en las clases 9 y 10. Va a producir muchos gráficos más.
