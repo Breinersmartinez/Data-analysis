@@ -1,181 +1,190 @@
-# Clase 9 · Reto — Tu dashboard, con tu dataset
+# Clase 9 · Reto — Data storytelling: 4 slides y pitch de 3 minutos
 
-## Qué vas a entregar
+## De qué se trata
 
-Una app Streamlit que **corre**, sobre el dataset de tu equipo, con:
+En la primera parte de la clase vimos cómo un análisis con datos rigurosos fracasa si la audiencia
+no entiende qué hacer con él. Modelamos la estructura de cuatro diapositivas con el caso del
+presupuesto nacional y comprobamos cómo cambia la historia cuando se pasa del anecdotario del analista
+a la decisión que necesita la organización.
 
-- **3 filtros** (al menos uno categórico y uno de rango)
-- **3 KPIs** (que cambian cuando mueves los filtros)
-- **3 gráficos** (que responden preguntas distintas)
+En este reto aplicas el marco completo: preparas durante **1 hora cronometrada** en el taller tu **mini-deck de exactamente 4 slides**
+sobre tema libre y lo sustentas en un **pitch de 3 minutos** frente a la sala plenaria (con aviso a los 2 minutos y corte duro a los 3 minutos), recibiendo retroalimentación estructurada (*I like, I wish, What if*).
 
-Esto no es un ejercicio parecido al entregable del Momento 2. **Es el entregable del Momento 2.**
-Lo que empieces hoy es lo que sustentas en la clase 11.
+| Campo | Valor |
+|-------|-------|
+| Consigna | **Tema libre:** el proyecto de semestre de tu equipo o cualquier fenómeno con datos cuantitativos (movilidad, gaming, música, deportes, finanzas, salud) |
+| Tiempo en sala | **1 hora (60 min)** de preparación y ensayo interno (Bloque 2) + **pitches de 3 min** en sala plenaria (Bloque 3) |
+| Entregable | Mini-deck de **exactamente 4 slides** (*Contexto → Hallazgo → Implicación → Acción*) sin código en pantalla |
+| Formato | **Libre:** Canva, Google Slides, PowerPoint, HTML o PDF exportado |
+| Sustentación | Pitch de **3 minutos con corte duro** a los 180 segundos (tarjeta amarilla a los 2 min / 120s, tarjeta roja a los 3 min) + coevaluación y feedback |
+| Evaluación | Formativa, basada en las tres dimensiones institucionales (**Saber, Ser y Hacer**) |
 
----
-
-## "Pero en la clase 3 ya hice un tablero de Streamlit"
-
-Sí, y salió corriendo sin que supieras Plotly ni Streamlit. Ese era el punto: **en la clase 3
-aprendiste el método** —especificar, planear, ejecutar, validar— y lo probaste sobre algo que no
-sabías construir.
-
-Lo que no tenías entonces es lo de hoy: **el criterio.** Qué gráfico responde qué pregunta, qué
-filtro vale la pena y cuál sobra, qué número cambia una decisión y cuál es decoración.
-
-| Clase 3 | Clase 9 |
-|---------|---------|
-| Cómo se dirige el trabajo | Qué se le pide al trabajo |
-| El bucle, sobre cualquier objeto | Las decisiones propias de un tablero |
-| Salió una app | Sabes si esa app sirve |
-
-**Una IA te entrega un tablero en dos minutos. Saber si sirve es otra cosa**, y es lo único que no
-puedes pedir prestado. El método sin criterio produce doce filtros bien programados que no responden
-ninguna pregunta.
+Este ejercicio es el ensayo general directo de la sustentación del **Momento 2 (clase 11)**.
 
 ---
 
-## Archivos
+## 1. La consigna: tema libre con evidencia cuantitativa
 
-| Archivo | Para qué |
-|---------|----------|
-| `reto.ipynb` | Diseñas el dashboard y preparas tu dataset. **Empieza aquí**. Trae **10 puntos de verificación** (`T1` a `T10`) con pista dirigida |
-| `streamlit_app_starter.py` | La plantilla de la app. La adaptas a tus columnas. No es un cuaderno: no tiene celdas y no se ejecuta con el botón de play |
+El objetivo del reto no es evaluar la sintaxis de Python, sino entrenar la musculatura narrativa y la
+capacidad de síntesis del analista de datos.
 
-La solución no se publica. Si te trabas, pregunta en clase: el reto se resuelve en voz alta en el
-cierre de la sesión.
+Puedes elegir entre dos opciones:
+
+1. **El dataset de tu equipo (proyecto de semestre):** si ya tienes avanzado el EDA del Momento 1,
+   este es el espacio para destilar tus hallazgos preliminares y probar tu narrativa antes
+   de la sustentación formal.
+2. **Cualquier fenómeno con datos que te apasione:** movilidad urbana, consumo en plataformas de
+   streaming musical (Spotify), hábitos de compra y abandono en gaming (Steam), rendimiento deportivo
+   (fútbol), accidentalidad vial o transporte público urbano.
+
+> [!IMPORTANT]
+> **La única condición sobre el tema:** debe fundamentarse en cifras cuantitativas con contraste
+> claro. No presentes intuiciones abstractas: presenta la cifra que inclina la balanza de una decisión.
 
 ---
 
-## El orden importa
+## 2. El entregable: exactamente 4 slides sin código en pantalla
 
-No abras el `.py` primero. Ese es el error que más tiempo cuesta.
+La estructura del mini-deck es estricta e innegociable. Cuatro diapositivas. Ni tres ni cinco.
 
-Es el bucle de la clase 3, aplicado a un tablero. Si vas a usar las skills que instalaste entonces,
-van en este orden: `especifica-encargo`, `planea-trabajo`, `ejecuta-plan`, `valida-resultado`. Y si
-prefieres hacerlo a mano, los pasos son los mismos: **el bucle es el andamio, no la herramienta.**
+| # | Slide | La pregunta que responde | Señal de alarma si está mal |
+|---|-------|--------------------------|-----------------------------|
+| 1 | **Contexto** | ¿De qué estamos hablando, cuál era la promesa y por qué importa hoy? | Si parece la agenda de la reunión o la historia de la empresa desde 1995, está mal. |
+| 2 | **Hallazgo** | ¿Qué encontramos que rompe la intuición? (Con cifra y contraste) | Si amontonas tres hallazgos o pones una tabla de 20 filas, está mal. |
+| 3 | **Implicación** | ¿Y eso qué significa para el negocio? ¿A quién le duele? | Si repite el hallazgo con otras palabras, está mal. |
+| 4 | **Acción** | ¿Qué decisión concreta se debe tomar, quién la ejecuta y para cuándo? | Si concluye con "se recomienda seguir investigando o concientizar", está mal. |
 
-### Paso 1 — Especificar: diseño en papel (en `reto.ipynb`)
+### Reglas del diseño de diapositivas
 
-Antes de tocar código, escribe:
+- **Cero código en pantalla:** La sala no vino a ver cómo importaste `pandas` ni cuántas líneas
+  te tomó limpiar el CSV. La audiencia valora las conclusiones, el contraste de magnitudes y la
+  decisión operativa.
+- **El título es el mensaje (La prueba de tapar la pantalla):** Los títulos no son etiquetas de
+  archivo (`"Análisis de ventas"`, `"Gráfico 2"`, `"Resultados"`). Son oraciones completas con verbo
+  activo y cifra: *"El 12% de los usuarios consume la mitad del agua potable"* o *"Los motociclistas
+  concentran el 62% de las muertes en solo 5 corredores"*. Si alguien lee solo los 4 títulos de
+  corrido, ya entendió la historia completa.
+- **Gráficos con alto data-ink:** Cada gráfico o número destacado existe para respaldar una sola
+  afirmación. Elimina fondos oscuros pesados, leyendas redundantes y cuadrículas innecesarias.
+- **La slide de acción nombra doliente, acción y plazo:** Debe responder con precisión **quién**
+  firma la orden, **qué** hace el lunes a primera hora y **cuándo** se revisa el impacto.
 
-1. **La pregunta.** ¿Qué quiere saber quién usaría esto? Nombra a la persona.
-2. **Los 3 filtros.** ¿Qué cortes de esa pregunta importan de verdad?
-3. **Los 3 KPIs.** ¿Qué tres números resumen la respuesta?
-4. **Los 3 gráficos.** ¿Qué muestran que los números no alcanzan a decir?
+### Formato libre
 
-Si no puedes escribir la pregunta, todavía no tienes un dashboard: tienes un dataset.
+Usa la herramienta que tu equipo domine con mayor agilidad:
+- **Canva**
+- **Google Slides**
+- **PowerPoint** o **Keynote**
+- **HTML** o **PDF exportado**
 
-### Paso 2 — Planear y preparar tu dataset (en `reto.ipynb`)
+> [!TIP]
+> **Regla de taller:** El tiempo que inviertes escogiendo tipografías o animaciones 3D es tiempo
+> que le quitas a afilar tus títulos y tu recomendación. Lo que se juzga es la fuerza del argumento,
+> no la plantilla.
 
-- Cargar el CSV y verificar `shape` y `dtypes`.
-- Renombrar columnas a minúsculas, sin tildes ni espacios. Una sola vez, en la carga.
-- Convertir fechas con `pd.to_datetime` y el `format` correcto.
-- Revisar valores imposibles. Un outlier extremo aplasta todos tus gráficos.
-- Prototipar los 3 gráficos con Plotly **en el notebook**, antes de meterlos en la app.
+---
 
-### Paso 3 — Ejecutar: adaptar la app (en `streamlit_app_starter.py`)
+## 3. El bucle de trabajo: especificar antes de diseñar
 
-1. Cambiar el bloque `CONFIGURACION` del principio: ruta, `RENOMBRES`, etiquetas.
-2. Completar los tres `# TU CODIGO AQUI`: el tercer KPI, el tercer gráfico y el `st.info`.
-3. Cambiar los títulos de los gráficos por mensajes, no etiquetas.
-
-Ejecutar desde una terminal parada en la carpeta donde está `streamlit_app_starter.py`:
+Antes de abrir cualquier editor de diapositivas, resuelve en borrador (en papel o editor de notas)
+las tres preguntas del **Paso 0.5**:
 
 ```
-streamlit run streamlit_app_starter.py
+┌────────────────────────────────────────────────────────────────────────┐
+│                   PASO 0.5: ESPECIFICAR EN PAPEL                       │
+├────────────────────────────────────────────────────────────────────────┤
+│ 1. ¿A quién le hablo? (Audiencia única: directivo, gerente o técnico)  │
+│ 2. ¿Qué decisión concreta quiero que tomen el lunes?                   │
+│ 3. ¿Cuál es el único número que vuelve inevitable esa decisión?        │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
-### Paso 4 — Validar: las cuatro preguntas, con la app abierta
+Si no hay acuerdo en el equipo sobre la audiencia y la decisión, cualquier diapositiva que dibujen
+saldrá desenfocada.
 
-Este es el paso que se salta todo el mundo, y es el único que descubre que el tablero contesta otra
-cosa. Se hace **moviendo controles**, no releyendo el archivo.
+### La prueba del intercambio
 
-| La pregunta | Qué haces con la app abierta |
-|-------------|------------------------------|
-| **¿El número tiene sentido?** | Mira cada KPI contra el rango que conoces de tu dominio. Un promedio fuera de ese rango no es un error de sintaxis: es un dato que no era un dato |
-| **¿La forma cuadra?** | Filtra por un solo valor y mira el conteo. Si sigue apareciendo el total, el filtro no filtró. Si aparece cero, filtró de más |
-| **¿Responde lo que pregunté?** | Vuelve a la pregunta que escribiste en el paso 1. ¿La responde, o responde la que fue fácil de graficar? |
-| **¿Cambió algo?** | Mueve cada control uno por uno. Un indicador que no se mueve nunca está desconectado: es el criterio que ya está en los requisitos |
-
-**Y la regla que viene con el bucle: si la validación falla, se vuelve a especificar.** No se parcha
-el gráfico. Un tablero que responde otra cosa casi siempre viene de una pregunta mal escrita en el
-paso 1, y arreglar la salida esconde el problema hasta la sustentación.
+Una vez escritos los borradores de tus 4 títulos, haz la prueba ácida: **intercambia de lugar la
+Slide 2 (Hallazgo) y la Slide 3 (Implicación)**. Si la presentación se puede leer en ese orden
+alterado y sigue funcionando igual, no tienes una historia: tienes una lista de mercado. La
+implicación debe ser una consecuencia inevitable del hallazgo, no un sinónimo.
 
 ---
 
-## Requisitos, uno por uno
+## 4. El pitch plenario de 3 minutos
 
-- [ ] La app **levanta**. Una app que no corre no cuenta.
-- [ ] 3 filtros **distintos entre sí**. Dos filtros sobre columnas redundantes
-      (como municipio y estación en el dataset del aire) cuentan como uno solo.
-- [ ] 3 KPIs que reaccionan a los filtros. Un número que no cambia es decoración.
-- [ ] 3 gráficos que responden preguntas distintas. Tres versiones de lo mismo cuentan como uno.
-- [ ] La app **no revienta** si el usuario deselecciona todo (`st.warning` + `st.stop()`).
-- [ ] Un `st.info` con el insight principal, calculado a partir del DataFrame filtrado.
-- [ ] Los títulos de los gráficos son mensajes.
-      Mal: "Consumo por municipio". Bien: "Tres municipios concentran la mitad del consumo".
+Todos los equipos presentan su trabajo en sesión plenaria frente a la sala completa.
 
-**Techo:** más de 5 filtros o más de 5 gráficos se penaliza. La habilidad que se evalúa es elegir.
+### Las cuatro reglas de oro
 
----
-
-## Casos especiales
-
-| Tu situación | Qué hacer |
-|--------------|-----------|
-| Mi dataset no tiene fecha | El filtro de rango puede ser numérico. `st.slider` sobre cualquier columna continua |
-| No tengo columna numérica para KPIs | `len(df_filtrado)` es un KPI válido. También `nunique()` de una categórica |
-| Mis columnas tienen tildes y espacios | Renómbralas en `RENOMBRES`, en la carga, una sola vez |
-| Mi dataset tiene millones de filas | Agrega antes de graficar. Nunca le pases millones de puntos a Plotly |
-| Tengo una sola columna categórica | Deriva otra: año, mes, rango de valores con `pd.cut` |
+1. **Corte duro a los 3 minutos (180 segundos):**
+   - Dispones de 3 minutos netos de exposición (180 segundos).
+   - Al minuto **2:00 (120 segundos):** Se levanta la **tarjeta amarilla** (aviso de 1 minuto restante). Debes estar cerrando la implicación y entrando de inmediato a la Slide 4 de acción.
+   - Al minuto **3:00 (180 segundos):** Se levanta la **tarjeta roja** y se corta la exposición en seco. Lo que no cupo en 3 minutos, no existió.
+2. **Prohibido leer las diapositivas:**
+   - La diapositiva es para que el público verifique las cifras; tú miras a los ojos a la persona
+     que toma la decisión. Si le das la espalda a la sala para leer la pantalla, pierdes la atención.
+3. **Ritmo sostenido y distribución del tiempo:**
+   - No gastes minuto y medio en el contexto. El reparto recomendado es:
+     - *Slide 1 · Contexto:* ~35 - 40 segundos.
+     - *Slide 2 · Hallazgo:* ~50 - 55 segundos.
+     - *Slide 3 · Implicación:* ~50 - 55 segundos.
+     - *Slide 4 · Acción:* ~35 - 40 segundos.
+4. **Remate en la acción:**
+   - Tu última frase debe ser la decisión propuesta (*"Por eso, el lunes la Secretaría debe..."*).
+     Prohibido cerrar con dudas, disculpas por los datos o un simple *"eso era todo, ¿preguntas?"*.
 
 ---
 
-## Cuando algo falla
+## 5. Protocolo de retroalimentación: I like, I wish, What if
 
-| Error | Solución |
-|-------|----------|
-| `command not found: streamlit` | `pip install streamlit`, o `python -m streamlit run app.py` |
-| `ModuleNotFoundError: No module named 'streamlit'` | Está instalado en otro entorno. Compara `which python` y `which streamlit` |
-| `Port 8501 is already in use` | `streamlit run app.py --server.port 8502` |
-| La app no cambia cuando edito | Guarda el archivo y usa el botón "Rerun" arriba a la derecha |
-| `KeyError: 'algo'` | Renombraste la columna y seguiste usando el nombre viejo |
-| El gráfico de barras muestra valores gigantes | Falta el `groupby`. `px` no agrega por ti |
-| La app va lentísima | Falta `@st.cache_data` en la función de carga |
-| No pasa nada al ejecutar el `.py` con el botón de play | Streamlit solo corre con `streamlit run archivo.py` desde la terminal |
+Inmediatamente después de cada pitch de 3 minutos, se abre el espacio de feedback estructurado y coevaluación (~1.5 - 2 minutos):
+- **45 segundos:** Un compañero par asignado entrega su evaluación oral según el marco (*I like / I wish / What if*).
+- **45 segundos:** El profesor aporta un apunte quirúrgico sobre la causalidad narrativa, el foco visual (data-ink) o la precisión de la acción.
+- El resto del salón registra sus comentarios en el formulario de coevaluación.
 
-Para detener la app: `Ctrl+C` en la terminal. Cerrar la pestaña del navegador no la apaga.
+El feedback oral y escrito se entrega estrictamente en este formato de tres frases:
 
----
+- **I like... (Lo que funcionó):** Concreto y respaldado en hechos observables.
+  *Ejemplo:* *"Me gustó el contraste entre la promesa de 100 millones de canciones y la cifra de que el 78% tiene menos de 50 reproducciones."*
+- **I wish... (Lo que faltó):** Enfocado en el trabajo y la narrativa, nunca en la persona.
+  *Ejemplo:* *"Me hizo falta que la slide 3 explicara qué le pasa a los músicos locales en lugar de repetir el número de reproducciones."*
+- **What if... (Una propuesta constructiva):** Una alternativa accionable para mejorar.
+  *Ejemplo:* *"¿Qué pasaría si en la slide 4 asignan la responsabilidad al Director de Producto en vez de decir de forma abstracta 'se recomienda a la plataforma'?"*
 
-## Qué hacer en casa
-
-En el bloque asistido alcanzas a tener la app corriendo con lo mínimo. El cierre es en casa:
-
-- [ ] Revisar que los 3 KPIs sean los que importan, no los que fueron fáciles de calcular.
-- [ ] Reescribir los 3 títulos como mensajes.
-- [ ] Recorrer las cuatro preguntas del paso 4 con la app abierta, y probarla además con filtros
-      extremos: todo seleccionado, nada seleccionado, un solo valor.
-
-**Opcional, no se evalúa hoy:** `st.tabs` para organizar secciones, `st.download_button` para
-exportar el filtrado, temas y colores personalizados, mapas con `px.scatter_map`, despliegue en
-Streamlit Community Cloud. Nada de esto suma nota si lo básico no corre.
+> [!WARNING]
+> **El que presenta no se defiende: solo escucha y anota.** Discutir o justificar consume el tiempo
+> del siguiente equipo y no cambia lo que la sala entendió. Si la audiencia no lo captó en 3 minutos,
+> el ajuste debe hacerse en el artefacto, no en el debate.
 
 ---
 
-## Cómo se conecta con la evaluación
+## 6. Cómo se ve un buen trabajo (Rúbrica formativa: Saber, Ser y Hacer)
 
-| Hoy | Clase 11 |
-|-----|----------|
-| App con 3/3/3 corriendo | La misma app, pulida |
-| Un `st.info` con el insight | La narrativa de la clase 8 sobre esta app |
-| Práctica, sin banda registrada | Turno de 10 min (7 de exposición con corte duro + 2 de preguntas + 1 de transición), con banda de Saber, Ser y Hacer en el acta |
+La retroalimentación se estructura en las tres dimensiones institucionales de la universidad:
+**Saber, Ser y Hacer**.
 
-**El Momento 2 no produce nota.** Produce retroalimentación por dimensión y un **cumplido / no
-cumplido** que **habilita el Momento 3**, que es la única evaluación calificada del semestre. Que no
-dé nota no lo hace opcional: sin cumplir el M2 no hay M3, y sin M3 no hay nota del curso.
+| Dimensión | Qué se mira en el pitch | Se cumple cuando |
+|-----------|-------------------------|------------------|
+| **Saber** | *Evidencia y contraste* | Las cifras sostienen con rigor el mensaje, tienen contraste numérico claro y no hay código ni tecnicismos innecesarios en pantalla. |
+| **Ser** | *Presencia y escucha* | Sostiene el pitch sin leer las slides, remata con la acción concreta y recibe el feedback anotando sin ponerse a la defensiva. |
+| **Hacer** | *Estructura y tiempo* | Cumple la secuencia de 4 slides (*Contexto → Hallazgo → Implicación → Acción*) y clava el pitch dentro de los 3 minutos (180 s) sin corte de micrófono. |
 
-Los retos semanales, este incluido, **no producen nota ni cumplido / no cumplido**: son práctica, y
-su retroalimentación usa el mismo lenguaje de bandas para que llegues familiarizado al momento.
+---
 
-La clase 10 es el laboratorio de ensayo. Llega con la app funcionando.
+## 7. Qué hacer en casa
+
+El reto de clase instala el hábito de la síntesis bajo presión. En casa se consolida el trabajo:
+
+- [ ] **Incorporar el feedback:** Ajustar los títulos y gráficos atendiendo al menos dos de los comentarios (*I wish* / *What if*) recibidos en sala.
+- [ ] **Ensayar con cronómetro:** Practicar la exposición oral en voz alta midiendo exactamente los 3 minutos (con aviso a los 2 minutos). El ensayo mental oculta tropiezos y exceso de tiempo.
+- [ ] **Alinear con el Momento 2:** Si usaste el dataset de tu equipo, este mini-deck es el núcleo conceptual de tu sustentación para la Clase 11.
+
+---
+
+## Este reto no tiene nota numérica
+
+Como todos los retos semanales del curso, esta actividad es **formativa**. No produce nota
+cuantitativa. Su propósito es permitirte experimentar el rigor del corte duro y pulir tu capacidad
+comunicativa en un entorno seguro antes de la sustentación formal del **Momento 2 (clase 11)**,
+donde el turno será de 10 minutos (7 de exposición con corte duro, 2 de preguntas y 1 de transición).
