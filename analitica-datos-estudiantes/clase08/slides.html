@@ -3,58 +3,59 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Clase 08 · Data storytelling | Analítica de Datos</title>
-<meta name="description" content="Clase 8 de Analítica de Datos: qué distingue una historia de una enumeración de gráficos, cómo se escribe un título que afirma un hallazgo con su cifra, la línea entre analítica y opinión, y el marco contexto - hallazgo - implicación - acción. Las cuatro preguntas del analista de la clase 3 traducidas a un deck, con la prueba del intercambio como su versión narrativa, y el bucle especificar - planear - ejecutar - validar aplicado a una historia. Demo guiado sobre la ejecución presupuestal nacional y reto de mini-deck sobre el dataset de cada equipo.">
+<title>Clase 08 · Principios de visualización | Analítica de Datos</title>
+<meta name="description" content="Clase 8 de Analítica de Datos: criterio visual. Data-ink ratio, la regla de los cinco segundos, elegir el gráfico a partir de la pregunta, color y accesibilidad, títulos que dicen la conclusión y cuatro tradeoffs no obvios. Demo de rediseño y reto de cinco figuras publication-ready sobre ejecución del Presupuesto General de la Nación, cada una recorriendo el bucle de la clase 3 —especificar, planear, ejecutar, validar— y validada con las cuatro preguntas del analista traducidas a una figura.">
 <style>
 /* ============================================================================
-   CLASE 08 — "SALA OSCURA" (lectura propia de Dark Botanical)
+   CLASE 08 — "DARK BOTANICAL / DARK STUDIO"
    Estética documentada en clase08/slides/ESTETICA.md
    Contrato invariante: design/CONTRATO.md (9 invariantes)
 
    Cero dependencias externas: sin CDN, sin fuentes remotas, sin librerías.
-   Todo el CSS, el JS y los dos diagramas (SVG inline) viven en este archivo.
+   Todo el CSS, el JS y los tres gráficos (SVG inline) viven en este archivo.
 
-   Motivo rector: EL TALLO DE CUATRO NUDOS. Una línea orgánica continua con
-   cuatro nudos — contexto, hallazgo, implicación, acción — que es la estructura
-   de la clase dibujada. Es lo botánico del preset puesto a trabajar: la forma
-   dice que los cuatro bloques están encadenados y que ninguno se puede mover
-   de sitio, que es exactamente el criterio de la clase.
+   Motivo rector: Estética oscura, elegante, de alto contraste. Fondo botánico
+   oscuro (#0F1715 / #15221E), tipografía nítida y contraste elevado, máxima
+   eficiencia en la relación tinta-dato (data-ink ratio).
+   Todo es gris hasta que algo tiene que significar: entonces, y solo entonces,
+   aparece el verde esmeralda. Un elemento acentuado por diapositiva.
+   La paleta es EXACTAMENTE la del demo (#5A7B72 / #3EB489 / #E76F51 / #799790):
+   el estudiante ve en el proyector los mismos cuatro colores que va a escribir
+   en su celda de paleta. Es el argumento hecho estética.
 
    Restricción del contrato respetada por construcción: el deck no lleva NINGÚN
    bloque de código, en ningún bloque. Los nombres de funciones se escriben con
-   `.term`, que es texto corrido, y lo que en el reto es un procedimiento se
-   escribe con `.pseudo`, que es una frase en español con tratamiento propio.
-   El código vive en el cuaderno, ya escrito.
+   `.term` o `.mono`, que son texto corrido. El código vive en el cuaderno, ya
+   escrito.
    ========================================================================= */
 
 /* ---- Tokens. Los NOMBRES son parte del contrato; los valores son de esta clase ---- */
 :root{
-  --bg:#0B1410;          /* verde tinta, casi negro */
-  --bg-2:#0F1C16;        /* fondo de divisoria */
-  --surface:#16241E;     /* tarjeta */
-  --surface-2:#1E3129;   /* tarjeta atenuada / la versión débil */
-  --line:#2A3D34;        /* borde */
-  --fg:#EDF2EC;          /* tinta clara */
-  --muted:#A2B8A9;       /* texto secundario (AA sobre --bg) */
-  --accent:#E3B872;      /* oro pálido: la cifra, el titular, lo que afirma */
-  --accent-ink:#0B1410;  /* texto sobre el oro */
-  --accent-2:#7FC69B;    /* brote: lo que sí funciona */
-  --no:#E0806E;          /* la versión débil, la advertencia */
-  --code-bg:#08100C;     /* el editor */
-  --code-fg:#E6EDE6;
+  --bg:#0F1715;          /* Fondo carbón botánico oscuro */
+  --surface:#15221E;     /* Superficie botánica elevada */
+  --surface-2:#1D2E29;   /* Superficie secundaria / números grandes */
+  --line:#283B35;        /* Filete de un pixel sutil */
+  --fg:#EEF4F2;          /* Tinta clara de alto contraste */
+  --muted:#95A9A3;       /* Secundario (AA/AAA sobre fondo oscuro) */
+  --accent:#3EB489;      /* ÉNFASIS botánico verde esmeralda */
+  --accent-ink:#071D16;  /* Texto oscuro sobre badge de énfasis */
+  --neutral:#5A7B72;     /* NEUTRO de la paleta */
+  --alert:#E76F51;       /* ALERTA coral cálido */
+  --ref:#799790;         /* REFERENCIA gris salvia */
+  --code-fg:#E2ECE8;
 
-  --font-display:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --font-display:"Helvetica Neue",Helvetica,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   --font-body:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   --font-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
 
   /* Escala tipográfica. El piso del invariante 6 no se negocia. */
-  --fs-title:clamp(2rem,5.6vw,4.6rem);
-  --fs-h2:clamp(1.5rem,3.4vw,2.9rem);
+  --fs-title:clamp(1.9rem,5.4vw,4.4rem);
+  --fs-h2:clamp(1.5rem,3.3vw,2.8rem);
   --fs-h3:clamp(1.05rem,1.9vw,1.5rem);
   --fs-body:clamp(0.95rem,1.55vw,1.4rem);
   --fs-small:clamp(0.78rem,1.02vw,0.95rem);
   --fs-micro:clamp(0.66rem,0.85vw,0.8rem);
-  --fs-code:clamp(0.78rem,1.15vw,1.05rem);
+  --fs-code:clamp(0.85rem,1.2vw,1.28rem);
 
   --pad:clamp(1.4rem,3.6vw,4rem);
   --gap:clamp(0.55rem,1.4vw,1.4rem);
@@ -79,8 +80,6 @@ body{
   scroll-snap-align:start;
   display:flex;flex-direction:column;justify-content:center;gap:var(--gap);
   position:relative;
-  /* El foco de luz: cae siempre desde el mismo lado, como en una sala. */
-  background:radial-gradient(ellipse 70% 55% at 20% 26%,rgba(227,184,114,.085),transparent 62%),var(--bg);
 }
 .slide > *{max-width:100%}
 
@@ -94,170 +93,145 @@ body{
 .slide-footer .fb{color:var(--accent)}
 
 /* ---- Tipografía ---- */
-h1{font-family:var(--font-display);font-size:var(--fs-title);font-weight:400;
-   line-height:1.02;letter-spacing:-.02em;max-width:18ch}
-h1 em{font-style:italic;color:var(--accent)}
-h2{font-family:var(--font-display);font-size:var(--fs-h2);font-weight:400;
-   line-height:1.1;letter-spacing:-.015em}
-h3{font-family:var(--font-display);font-size:var(--fs-h3);font-weight:700;letter-spacing:-.005em}
+h1{font-family:var(--font-display);font-size:var(--fs-title);font-weight:700;
+   line-height:1;letter-spacing:-.035em;max-width:18ch}
+h1 em{font-style:normal;color:var(--accent)}
+h2{font-family:var(--font-display);font-size:var(--fs-h2);font-weight:700;
+   line-height:1.06;letter-spacing:-.03em;max-width:26ch}
+h3{font-family:var(--font-display);font-size:var(--fs-h3);font-weight:700;letter-spacing:-.01em}
 p{max-width:62ch}
-strong{color:var(--accent);font-weight:600}
-.kicker{font-family:var(--font-mono);font-size:var(--fs-small);letter-spacing:.22em;
-  text-transform:uppercase;color:var(--accent-2)}
+strong{color:var(--accent);font-weight:700}
+.kicker{font-family:var(--font-mono);font-size:var(--fs-small);letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted)}
 .lead{color:var(--muted);max-width:58ch}
-.rule{height:1px;width:clamp(90px,16vw,220px);background:var(--accent);opacity:.85;flex:none}
-.claim{font-family:var(--font-display);font-weight:400;letter-spacing:-.015em;
-  font-size:clamp(1.7rem,4.6vw,3.8rem);line-height:1.08;max-width:21ch}
-.claim span{color:var(--accent);font-style:italic}
+/* El único ornamento del deck: un filete. Tres pixeles cuando marca el acento. */
+.rule{height:1px;width:100%;background:var(--line);flex:none}
+.rule.acc{height:3px;width:clamp(70px,11vw,150px);background:var(--accent)}
+.claim{font-family:var(--font-display);font-weight:700;letter-spacing:-.032em;
+  font-size:clamp(1.5rem,4.2vw,3.5rem);line-height:1.06;max-width:24ch}
+.claim span{color:var(--accent)}
 /* Nombres de funciones dentro de texto corrido. NO es un bloque de código:
    se usa también en el bloque 1, donde el contrato lo permite explícitamente. */
-.term{font-family:var(--font-mono);font-size:.86em;background:var(--surface-2);
-  border:1px solid var(--line);padding:.02em .32em;border-radius:2px;white-space:nowrap;color:var(--fg)}
-.numeral{position:absolute;right:calc(var(--pad)/1.2);top:50%;transform:translateY(-50%);
-  font-family:var(--font-display);font-size:clamp(7rem,24vw,19rem);line-height:1;
-  color:transparent;-webkit-text-stroke:1px var(--line);pointer-events:none;user-select:none;z-index:0}
-.slide > :not(.numeral):not(.slide-footer):not(.stem){position:relative;z-index:1}
+.term{font-family:var(--font-mono);font-size:.88em;color:var(--accent);white-space:nowrap}
+/* Literal de codigo dentro de texto corrido, en tinta normal. Estaba acotado a
+   `td .mono` y las apariciones en tarjetas, listas y parrafos salian en la
+   fuente del cuerpo. Es global. */
+.mono{font-family:var(--font-mono);font-size:.92em}
+.big{position:absolute;right:calc(var(--pad)/1.1);top:50%;transform:translateY(-50%);
+  font-family:var(--font-display);font-weight:700;font-size:clamp(6rem,20vw,16rem);line-height:1;
+  color:var(--surface-2);pointer-events:none;user-select:none;z-index:0}
+.slide > :not(.big):not(.slide-footer){position:relative;z-index:1}
 
 /* ---- Portada ---- */
-.cover .who{color:var(--muted);font-size:var(--fs-small);letter-spacing:.1em;text-transform:uppercase}
+.cover .who{color:var(--muted);font-size:var(--fs-small);letter-spacing:.08em}
 .cover .who b{color:var(--fg);font-weight:600}
 
 /* ---- Listas ---- */
-ul.bullets{list-style:none;display:flex;flex-direction:column;gap:clamp(.4rem,1.1vh,.95rem)}
-/* El item es un bloque, no un flex container: con display:flex cada nodo de texto
-   y cada <strong> del item se vuelve un flex item independiente y el contenido se
-   compone en columnas en vez de fluir inline. El marcador es un inline-block, que
-   conserva la alineacion por baseline, y la sangria francesa (padding-left mas
-   text-indent negativo del mismo valor) reproduce el ancho del marcador mas su
-   separacion, de modo que la composicion no cambia.
-   1.2em = .5em de marcador mas .7em de separacion. */
-ul.bullets li{display:block;max-width:60ch;padding-left:1.2em;text-indent:-1.2em}
+ul.bullets{list-style:none;display:flex;flex-direction:column;gap:clamp(.35rem,1vh,.9rem)}
+ul.bullets li{display:block;max-width:62ch;padding-left:1.2em;text-indent:-1.2em}
 ul.bullets li::before{content:"";display:inline-block;width:.5em;height:.5em;margin-right:.7em;
-  border-radius:50%;background:var(--accent);transform:translateY(-.12em)}
-ol.steps{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:clamp(.35rem,1vh,.85rem)}
-/* El contador en un ::before inline-block reporta ancho 0 en Chrome: hay que darselo
-   explicito. 1.205em y 1.037em van en la escala del marcador (.82em); 1.837em va en
-   la del item y es donde arranca el texto. */
-ol.steps li{counter-increment:s;display:block;max-width:64ch;padding-left:1.837em;
-  text-indent:-1.837em}
+  background:var(--neutral);transform:translateY(-.1em)}
+ul.bullets li.on::before{background:var(--accent)}
+ol.steps{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:clamp(.3rem,.95vh,.8rem)}
+ol.steps li{counter-increment:s;display:block;max-width:66ch;padding-left:1.874em;
+  text-indent:-1.874em}
 ol.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--font-mono);
-  color:var(--accent);font-size:.82em;display:inline-block;width:1.205em;margin-right:1.037em}
+  color:var(--muted);font-size:.85em;display:inline-block;width:1.205em;margin-right:1em}
+/* La checklist: casillas de filete, sin relleno. */
+ul.check{list-style:none;display:grid;grid-template-columns:1fr 1fr;
+  gap:clamp(.25rem,.8vh,.6rem) clamp(1rem,3vw,3rem)}
+ul.check li{display:block;font-size:clamp(.85rem,1.25vw,1.35rem);line-height:1.3;
+  padding-left:calc(1.37em + 2px);text-indent:calc(-1.37em - 2px)}
+ul.check li::before{content:"";display:inline-block;width:.72em;height:.72em;margin-right:.65em;
+  border:1px solid var(--ref);transform:translateY(.02em)}
 
-/* ---- Tarjetas ---- */
-.cards{display:grid;gap:clamp(.4rem,.9vw,.95rem);
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr))}
-.cards.c4{grid-template-columns:repeat(4,1fr)}
-.cards.c3{grid-template-columns:repeat(3,1fr)}
-.cards.c2{grid-template-columns:repeat(2,1fr)}
-.card{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--line);
-  padding:clamp(.55rem,1.1vw,1.15rem);display:flex;flex-direction:column;gap:.45em;min-width:0}
-.card.on{border-left-color:var(--accent);background:var(--surface-2)}
-.card.warn{border-left-color:var(--no)}
-.card.good{border-left-color:var(--accent-2)}
-.card .k{font-family:var(--font-mono);font-size:var(--fs-micro);letter-spacing:.18em;
-  text-transform:uppercase;color:var(--accent-2)}
-.card.on .k{color:var(--accent)} .card.warn .k{color:var(--no)}
-.card p{font-size:clamp(.76rem,1.12vw,1.02rem);color:var(--muted);line-height:1.35;max-width:none}
-.card p b{color:var(--fg)}
+/* ---- Columnas: sin relleno, separadas por un filete superior ---- */
+.cols{display:grid;gap:clamp(.7rem,1.8vw,2.2rem)}
+.cols.c4{grid-template-columns:repeat(4,1fr)}
+.cols.c3{grid-template-columns:repeat(3,1fr)}
+.cols.c2{grid-template-columns:repeat(2,1fr)}
+.col{border-top:1px solid var(--line);padding-top:.6em;min-width:0;
+  display:flex;flex-direction:column;gap:.3em}
+.col.on{border-top:3px solid var(--accent)}
+.col.warn{border-top:3px solid var(--alert)}
+.col .k{font-family:var(--font-mono);font-size:var(--fs-micro);letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted)}
+.col.on .k{color:var(--accent)}
+.col.warn .k{color:var(--alert)}
+.col p{font-size:clamp(.85rem,1.2vw,1.32rem);color:var(--muted);line-height:1.35;max-width:none}
+.col p b{color:var(--fg)}
 
-/* ---- Tablas ---- */
+/* ---- Tablas: solo filetes horizontales ---- */
 .table-wrap{flex:1;min-height:0;display:flex;align-items:center}
-table{width:100%;border-collapse:collapse;font-size:clamp(.72rem,1.08vw,1rem);line-height:1.32}
+table{width:100%;border-collapse:collapse;font-size:clamp(.8rem,1.15vw,1.28rem);line-height:1.32}
 caption{caption-side:top;text-align:left;font-family:var(--font-mono);font-size:var(--fs-micro);
   letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding-bottom:.6em}
-th,td{border-bottom:1px solid var(--line);padding:clamp(.3rem,.72vw,.7rem) clamp(.35rem,.7vw,.8rem);
+th,td{border-bottom:1px solid var(--line);padding:clamp(.28rem,.7vw,.68rem) clamp(.35rem,.7vw,.8rem);
   text-align:left;vertical-align:top}
-thead th{font-family:var(--font-mono);font-weight:500;font-size:.84em;letter-spacing:.12em;
-  text-transform:uppercase;color:var(--accent-2);border-bottom:1px solid var(--accent-2)}
-tbody th{font-weight:700;color:var(--fg);font-family:var(--font-display)}
-tbody th .mono,td .mono{font-family:var(--font-mono);font-size:.92em}
-tbody tr.on td,tbody tr.on th{background:rgba(227,184,114,.10)}
-td em{font-style:italic;color:var(--muted)}
+thead th{font-family:var(--font-mono);font-weight:500;font-size:.86em;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--fg)}
+tbody th{font-weight:700;color:var(--fg)}
+tbody tr.on th{color:var(--accent)}
+tbody tr.on td{color:var(--fg)}
+td em{font-style:normal;color:var(--muted)}
 td b{color:var(--fg)}
-td .weak{color:var(--no)}
-td .strong{color:var(--accent)}
+td.no{color:var(--alert)}
 
-/* ---- Cita / advertencia ---- */
-.callout{border-left:4px solid var(--accent);background:var(--surface);
-  padding:clamp(.7rem,1.5vw,1.3rem) clamp(.9rem,1.8vw,1.6rem);max-width:66ch}
-.callout.warn{border-left-color:var(--no)}
-.callout.good{border-left-color:var(--accent-2)}
-.callout p{max-width:none}
+/* ---- Cita / advertencia: un filete a la izquierda, sin relleno ---- */
+.callout{border-left:3px solid var(--accent);padding-left:clamp(.7rem,1.6vw,1.3rem);max-width:68ch}
+.callout.warn{border-left-color:var(--alert)}
+.callout p{max-width:none;color:var(--muted)}
 .callout p b{color:var(--fg)}
 
-/* ---- El par débil / fuerte: dos versiones de lo mismo, una atenuada ---- */
-.pair{display:grid;gap:clamp(.5rem,1.1vw,1.1rem);grid-template-columns:1fr 1fr}
-.pair > div{border:1px solid var(--line);padding:clamp(.6rem,1.2vw,1.2rem);
-  display:flex;flex-direction:column;gap:.5em;min-width:0}
-.pair .weak{background:transparent;opacity:.62}
-.pair .weak .t{font-family:var(--font-display);font-size:clamp(.95rem,1.7vw,1.4rem);color:var(--muted)}
-.pair .strong{background:var(--surface);border-color:var(--accent)}
-.pair .strong .t{font-family:var(--font-display);font-size:clamp(1rem,1.9vw,1.6rem);color:var(--accent)}
-.pair .lb{font-family:var(--font-mono);font-size:var(--fs-micro);letter-spacing:.18em;
-  text-transform:uppercase;color:var(--muted)}
-.pair .strong .lb{color:var(--accent-2)}
-.pair p{font-size:clamp(.74rem,1.08vw,.98rem);color:var(--muted);line-height:1.35;max-width:none}
-.pair p b{color:var(--fg)}
-
-/* ---- Pseudocódigo ----
-   NO es un bloque de código: es una frase en español con tratamiento tipográfico
-   propio, sin `pre` ni `code`. Existe para que un procedimiento se vea de un
-   golpe y quepa en la cabeza, sin proyectar sintaxis que ya está escrita en el
-   cuaderno. El tallo del motivo rector, puesto de canto a la izquierda. */
-.pseudo{font-family:var(--font-display);font-size:clamp(1.15rem,2.5vw,2.05rem);
-  line-height:1.22;max-width:36ch;color:var(--fg);
-  border-left:5px solid var(--accent-2);padding:.35em 0 .35em .8em}
-.pseudo b{color:var(--accent);font-weight:400;font-style:italic}
-.pseudo .no{color:var(--no);font-style:italic}
+/* ---- Muestras de paleta ---- */
+.swatches{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(.5rem,1.4vw,1.4rem)}
+.sw{display:flex;flex-direction:column;gap:.35em}
+.sw i{display:block;height:clamp(30px,6vh,58px);border:1px solid var(--line)}
+.sw .hex{font-family:var(--font-mono);font-size:var(--fs-small);color:var(--fg)}
+.sw .use{font-size:clamp(.8rem,1.15vw,1.25rem);color:var(--muted);line-height:1.3}
 
 /* ---- Código (solo bloques 2 y 3) ---- */
-pre{background:var(--code-bg);color:var(--code-fg);border-left:4px solid var(--accent-2);
-  padding:clamp(.65rem,1.4vw,1.25rem) clamp(.85rem,1.7vw,1.5rem);overflow:hidden;
-  font-family:var(--font-mono);font-size:var(--fs-code);line-height:1.5;max-width:min(100%,80ch)}
+pre{background:var(--surface);color:var(--code-fg);border-left:3px solid var(--accent);
+  padding:clamp(.6rem,1.3vw,1.1rem) clamp(.8rem,1.6vw,1.4rem);overflow:hidden;
+  font-family:var(--font-mono);font-size:var(--fs-code);line-height:1.5;max-width:min(100%,84ch)}
 pre code{font:inherit;color:inherit;background:none}
-pre .c{color:#6E8578}      /* comentario */
-pre .k{color:#7FC69B}      /* palabra clave o función incorporada */
-pre .s{color:#E3B872}      /* cadena */
-pre .n{color:#E8CE9B}      /* número */
-pre .e{color:#E0806E}      /* lo que revienta */
-.err{font-family:var(--font-mono);font-size:clamp(.72rem,1.02vw,.92rem);color:var(--no);
-  background:var(--surface);border:1px dashed var(--no);padding:.4em .7em;max-width:72ch}
+pre .c{color:#647A73}      /* comentario */
+pre .k{color:#3EB489}      /* palabra clave o función incorporada */
+pre .s{color:#82D9B3}      /* cadena */
+pre .n{color:#F2B880}      /* número */
+pre .e{color:#E76F51}      /* lo que está mal */
 
 /* ---- Divisorias de bloque (invariante 3) ---- */
-/* El pie lo inyecta el JS como <p>, asi que .divider p{max-width:NNch} tambien lo
-   alcanzaba y lo estrangulaba a ~275px: en las divisorias el pie se partia en dos
-   lineas mientras en el resto del deck iba en una. Dos clases ganan en especificidad
-   a clase+tipo, de modo que el pie recupera el ancho completo sin tocar el parrafo. */
 .divider .slide-footer{max-width:none}
-.divider{justify-content:center;gap:clamp(.4rem,1vw,1rem);
-  background:radial-gradient(ellipse 62% 72% at 46% 44%,rgba(127,198,155,.13),transparent 66%),var(--bg-2)}
-.divider .n{font-family:var(--font-display);line-height:.8;
-  font-size:clamp(4.5rem,16vw,13rem);color:transparent;-webkit-text-stroke:1px var(--accent);opacity:.55}
-.divider h2{font-size:clamp(1.8rem,5vw,4rem)}
-.divider p{max-width:46ch}
+.divider{justify-content:center;gap:clamp(.35rem,.9vw,.9rem)}
+.divider .n{font-family:var(--font-display);font-weight:700;line-height:.8;letter-spacing:-.06em;
+  font-size:clamp(4.5rem,17vw,14rem);color:var(--neutral)}
+.divider .rule.acc{width:100%;height:6px}
+.divider h2{font-size:clamp(1.7rem,4.6vw,3.6rem);max-width:22ch}
+.divider p{max-width:52ch}
 
-/* ---- El motivo rector: el tallo de cuatro nudos ---- */
-.stem{position:absolute;right:5.5%;top:50%;transform:translateY(-50%);
-  height:66vh;width:auto;opacity:.95;pointer-events:none;z-index:0}
-.stem .ln{stroke:var(--line);stroke-width:2;fill:none}
-.stem .nd{fill:var(--bg);stroke:var(--accent-2);stroke-width:2}
-.stem .nd.on{fill:var(--accent);stroke:var(--accent)}
-.stem .lf{fill:none;stroke:var(--line);stroke-width:1.5;opacity:.75}
-.stem .tx{font-family:var(--font-mono);font-size:13px;fill:var(--muted);
-  letter-spacing:.14em;text-transform:uppercase}
-
-/* ---- Diagramas SVG ---- */
-.fig-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
-svg.fig{width:100%;height:auto;max-height:52vh;display:block}
-svg.fig .box{fill:var(--surface);stroke:var(--line);stroke-width:2}
-svg.fig .box.sel{fill:var(--surface-2);stroke:var(--accent)}
-svg.fig .t{font-family:var(--font-mono);font-size:20px;fill:var(--fg)}
-svg.fig .t.sm{font-size:17px;fill:var(--muted)}
-svg.fig .lbl{font-family:var(--font-display);font-size:25px;fill:var(--fg)}
+/* ---- Gráficos SVG ---- */
+.fig-wrap{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;margin:0.2rem 0}
+svg.fig{max-height: 48vh; width: 100%; height: auto; display: block; margin: 0 auto;}
+svg.fig .t{font-family:var(--font-mono);font-size:19px;fill:var(--muted)}
+svg.fig .t.on{fill:var(--accent)}
+svg.fig .t.bad{fill:var(--alert)}
+svg.fig .t.sm{font-size:13px;}
+svg.fig .lbl{font-family:var(--font-display);font-weight:700;font-size:21px;fill:var(--fg)}
 svg.fig .lbl.acc{fill:var(--accent)}
-svg.fig .arrow{stroke:var(--accent-2);stroke-width:3;fill:none}
-svg.fig .arrowhead{fill:var(--accent-2)}
-svg.fig .drop{font-family:var(--font-mono);font-size:18px;fill:var(--no)}
+svg.fig .note{font-family:var(--font-body);font-size:19px;fill:var(--muted)}
+/* Halo: las etiquetas de valor cruzan la linea de referencia y tienen que leerse */
+svg.fig .t.halo{paint-order:stroke;stroke:var(--bg);stroke-width:5px;stroke-linejoin:round}
+svg.fig .ax{stroke:var(--muted);stroke-width:1;fill:none}
+svg.fig .gridline{stroke:var(--line);stroke-width:3;fill:none}   /* gruesa a propósito */
+svg.fig .refline{stroke:var(--ref);stroke-width:2;stroke-dasharray:6 5;fill:none}
+svg.fig .bar-n{fill:var(--neutral)}
+svg.fig .bar-a{fill:var(--accent)}
+svg.fig .bar-x{fill:var(--alert)}
+svg.fig .stem{stroke:var(--neutral);stroke-width:2}
+svg.fig .stem.x{stroke:var(--alert)}
+svg.fig .box{fill:none;stroke:var(--muted);stroke-width:1}
+svg.fig .line-bad{stroke:var(--accent);stroke-width:3;fill:none}
 
 /* ---- Navegación (invariante 1) ---- */
 .progress-bar{position:fixed;top:0;left:0;height:4px;width:0;background:var(--accent);
@@ -270,11 +244,11 @@ svg.fig .drop{font-family:var(--font-mono);font-size:18px;fill:var(--no)}
 .nav-dots button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .block-chip{position:fixed;top:clamp(.6rem,1.6vh,1.2rem);right:clamp(1.4rem,3vw,2.6rem);z-index:120;
   font-family:var(--font-mono);font-size:var(--fs-micro);letter-spacing:.18em;text-transform:uppercase;
-  color:var(--accent-ink);background:var(--accent);padding:.35em .8em;border-radius:2px}
+  color:var(--accent-ink);background:var(--accent);padding:.35em .8em}
 .block-chip[hidden]{display:none}
 
 /* Índice de slides (Esc) */
-.slide-index{position:fixed;inset:0;z-index:200;background:rgba(11,20,16,.985);
+.slide-index{position:fixed;inset:0;z-index:200;background:rgba(15,23,21,.98);
   padding:clamp(1.2rem,4vw,3rem);overflow:auto;display:none}
 .slide-index.open{display:block}
 .slide-index h2{margin-bottom:1rem;color:var(--accent)}
@@ -284,45 +258,42 @@ svg.fig .drop{font-family:var(--font-mono);font-size:18px;fill:var(--no)}
   cursor:pointer;padding:.15em 0;width:100%}
 .slide-index button:hover,.slide-index button:focus-visible{color:var(--accent)}
 .slide-index .ix{font-family:var(--font-mono);color:var(--muted);margin-right:.6em}
-.slide-index .bk{color:var(--accent-2);font-family:var(--font-mono);font-size:.8em;
+.slide-index .bk{color:var(--accent);font-family:var(--font-mono);font-size:.8em;
   letter-spacing:.16em;text-transform:uppercase;margin:1.2em 0 .4em;break-after:avoid}
 
-/* ---- Animaciones de entrada ---- */
-.reveal{opacity:0;transform:translateY(20px);
-  transition:opacity .65s var(--ease),transform .65s var(--ease)}
+/* ---- Animaciones de entrada: una sola, sobria ---- */
+.reveal{opacity:0;transform:translateY(16px);
+  transition:opacity .5s var(--ease),transform .5s var(--ease)}
 .slide.in-view .reveal{opacity:1;transform:none}
-.slide.in-view .reveal:nth-child(1){transition-delay:.05s}
-.slide.in-view .reveal:nth-child(2){transition-delay:.12s}
-.slide.in-view .reveal:nth-child(3){transition-delay:.19s}
-.slide.in-view .reveal:nth-child(4){transition-delay:.26s}
-.slide.in-view .reveal:nth-child(5){transition-delay:.33s}
-.slide.in-view .reveal:nth-child(6){transition-delay:.40s}
-/* Los nudos del tallo se encienden en el orden de la historia. */
-.stem .nd{transition:fill .5s var(--ease),stroke .5s var(--ease)}
-.slide.in-view .stem .nd:nth-of-type(1){transition-delay:.30s}
-.slide.in-view .stem .nd:nth-of-type(2){transition-delay:.45s}
-.slide.in-view .stem .nd:nth-of-type(3){transition-delay:.60s}
-.slide.in-view .stem .nd:nth-of-type(4){transition-delay:.75s}
+.slide.in-view .reveal:nth-child(1){transition-delay:.04s}
+.slide.in-view .reveal:nth-child(2){transition-delay:.10s}
+.slide.in-view .reveal:nth-child(3){transition-delay:.16s}
+.slide.in-view .reveal:nth-child(4){transition-delay:.22s}
+.slide.in-view .reveal:nth-child(5){transition-delay:.28s}
+.slide.in-view .reveal:nth-child(6){transition-delay:.34s}
 
 /* ---- Breakpoints obligatorios de alto (invariante 9) ---- */
 @media (max-height:700px){
   :root{--pad:clamp(1rem,2.4vw,2rem);--gap:clamp(.4rem,1vw,.9rem)}
+  svg.fig{max-height:40vh}
 }
 @media (max-height:600px){
   :root{--fs-title:clamp(1.6rem,4.2vw,2.8rem);--fs-h2:clamp(1.2rem,2.9vw,2rem);
         --fs-h3:clamp(.95rem,1.6vw,1.2rem)}
-  .numeral,.stem{display:none}
+  .big{display:none}
+  svg.fig{max-height:36vh}
 }
 @media (max-height:500px){
   :root{--fs-body:clamp(.9rem,1.3vw,1.1rem);--fs-code:clamp(.72rem,1vw,.9rem)}
   .nav-dots{display:none}
 }
 @media (max-width:900px){
-  .cards.c4{grid-template-columns:repeat(2,1fr)}
-  .stem{display:none}
+  .cols.c4{grid-template-columns:repeat(2,1fr)}
+  .swatches{grid-template-columns:repeat(2,1fr)}
 }
 @media (max-width:600px){
-  .cards.c4,.cards.c3,.cards.c2,.pair{grid-template-columns:1fr}
+  .cols.c4,.cols.c3,.cols.c2{grid-template-columns:1fr}
+  ul.check{grid-template-columns:1fr}
   .slide-index ol{columns:1}
 }
 
@@ -334,32 +305,35 @@ svg.fig .drop{font-family:var(--font-mono);font-size:18px;fill:var(--no)}
 }
 
 /* ============================================================================
-   IMPRESIÓN A PDF (invariante 5) — idéntica en los 16 decks.
-   Una slide por página, horizontal, fondo claro, sin dots ni barra.
-   Este deck es oscuro: aquí se invierte por completo. Sin esta hoja, imprimirlo
-   gasta tóner y no se lee.
+   IMPRESIÓN A PDF (invariante 5)
    ========================================================================= */
+@media (min-width:1200px){
+  caption{font-size:max(22px,var(--fs-micro))}
+  table{font-size:max(22px,clamp(.8rem,1.15vw,1.28rem))}
+  thead th{font-size:max(22px,.86em)}
+  .mono{font-size:max(22px,.92em)}
+  .term{font-size:max(22px,.88em)}
+  .col p{font-size:max(22px,clamp(.85rem,1.2vw,1.32rem))}
+  ul.check li{font-size:max(22px,clamp(.85rem,1.25vw,1.35rem))}
+  .sw .hex{font-size:max(22px,var(--fs-small))}
+  .sw .use{font-size:max(22px,clamp(.8rem,1.15vw,1.25rem))}
+}
+
 @media print{
   @page{size:landscape;margin:0}
-  :root{--bg:#fff;--bg-2:#fff;--surface:#fff;--surface-2:#f2f2ee;--line:#c9c9c9;
-        --fg:#111;--muted:#444;--accent:#8A5A00;--accent-ink:#fff;--accent-2:#0B5C43;
-        --no:#98281A;--code-bg:#f4f4f2;--code-fg:#111}
+  :root{--bg:#fff;--surface:#f4f4f2;--surface-2:#ebebe8;--line:#c9c9c9;
+        --fg:#111;--muted:#444;--accent:#1C8A62;--accent-ink:#fff;
+        --neutral:#5A7B72;--alert:#98281A;--ref:#6B7778;--code-fg:#111}
   html,body{height:auto;background:#fff!important;color:#111!important}
   .slide{height:100vh;page-break-after:always;break-after:page;
     background:#fff!important;color:#111!important;
     -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .divider{background:#fff!important;border-top:8px solid #8A5A00}
-  .divider .n{-webkit-text-stroke:1px #8A5A00;opacity:.35}
-  .card,.callout,.pair > div{background:#fff!important}
-  .card.on,.pair .strong{background:#f6f1e6!important}
-  .pair .weak{opacity:1;border-style:dashed}
-  pre{background:#f4f4f2!important;color:#111!important;border:1px solid #c9c9c9;border-left:4px solid #0B5C43}
-  pre .c{color:#666!important} pre .k{color:#0B5C43!important} pre .s{color:#8A5A00!important}
+  .divider{border-top:8px solid #1C8A62}
+  .divider .n{color:#c9c9c9}
+  pre{background:#f4f4f2!important;color:#111!important;border:1px solid #c9c9c9;border-left:3px solid #1C8A62}
+  pre .c{color:#666!important} pre .k{color:#1C8A62!important} pre .s{color:#0B5C43!important}
   pre .n{color:#8A5A00!important} pre .e{color:#98281A!important}
-  tbody tr.on td,tbody tr.on th{background:#f6f1e6!important}
-  svg.fig .box{fill:#fff} svg.fig .box.sel{fill:#f6f1e6}
-  .stem .nd{fill:#fff} .stem .nd.on{fill:#8A5A00}
-  .numeral{display:none}
+  .big{display:none}
   .progress-bar,.nav-dots,.slide-index,.block-chip{display:none!important}
   .reveal{opacity:1!important;transform:none!important}
   *{animation:none!important;transition:none!important}
@@ -382,8 +356,9 @@ svg.fig .drop{font-family:var(--font-mono);font-size:18px;fill:var(--no)}
 <!-- ======================= PORTADA ======================= -->
 <section class="slide cover" data-title="Portada">
   <p class="kicker reveal">Analítica de Datos &middot; Clase 08 &middot; Momento 2</p>
-  <div class="rule reveal"></div>
-  <h1 class="reveal">Data storytelling: <em>del número a la frase que alguien recuerda</em></h1>
+  <div class="rule acc reveal"></div>
+  <h1 class="reveal">Principios de <em>visualización</em></h1>
+  <p class="lead reveal">Un gráfico malo no es un gráfico feo. Es un gráfico que hace que alguien decida mal.</p>
   <p class="who reveal"><b>Julián Garzón</b> &middot; Ingeniería de Sistemas &middot; Universidad Cooperativa de Colombia</p>
 </section>
 
@@ -392,500 +367,1631 @@ svg.fig .drop{font-family:var(--font-mono);font-size:18px;fill:var(--no)}
   <p class="kicker reveal">Al terminar hoy, usted debe poder hacer esto solo</p>
   <h2 class="reveal">Objetivos de la clase</h2>
   <ol class="steps reveal">
-    <li><b>Explicar por qué un análisis correcto fracasa</b> frente a una audiencia, nombrando al menos dos causas distintas.</li>
-    <li><b>Reescribir una apertura</b> que empieza por el proceso en una que empieza por la respuesta.</li>
-    <li><b>Adaptar el mismo hallazgo a tres audiencias</b>: ejecutivo, gerente de área y técnico.</li>
-    <li><b>Convertir un título descriptivo en un título que afirma</b> un hallazgo con su cifra.</li>
-    <li><b>Aplicar el marco</b> contexto &rarr; hallazgo &rarr; implicación &rarr; acción sobre su propio proyecto.</li>
-    <li><b>Sostener un pitch corto sin leer las slides</b> y dar feedback estructurado a otro equipo.</li>
+    <li><b>Separar datos de decoración</b> en un gráfico ajeno, y borrar la segunda sin perder información.</li>
+    <li><b>Elegir el tipo de gráfico a partir de la pregunta</b>, justificar por qué no eligió el vecino obvio, y explicar con números por qué un pie chart casi siempre falla.</li>
+    <li><b>Usar el gris como color por defecto</b> y reservar el color saturado para un solo mensaje.</li>
+    <li><b>Verificar que su paleta funciona</b> en escala de grises y para una persona con daltonismo.</li>
+    <li><b>Escribir un título que enuncia la conclusión</b> en lugar de describir los ejes, y que es verdadero.</li>
+    <li><b>Producir figuras publication-ready</b> &mdash;que se pegan en un informe sin retocarlas: tamaño, resolución, tipografía y etiquetas ya resueltos&mdash; con paleta consistente, exportadas a 300 DPI.</li>
   </ol>
-  <p class="lead reveal">Hoy hay entregable: el mini-deck de cuatro slides de su proyecto. Y es el ensayo directo de la sustentación del Momento 2.</p>
+  <p class="lead reveal">Hoy hay entregable: las cinco figuras del último bloque. Y hoy la estética deja de ser gusto y pasa a ser criterio verificable: una figura se valida como se valida un número, con las cuatro preguntas de la clase 3.</p>
 </section>
 
 <!-- ======================= DIVISORIA BLOQUE 1 ======================= -->
 <section class="slide divider" data-block="1" data-title="Divisoria · Bloque 1">
   <span class="n">01</span>
+  <div class="rule acc"></div>
   <p class="kicker">Bloque uno</p>
-  <h2>Teoría &middot; Por qué una historia no es una lista</h2>
-  <p class="lead">Cero código en pantalla. Aquí no se calcula nada: se decide qué se dice, en qué orden y a quién.</p>
+  <h2>Teoría &middot; Criterio antes que sintaxis</h2>
+  <p class="lead">Cero código en pantalla. Todo este bloque consiste en juzgar imágenes: se proyecta un gráfico, ustedes dicen qué está mal, se proyecta la versión corregida. La sintaxis es del bloque 2.</p>
 </section>
 
-<section class="slide" data-block="1" data-title="Hook: el mismo hallazgo, dicho dos veces">
-  <span class="numeral">?</span>
-  <p class="kicker reveal">El mismo dato, correcto las dos veces</p>
-  <div class="pair reveal">
-    <div class="weak">
-      <span class="lb">Versión uno</span>
-      <p class="t">"Se corrió una agrupación por sector sobre la ejecución presupuestal y se calculó el cociente entre pagos y compromisos, obteniendo un ratio agregado de 0,274."</p>
-    </div>
-    <div class="strong">
-      <span class="lb">Versión dos</span>
-      <p class="t">"El Estado se comprometió a gastar 92 billones de pesos. Pagó 25."</p>
-    </div>
+<section class="slide" data-block="1" data-title="Manejo responsable de datos sensibles">
+  <p class="kicker reveal">Responsabilidad ética &middot; Datos individuales vs Publicación</p>
+  <h2 class="reveal">Un gráfico es una publicación</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 375" role="img" aria-label="Transición de datos individuales privados a gráfico agregado en publicación con 4 reglas éticas: Agregación, Anonimato, Título neutral y Fuente con Fecha.">
+      <defs>
+        <marker id="arrow-pub" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 1 L 10 5 L 0 9 z" fill="var(--accent)" />
+        </marker>
+      </defs>
+
+      <!-- ================= TOP SECTION: TRANSITION ================= -->
+      
+      <!-- LEFT PANEL: Privado en tu equipo -->
+      <g class="panel-left">
+        <rect x="20" y="10" width="410" height="200" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+        <rect x="20" y="10" width="410" height="36" rx="8" fill="var(--surface-2)"/>
+        <rect x="20" y="38" width="410" height="8" fill="var(--surface-2)"/>
+        <path d="M 35 23 h 14 v 10 h -14 z M 33 33 h 18 v 2 h -18 z" fill="none" stroke="var(--alert)" stroke-width="1.5"/>
+        <text class="lbl" x="60" y="33" style="font-size:13px;" fill="var(--alert)" font-weight="700">En tu equipo: Registro privado</text>
+        <rect x="340" y="18" width="80" height="20" rx="4" fill="rgba(231,111,81,0.15)" stroke="var(--alert)" stroke-width="1"/>
+        <text class="t sm bad" x="380" y="32" text-anchor="middle" style="font-size:11px;" font-weight="700">🔒 SENSIBLE</text>
+
+        <!-- Table Header -->
+        <rect x="32" y="56" width="386" height="22" rx="4" fill="rgba(255,255,255,0.03)"/>
+        <text class="t sm" x="42" y="71" style="font-size:11px;" fill="var(--muted)" font-weight="700">ID</text>
+        <text class="t sm" x="85" y="71" style="font-size:11px;" fill="var(--muted)" font-weight="700">NOMBRE / PERSONA</text>
+        <text class="t sm" x="240" y="71" style="font-size:11px;" fill="var(--muted)" font-weight="700">MUNICIPIO</text>
+        <text class="t sm" x="330" y="71" style="font-size:11px;" fill="var(--muted)" font-weight="700">DIAGNOSTICO</text>
+
+        <!-- Row 1 -->
+        <line x1="32" y1="84" x2="418" y2="84" stroke="var(--line)" stroke-width="1"/>
+        <text class="t sm" x="42" y="100" style="font-size:11px;" fill="var(--muted)">1024</text>
+        <text class="t sm" x="85" y="100" style="font-size:11px;" fill="var(--fg)">Juan Pérez</text>
+        <text class="t sm" x="240" y="100" style="font-size:11px;" fill="var(--muted)">Central</text>
+        <text class="t sm bad" x="330" y="100" style="font-size:11px;">Positivo</text>
+
+        <!-- Row 2 -->
+        <line x1="32" y1="112" x2="418" y2="112" stroke="var(--line)" stroke-width="1"/>
+        <text class="t sm" x="42" y="128" style="font-size:11px;" fill="var(--muted)">1025</text>
+        <text class="t sm" x="85" y="128" style="font-size:11px;" fill="var(--fg)">María Gómez</text>
+        <text class="t sm" x="240" y="128" style="font-size:11px;" fill="var(--muted)">Norte</text>
+        <text class="t sm" x="330" y="128" style="font-size:11px;" fill="var(--muted)">Negativo</text>
+
+        <!-- Row 3 -->
+        <line x1="32" y1="140" x2="418" y2="140" stroke="var(--line)" stroke-width="1"/>
+        <text class="t sm" x="42" y="156" style="font-size:11px;" fill="var(--muted)">1026</text>
+        <text class="t sm" x="85" y="156" style="font-size:11px;" fill="var(--fg)">Carlos Ruiz</text>
+        <text class="t sm" x="240" y="156" style="font-size:11px;" fill="var(--muted)">Sur</text>
+        <text class="t sm bad" x="330" y="156" style="font-size:11px;">Positivo</text>
+
+        <!-- Row 4 -->
+        <line x1="32" y1="168" x2="418" y2="168" stroke="var(--line)" stroke-width="1"/>
+        <text class="t sm" x="42" y="184" style="font-size:11px;" fill="var(--muted)">1027</text>
+        <text class="t sm" x="85" y="184" style="font-size:11px;" fill="var(--fg)">Ana López</text>
+        <text class="t sm" x="240" y="184" style="font-size:11px;" fill="var(--muted)">Central</text>
+        <text class="t sm bad" x="330" y="184" style="font-size:11px;">Positivo</text>
+      </g>
+
+      <!-- MIDDLE TRANSITION ARROW -->
+      <g class="transition-arrow">
+        <path d="M 445 105 L 545 105" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="6 4" marker-end="url(#arrow-pub)"/>
+        <rect x="448" y="72" width="98" height="22" rx="4" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="1"/>
+        <text class="t sm on" x="497" y="87" text-anchor="middle" style="font-size:11px;" font-weight="700">Publicación</text>
+        <text class="t sm" x="497" y="125" text-anchor="middle" style="font-size:11px;" fill="var(--muted)">al informe</text>
+      </g>
+
+      <!-- RIGHT PANEL: Público en el informe -->
+      <g class="panel-right">
+        <rect x="565" y="10" width="415" height="200" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+        <rect x="565" y="10" width="415" height="36" rx="8" fill="var(--surface-2)"/>
+        <rect x="565" y="38" width="415" height="8" fill="var(--surface-2)"/>
+        <text class="lbl acc" x="580" y="33" style="font-size:14px;" font-weight="700">En la publicación: Gráfico agregado e inmodificable</text>
+
+        <!-- Inner Chart Content -->
+        <text class="lbl" x="580" y="65" style="font-size:13px;" fill="var(--fg)" font-weight="700">Tasa de prevalencia por municipio (n &ge; 5)</text>
+        
+        <!-- Bar 1: Central -->
+        <text class="t sm" x="580" y="94" style="font-size:10.5px;" fill="var(--muted)">Central (n=12)</text>
+        <rect x="685" y="83" width="165" height="15" rx="3" fill="var(--accent)"/>
+        <text class="t sm on" x="858" y="95" style="font-size:11px;" font-weight="700">42%</text>
+
+        <!-- Bar 2: Sur -->
+        <text class="t sm" x="580" y="122" style="font-size:10.5px;" fill="var(--muted)">Sur (n=8)</text>
+        <rect x="685" y="111" width="115" height="15" rx="3" fill="var(--neutral)"/>
+        <text class="t sm" x="808" y="123" style="font-size:11px;">29%</text>
+
+        <!-- Bar 3: Norte -->
+        <text class="t sm" x="580" y="150" style="font-size:10.5px;" fill="var(--muted)">Norte (n=6)</text>
+        <rect x="685" y="139" width="68" height="15" rx="3" fill="var(--neutral)"/>
+        <text class="t sm" x="761" y="151" style="font-size:11px;">17%</text>
+
+        <!-- Baseline axis -->
+        <line x1="685" y1="76" x2="685" y2="162" stroke="var(--muted)" stroke-width="1"/>
+
+        <!-- Footer source inside panel -->
+        <line x1="580" y1="172" x2="965" y2="172" stroke="var(--line)" stroke-dasharray="3 3"/>
+        <text class="t sm" x="580" y="190" style="font-size:10px;" fill="var(--muted)">Fuente: DANE 2024 &middot; Datos agregados (n &ge; 5)</text>
+        <rect x="885" y="178" width="80" height="18" rx="3" fill="rgba(62,180,137,0.15)" stroke="var(--accent)" stroke-width="1"/>
+        <text class="t sm on" x="925" y="191" text-anchor="middle" font-size="10" font-weight="700">✓ SEGURO</text>
+      </g>
+
+      <!-- ================= BOTTOM SECTION: 4 ETHICAL BADGES ================= -->
+      
+      <!-- BADGE 1: Agregación -->
+      <g class="badge-card">
+        <rect x="20" y="225" width="225" height="140" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+        <rect x="20" y="225" width="225" height="32" rx="8" fill="var(--surface-2)"/>
+        <rect x="20" y="249" width="225" height="8" fill="var(--surface-2)"/>
+        <text class="lbl acc" x="32" y="246" font-size="14" font-weight="700">1. Agregación</text>
+        
+        <text class="t sm on" x="32" y="280" font-size="13" font-weight="700">Tasas y promedios</text>
+        <text class="t sm" x="32" y="304" font-size="12" fill="var(--muted)">Resumen estadístico</text>
+        <rect x="32" y="318" width="201" height="32" rx="4" fill="rgba(231,111,81,0.1)" stroke="var(--alert)" stroke-width="1"/>
+        <text class="t sm bad" x="132" y="338" text-anchor="middle" font-size="11" font-weight="700">Sin puntos individuales</text>
+      </g>
+
+      <!-- BADGE 2: Anonimato -->
+      <g class="badge-card">
+        <rect x="265" y="225" width="225" height="140" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+        <rect x="265" y="225" width="225" height="32" rx="8" fill="var(--surface-2)"/>
+        <rect x="265" y="249" width="225" height="8" fill="var(--surface-2)"/>
+        <text class="lbl acc" x="277" y="246" font-size="14" font-weight="700">2. Anonimato</text>
+
+        <text class="lbl acc" x="277" y="282" font-size="20" font-weight="700">n &ge; 5</text>
+        <text class="t sm" x="345" y="280" font-size="12" fill="var(--muted)">Umbral mínimo</text>
+        <rect x="277" y="318" width="201" height="32" rx="4" fill="rgba(231,111,81,0.1)" stroke="var(--alert)" stroke-width="1"/>
+        <text class="t sm bad" x="377" y="338" text-anchor="middle" font-size="11" font-weight="700">No graficar si n &lt; 5</text>
+      </g>
+
+      <!-- BADGE 3: Título neutral -->
+      <g class="badge-card">
+        <rect x="510" y="225" width="225" height="140" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+        <rect x="510" y="225" width="225" height="32" rx="8" fill="var(--surface-2)"/>
+        <rect x="510" y="249" width="225" height="8" fill="var(--surface-2)"/>
+        <text class="lbl acc" x="522" y="246" font-size="14" font-weight="700">3. Título neutral</text>
+
+        <text class="t sm on" x="522" y="280" font-size="13" font-weight="700">Describe los datos</text>
+        <text class="t sm" x="522" y="304" font-size="12" fill="var(--muted)">Objetividad estricta</text>
+        <rect x="522" y="318" width="201" height="32" rx="4" fill="rgba(62,180,137,0.1)" stroke="var(--accent)" stroke-width="1"/>
+        <text class="t sm on" x="622" y="338" text-anchor="middle" font-size="11" font-weight="700">Sin juzgar a personas</text>
+      </g>
+
+      <!-- BADGE 4: Fuente + Fecha -->
+      <g class="badge-card">
+        <rect x="755" y="225" width="225" height="140" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+        <rect x="755" y="225" width="225" height="32" rx="8" fill="var(--surface-2)"/>
+        <rect x="755" y="249" width="225" height="8" fill="var(--surface-2)"/>
+        <text class="lbl acc" x="767" y="246" font-size="14" font-weight="700">4. Fuente + Fecha</text>
+
+        <text class="t sm on" x="767" y="280" font-size="13" font-weight="700">Atribución completa</text>
+        <text class="t sm" x="767" y="304" font-size="12" fill="var(--muted)">Origen y año explícitos</text>
+        <rect x="767" y="318" width="201" height="32" rx="4" fill="rgba(231,111,81,0.1)" stroke="var(--alert)" stroke-width="1"/>
+        <text class="t sm bad" x="867" y="338" text-anchor="middle" font-size="11" font-weight="700">Sin fuente = rumor con ejes</text>
+      </g>
+    </svg>
   </div>
-  <p class="lead reveal">Las dos son verdad y salen del mismo archivo. Levante la mano quien entendió la primera. Y ahora dígame: <strong>¿cuál de las dos le cambia lo que cree sobre el país?</strong></p>
+  <p class="lead reveal">Al pegar un gráfico en un informe, los datos salen de su computador. Agregue siempre (n &ge; 5), use títulos neutrales y cite fuente y fecha.</p>
 </section>
 
-<section class="slide" data-block="1" data-title="La analogía del radiólogo">
-  <p class="kicker reveal">La analogía de la clase</p>
-  <p class="claim reveal">El radiólogo que entrega la placa <span>sin decir nada</span> no le sirve al paciente.</p>
-  <p class="lead reveal">Puede leer la radiografía perfectamente y señalar la fractura. Si no dice la frase, el paciente sale igual de ignorante que entró.</p>
-  <div class="callout reveal"><p><b>El análisis no fracasa por ser incorrecto. Fracasa porque termina en la placa y no en la frase.</b> Todo lo de hoy es sobre la frase.</p></div>
-</section>
+<section class="slide" data-block="1" data-title="Gancho: Gráfico A vs Gráfico B">
+  <p class="kicker reveal">Sin pensarlo mucho &middot; ¿cuál de los dos llevarían a la reunión con el gerente?</p>
+  <h2 class="reveal">Gancho: Gráfico A (Inadecuado) vs Gráfico B (Limpio)</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 420" role="img"
+         aria-label="Dos gráficos con exactamente los mismos datos. A la izquierda, Gráfico A (Inadecuado): barras verticales de colores distintos, eje truncado en 15, cuadrícula gruesa y nombres rotados. A la derecha, Gráfico B (Limpio): barras horizontales ordenadas de mayor a menor, paleta neutra con verde esmeralda y etiquetas claras.">
+      <!-- ================= PANEL MALO ================= -->
+      <text class="lbl bad" x="20" y="24">Gráfico A (Inadecuado / Mal)</text>
+      <path class="gridline" d="M70 300 H455 M70 251 H455 M70 203 H455 M70 154 H455 M70 105 H455"></path>
+      <rect class="box" x="70" y="95" width="385" height="205"></rect>
+      <text class="t sm" x="62" y="305" text-anchor="end">15</text>
+      <text class="t sm" x="62" y="256" text-anchor="end">35</text>
+      <text class="t sm" x="62" y="208" text-anchor="end">55</text>
+      <text class="t sm" x="62" y="159" text-anchor="end">75</text>
+      <text class="t sm" x="62" y="110" text-anchor="end">95</text>
+      <rect x="84"  y="100"   width="45" height="200"   fill="#E76F51"></rect>
+      <rect x="147" y="150.3" width="45" height="149.7" fill="#F2B880"></rect>
+      <rect x="210" y="151.9" width="45" height="148.1" fill="#F1C40F"></rect>
+      <rect x="273" y="214.3" width="45" height="85.7"  fill="#3EB489"></rect>
+      <rect x="336" y="267.5" width="45" height="32.5"  fill="#8E44AD"></rect>
+      <rect x="399" y="295.8" width="45" height="4.2"   fill="#16A085"></rect>
+      <text class="t sm" style="font-size:10px;" transform="translate(106.5,312) rotate(55)" text-anchor="start">DEUDA PÚBLICA</text>
+      <text class="t sm" style="font-size:10px;" transform="translate(169.5,312) rotate(55)" text-anchor="start">MINEDUCACIÓN</text>
+      <text class="t sm" style="font-size:10px;" transform="translate(232.5,312) rotate(55)" text-anchor="start">MINSALUD</text>
+      <text class="t sm" style="font-size:10px;" transform="translate(295.5,312) rotate(55)" text-anchor="start">MINTRABAJO</text>
+      <text class="t sm" style="font-size:10px;" transform="translate(358.5,312) rotate(55)" text-anchor="start">MINHACIENDA</text>
+      <text class="t sm" style="font-size:10px;" transform="translate(421.5,312) rotate(55)" text-anchor="start">POLICÍA NAL.</text>
+      <rect class="box" x="70" y="40" width="385" height="44"></rect>
+      <rect x="80" y="52" width="14" height="14" fill="#E76F51"></rect>
+      <rect x="145" y="52" width="14" height="14" fill="#F2B880"></rect>
+      <rect x="210" y="52" width="14" height="14" fill="#F1C40F"></rect>
+      <rect x="275" y="52" width="14" height="14" fill="#3EB489"></rect>
+      <rect x="340" y="52" width="14" height="14" fill="#8E44AD"></rect>
+      <rect x="405" y="52" width="14" height="14" fill="#16A085"></rect>
+      <text class="t sm" x="98"  y="64">Serie 1</text>
+      <text class="t sm" x="163" y="64">Serie 2</text>
+      <text class="t sm" x="228" y="64">Serie 3</text>
+      <text class="t sm" x="293" y="64">Serie 4</text>
+      <text class="t sm" x="358" y="64">Serie 5</text>
+      <text class="t sm" x="423" y="64">Serie 6</text>
 
-<section class="slide" data-block="1" data-title="Las cuatro causas de fracaso">
-  <p class="kicker reveal">Cuatro maneras de perder a la audiencia con datos correctos</p>
-  <h2 class="reveal">Dónde se rompe</h2>
-  <div class="cards c4 reveal">
-    <article class="card"><span class="k">Uno</span><h3>Empieza por el proceso</h3>
-      <p>La primera frase habla de <b>cómo se hizo</b>, no de qué se encontró.</p></article>
-    <article class="card"><span class="k">Dos</span><h3>Audiencia equivocada</h3>
-      <p>El nivel de detalle es el de quien lo hizo, no el de <b>quien decide</b>.</p></article>
-    <article class="card on"><span class="k">Tres</span><h3>Los títulos describen</h3>
-      <p>Rotulan el gráfico en vez de <b>afirmar el hallazgo</b>. Es la más común de las cuatro.</p></article>
-    <article class="card"><span class="k">Cuatro</span><h3>Termina en descripción</h3>
-      <p>Cierra con "gracias, ¿preguntas?" y <b>nadie hace nada distinto</b> el lunes.</p></article>
+      <!-- ================= PANEL BUENO ================= -->
+      <text class="lbl acc" x="520" y="24">Gráfico B (Limpio / Bien)</text>
+      <text class="note" x="520" y="52">Deuda pública concentra el presupuesto más alto del país</text>
+      <rect class="bar-a" x="700" y="80"  width="250" height="22"></rect>
+      <rect class="bar-n" x="700" y="118" width="197" height="22"></rect>
+      <rect class="bar-n" x="700" y="156" width="195" height="22"></rect>
+      <rect class="bar-n" x="700" y="194" width="129" height="22"></rect>
+      <rect class="bar-n" x="700" y="232" width="73"  height="22"></rect>
+      <rect class="bar-n" x="700" y="270" width="43"  height="22"></rect>
+      <text class="t on" x="692" y="96"  text-anchor="end">DEUDA PÚBLICA</text>
+      <text class="t"    x="692" y="134" text-anchor="end">MINEDUCACIÓN</text>
+      <text class="t"    x="692" y="172" text-anchor="end">MINSALUD</text>
+      <text class="t"    x="692" y="210" text-anchor="end">MINTRABAJO</text>
+      <text class="t"    x="692" y="248" text-anchor="end">MINHACIENDA</text>
+      <text class="t"    x="692" y="286" text-anchor="end">POLICÍA NAL.</text>
+      <text class="t on" x="958" y="96">97,2</text>
+      <text class="t"    x="905" y="134">76,5</text>
+      <text class="t"    x="903" y="172">75,9</text>
+      <text class="t"    x="837" y="210">50,2</text>
+      <text class="t"    x="781" y="248">28,4</text>
+      <text class="t"    x="751" y="286">16,7</text>
+      <text class="note" x="520" y="330">Billones de pesos de apropiación vigente. Nombres abreviados.</text>
+      <text class="note" x="520" y="356">Fuente: Presupuesto General de la Nación, datos.gov.co</text>
+    </svg>
   </div>
+  <p class="lead reveal">Gráfico A exige descifrar colores y rotaciones; Gráfico B entrega la conclusión en 5 segundos.</p>
 </section>
 
-<section class="slide" data-block="1" data-title="Empezar por la respuesta, no por el proceso">
-  <p class="kicker reveal">Analogía del noticiero</p>
-  <p class="claim reveal">Ningún noticiero abre diciendo <span>"hoy salimos a las cinco de la mañana e hicimos doce entrevistas"</span>.</p>
-  <p class="lead reveal">Abre con lo que pasó. El método va después, y solo si sobra tiempo. Un informe de datos funciona igual: la metodología es la nota al pie, no el titular.</p>
-  <div class="callout reveal"><p><b>La primera frase de su presentación es su conclusión, no su metodología.</b></p></div>
-</section>
+<section class="slide" data-block="1" data-title="Un gráfico malo no es un gráfico feo">
+  <p class="kicker reveal">Impacto de la visualización &middot; el costo del error</p>
+  <h2 class="reveal">Un gráfico malo causa malas decisiones</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 280" role="img" aria-label="Cadena de impacto: Visualización distorsionada lleva a mala interpretación y pérdida de recursos en el presupuesto público.">
+      <g transform="translate(40,40)">
+        <rect x="0" y="0" width="260" height="160" rx="8" fill="var(--surface)" stroke="var(--alert)" stroke-width="2"/>
+        <text class="lbl bad" x="130" y="45" text-anchor="middle">Gráfico Distorsionado</text>
+        <text class="t sm" x="130" y="85" text-anchor="middle">Colores sin sentido</text>
+        <text class="t sm" x="130" y="110" text-anchor="middle">Eje truncado / 3D</text>
+      </g>
+      <path d="M 320 120 L 370 120" stroke="var(--alert)" stroke-width="3"/>
+      <polygon points="365,114 380,120 365,126" fill="var(--alert)"/>
+      
+      <g transform="translate(390,40)">
+        <rect x="0" y="0" width="260" height="160" rx="8" fill="var(--surface)" stroke="var(--alert)" stroke-width="2"/>
+        <text class="lbl bad" x="130" y="45" text-anchor="middle">Error Diagnóstico</text>
+        <text class="t sm" x="130" y="85" text-anchor="middle">Confusión en la junta</text>
+        <text class="t sm" x="130" y="110" text-anchor="middle">Prioridades falsas</text>
+      </g>
 
-<section class="slide" data-block="1" data-title="Ejercicio: reescriba esta apertura">
-  <p class="kicker reveal">Ejercicio en voz alta &middot; nadie escribe código todavía</p>
-  <h2 class="reveal">Reescriba esta apertura</h2>
-  <div class="callout warn reveal"><p>"Buenas tardes. Descargamos el dataset, hicimos la limpieza, quitamos nulos, normalizamos las columnas de valores y después construimos varias visualizaciones para explorar el comportamiento del gasto."</p></div>
-  <ul class="bullets reveal">
-    <li>La versión buena tiene forma de <b>afirmación con cifra</b>.</li>
-    <li>No dice de dónde salió el archivo. Todavía no le interesa a nadie.</li>
-    <li>Cabe en una respiración. Si necesita dos, sobra una oración.</li>
-  </ul>
-  <p class="lead reveal">Recojo dos o tres versiones y marcamos la que gana. Pista: empieza por lo que el país hizo, no por lo que ustedes hicieron.</p>
-</section>
-
-<section class="slide" data-block="1" data-title="Historia o lista: la prueba del intercambio">
-  <p class="kicker reveal">La prueba que decide si hay narrativa</p>
-  <p class="claim reveal">Si intercambia dos diapositivas y la presentación <span>funciona igual</span>, no tiene una historia: tiene una lista.</p>
-  <p class="lead reveal">Es el criterio que usa este curso, y es mecánico: no depende del gusto de nadie. En una lista el orden es arbitrario. En una historia cada slide existe porque la anterior la hizo necesaria.</p>
-  <svg class="stem" viewBox="0 0 200 520" aria-hidden="true">
-    <path class="ln" d="M100 20 C 60 130, 140 200, 100 300 C 70 380, 130 440, 100 500"/>
-    <path class="lf" d="M100 130 C 140 110, 165 130, 158 165 C 125 175, 103 158, 100 130Z"/>
-    <path class="lf" d="M100 330 C 60 312, 36 332, 43 366 C 76 376, 98 358, 100 330Z"/>
-    <circle class="nd on" cx="88" cy="90" r="9"/><text class="tx" x="112" y="95">Contexto</text>
-    <circle class="nd on" cx="112" cy="230" r="9"/><text class="tx" x="10" y="235">Hallazgo</text>
-    <circle class="nd on" cx="86" cy="370" r="9"/><text class="tx" x="110" y="375">Implicación</text>
-    <circle class="nd on" cx="106" cy="490" r="9"/><text class="tx" x="18" y="495">Acción</text>
-  </svg>
-</section>
-
-<section class="slide" data-block="1" data-title="Tensión que se resuelve">
-  <p class="kicker reveal">Qué tiene una historia que una enumeración no tiene</p>
-  <h2 class="reveal">Tensión que se resuelve</h2>
-  <div class="cards c3 reveal">
-    <article class="card"><span class="k">Se instala</span><h3>Una pregunta abierta</h3>
-      <p>El contexto deja al que escucha <b>queriendo saber algo</b>. No anuncia un tema: abre una duda.</p></article>
-    <article class="card on"><span class="k">Se tensa</span><h3>El hallazgo incomoda</h3>
-      <p>Lo que aparece <b>no era lo que se esperaba</b>, o confirma con evidencia algo que era solo intuición.</p></article>
-    <article class="card good"><span class="k">Se resuelve</span><h3>Alguien puede actuar</h3>
-      <p>La tensión se cierra con una consecuencia y una acción, <b>no con un resumen</b>.</p></article>
+      <path d="M 670 120 L 720 120" stroke="var(--alert)" stroke-width="3"/>
+      <polygon points="715,114 730,120 715,126" fill="var(--alert)"/>
+      
+      <g transform="translate(740,40)">
+        <rect x="0" y="0" width="220" height="160" rx="8" fill="var(--surface)" stroke="var(--alert)" stroke-width="2"/>
+        <text class="lbl bad" x="110" y="45" text-anchor="middle">Mala Decisión</text>
+        <text class="t bad" x="110" y="95" text-anchor="middle" font-size="24">$547 Billones</text>
+        <text class="t sm" x="110" y="130" text-anchor="middle">Presupuesto en riesgo</text>
+      </g>
+    </svg>
   </div>
-  <div class="callout reveal"><p><b>Enumerar gráficos no genera tensión.</b> Cinco gráficos correctos, uno tras otro, dejan a la audiencia esperando el sexto. Cuatro bloques encadenados la dejan esperando la conclusión, que es lo que usted quiere.</p></div>
+  <p class="lead reveal">La estética no es adorno: un gráfico confuso conduce a decisiones de negocio equivocadas.</p>
 </section>
 
-<section class="slide" data-block="1" data-title="Las cuatro preguntas, sobre una historia">
-  <p class="kicker reveal">Las mismas cuatro de la clase 3, ahora sobre un deck y no sobre un número</p>
-  <h2 class="reveal">Sentido, forma, pregunta, cambio</h2>
-  <div class="table-wrap reveal">
-    <table>
-      <caption>La prueba del intercambio no es un criterio nuevo: es cómo se ven las dos últimas cuando el resultado es una historia</caption>
-      <thead><tr><th>La pregunta</th><th>Qué se mira cuando el resultado es un deck</th></tr></thead>
-      <tbody>
-        <tr><th>¿El número tiene sentido?</th><td>La cifra del título, en la magnitud de su dominio. Trece dígitos y un promedio imposible se ven a simple vista</td></tr>
-        <tr><th>¿La forma cuadra?</th><td>Cuatro slides, una idea por slide, el hallazgo con su cifra y la implicación sin repetirlo</td></tr>
-        <tr class="on"><th>¿Responde lo que pregunté?</th><td>¿Cierra la pregunta que abrió el contexto? Si el orden da igual, no la estaba respondiendo</td></tr>
-        <tr class="on"><th>¿Cambió algo?</th><td>¿Alguien haría algo distinto el lunes? Si nadie cambia nada, describió sin concluir</td></tr>
-      </tbody>
-    </table>
+<section class="slide" data-block="1" data-title="Data-ink ratio de Tufte">
+  <p class="kicker reveal">Edward Tufte &middot; Maximizar la tinta de datos</p>
+  <h2 class="reveal">De toda la tinta del gráfico, ¿cuánta representa datos?</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 340" role="img" aria-label="Comparación de Data-ink ratio: A la izquierda gráfico con recuadro grueso, rejilla oscura y leyenda redundante. A la derecha gráfico limpio con data-ink puro y línea de referencia.">
+      <!-- PANEL IZQUIERDA: EXCESO DE TINTA -->
+      <g transform="translate(20, 20)">
+        <text class="lbl bad" x="0" y="24">Gráfico con tinta que sobra (Data-ink bajo)</text>
+        <rect x="50" y="50" width="400" height="200" fill="#1D2E29" stroke="var(--muted)" stroke-width="4"/>
+        <line x1="50" y1="90" x2="450" y2="90" stroke="var(--muted)" stroke-width="2"/>
+        <line x1="50" y1="130" x2="450" y2="130" stroke="var(--muted)" stroke-width="2"/>
+        <line x1="50" y1="170" x2="450" y2="170" stroke="var(--muted)" stroke-width="2"/>
+        <line x1="50" y1="210" x2="450" y2="210" stroke="var(--muted)" stroke-width="2"/>
+        <rect x="80" y="100" width="40" height="150" fill="#E76F51"/>
+        <rect x="160" y="70" width="40" height="180" fill="#F1C40F"/>
+        <rect x="240" y="130" width="40" height="120" fill="#8E44AD"/>
+        <rect x="320" y="110" width="40" height="140" fill="#3EB489"/>
+        <rect x="260" y="60" width="180" height="40" fill="var(--bg)" stroke="var(--muted)" stroke-width="2"/>
+        <text class="t sm" x="270" y="85">Leyenda redundante</text>
+        <text class="t sm bad" x="200" y="275" text-anchor="middle">Marco grueso, fondo oscuro, cuadrícula pesada y leyenda redundante</text>
+      </g>
+
+      <!-- PANEL DERECHA: DATA-INK PURO -->
+      <g transform="translate(520, 20)">
+        <text class="lbl acc" x="0" y="24">Gráfico con Data-Ink Puro (Alto)</text>
+        <line x1="60" y1="250" x2="440" y2="250" stroke="var(--muted)" stroke-width="1"/>
+        <line x1="60" y1="120" x2="440" y2="120" stroke="var(--ref)" stroke-width="2" stroke-dasharray="6 4"/>
+        <text class="t sm" x="445" y="124" fill="var(--ref)">Promedio</text>
+        <rect x="80" y="100" width="45" height="150" fill="var(--neutral)"/>
+        <rect x="170" y="70" width="45" height="180" fill="var(--accent)"/>
+        <rect x="260" y="130" width="45" height="120" fill="var(--neutral)"/>
+        <rect x="350" y="110" width="45" height="140" fill="var(--neutral)"/>
+        <text class="t sm on" x="192" y="60" text-anchor="middle">Top 1</text>
+        <text class="t sm on" x="200" y="275" text-anchor="middle">Tinta enfocada 100% en los datos + línea de referencia</text>
+      </g>
+    </svg>
   </div>
-  <p class="lead reveal">Las dos primeras las revisa el cuaderno. <strong>Las dos resaltadas son la prueba del intercambio</strong>, y esas no las revisa ninguna máquina: se contestan leyendo los cuatro títulos seguidos en voz alta.</p>
+  <p class="lead reveal">Si borra un elemento y el gráfico sigue diciendo lo mismo, ese elemento sobraba.</p>
 </section>
 
-<section class="slide" data-block="1" data-title="La misma verdad, tres audiencias">
-  <p class="kicker reveal">Analogía de la receta médica: paciente, familiar y colega</p>
-  <h2 class="reveal">Un hallazgo, tres versiones</h2>
-  <div class="table-wrap reveal">
-    <table>
-      <caption>No es mentir tres veces: son tres niveles de detalle sobre un solo hecho</caption>
-      <thead><tr><th>Audiencia</th><th>Qué le importa</th><th>Cómo se dice el mismo hallazgo</th></tr></thead>
-      <tbody>
-        <tr><th>Ejecutivo</th><td><em>La decisión y el riesgo</em></td>
-          <td>"Estamos comprometiendo tres veces más de lo que pagamos. Si el ritmo sigue, cerramos el año con la mayor parte de la ejecución sin materializar."</td></tr>
-        <tr class="on"><th>Gerente de área</th><td><em>Dónde actuar y con qué recursos</em></td>
-          <td>"Educación concentra 20 de los 67 billones de brecha. Ahí es donde primero hay que revisar el proceso de pago."</td></tr>
-        <tr><th>Técnico</th><td><em>Cómo se calculó y qué tan confiable es</em></td>
-          <td>"Sumé compromisos y pagos por sector sobre 3.645 registros, sin nulos. La brecha es la resta directa; no ajusté por vigencias futuras."</td></tr>
-      </tbody>
-    </table>
+<section class="slide" data-block="1" data-title="La regla de los 5 segundos">
+  <p class="kicker reveal">Criterio de aceptación &middot; Eficiencia cognitiva</p>
+  <h2 class="reveal">La regla de los 5 segundos</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 340" role="img" aria-label="Mapa de recorrido visual del ojo en 5 segundos: Gráfico recargado donde el ojo salta desorientado vs Gráfico limpio donde el ojo va directo al hallazgo.">
+      <!-- PANEL IZQUIERDA: RUIDO Y DESORIENTACION -->
+      <g transform="translate(20,20)">
+        <text class="lbl bad" x="0" y="24">Gráfico Recargado (5s de Confusión)</text>
+        <rect x="40" y="50" width="400" height="210" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <path d="M 60 200 L 120 80 L 180 220 L 240 100 L 300 190 L 360 70" fill="none" stroke="#E76F51" stroke-width="3"/>
+        <path d="M 60 90 L 130 210 L 200 130 L 280 230 L 380 110" fill="none" stroke="#F1C40F" stroke-width="3"/>
+        <path d="M 70 140 L 150 180 L 230 80 L 310 160 L 410 200" fill="none" stroke="#8E44AD" stroke-width="3"/>
+        <path d="M 80 70 Q 200 180 320 90 T 140 230 T 380 210" fill="none" stroke="var(--fg)" stroke-width="2" stroke-dasharray="4 4"/>
+        <circle cx="80" cy="70" r="14" fill="var(--alert)"/>
+        <text class="t sm" x="80" y="74" text-anchor="middle" fill="var(--bg)">?</text>
+        <circle cx="320" cy="90" r="14" fill="var(--alert)"/>
+        <text class="t sm" x="320" y="94" text-anchor="middle" fill="var(--bg)">?</text>
+        <circle cx="140" cy="230" r="14" fill="var(--alert)"/>
+        <text class="t sm" x="140" y="234" text-anchor="middle" fill="var(--bg)">?</text>
+        <text class="t sm bad" x="200" y="285" text-anchor="middle">El ojo salta sin encontrar un punto focal</text>
+      </g>
+
+      <!-- PANEL DERECHA: FOCO DIRECTO -->
+      <g transform="translate(520,20)">
+        <text class="lbl acc" x="0" y="24">Gráfico Limpio (5s al Hallazgo)</text>
+        <rect x="40" y="50" width="400" height="210" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <rect x="70" y="190" width="220" height="20" fill="var(--neutral)"/>
+        <rect x="70" y="150" width="180" height="20" fill="var(--neutral)"/>
+        <rect x="70" y="110" width="310" height="20" fill="var(--accent)"/>
+        <rect x="70" y="70" width="140" height="20" fill="var(--neutral)"/>
+        <path d="M 220 30 L 370 100" fill="none" stroke="var(--accent)" stroke-width="3" stroke-dasharray="5 3"/>
+        <circle cx="380" cy="120" r="16" fill="var(--accent)"/>
+        <text class="t sm" x="380" y="125" text-anchor="middle" fill="var(--accent-ink)">1</text>
+        <text class="t sm on" x="200" y="285" text-anchor="middle">El ojo va directo al elemento destacado</text>
+      </g>
+    </svg>
   </div>
-  <p class="lead reveal"><strong>Una presentación, una audiencia principal.</strong> Un deck que les sirve a las tres las aburre a las tres, en momentos distintos.</p>
+  <p class="lead reveal">Si en 5 segundos la audiencia no capta el hallazgo, el gráfico debe simplificarse.</p>
 </section>
 
-<section class="slide" data-block="1" data-title="Este salón es una audiencia mixta">
-  <p class="kicker reveal">El caso concreto de este salón</p>
-  <p class="claim reveal">Aquí hay Ingeniería de Sistemas <span>e Ingeniería Industrial</span> al mismo tiempo.</p>
-  <p class="lead reveal">Un mismo hallazgo sobre consumo de agua se cuenta distinto si el que escucha optimiza la red de distribución o si diseña el sistema que la monitorea. Ninguno de los dos es la audiencia "correcta": lo que no se puede es no elegir.</p>
-  <div class="callout reveal"><p><b>Regla operativa:</b> escriba para el más alto en la cadena de decisión y tenga el respaldo técnico listo para las preguntas. Si se lo piden, se ve preparado; si no, no gastó tiempo de nadie.</p></div>
-</section>
+<section class="slide" data-block="1" data-title="Elegir el gráfico correcto">
+  <p class="kicker reveal">Matriz de selección &middot; Derivación por pregunta</p>
+  <h2 class="reveal">Elegir el gráfico correcto</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 320" role="img" aria-label="Matriz de selección: La pregunta del negocio determina el tipo de gráfico ideal.">
+      <g transform="translate(20, 20)">
+        <rect x="0" y="0" width="180" height="260" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="90" y="40" text-anchor="middle" font-size="16">Comparar</text>
+        <text class="t sm" x="90" y="75" text-anchor="middle">¿Cuál es mayor?</text>
+        <rect x="30" y="100" width="120" height="18" fill="var(--accent)"/>
+        <rect x="30" y="130" width="90" height="18" fill="var(--neutral)"/>
+        <rect x="30" y="160" width="60" height="18" fill="var(--neutral)"/>
+        <text class="lbl" x="90" y="225" text-anchor="middle" font-size="18">Barras</text>
 
-<section class="slide" data-block="1" data-title="El título de la slide es el mensaje">
-  <p class="kicker reveal">Ningún periódico titula "cifras de accidentalidad del trimestre"</p>
-  <h2 class="reveal">El título es el mensaje</h2>
-  <div class="table-wrap reveal">
-    <table>
-      <caption>El título ya le dice qué pensar; el cuerpo solo lo sostiene</caption>
-      <thead><tr><th>Título descriptivo &middot; débil</th><th>Título con mensaje &middot; fuerte</th></tr></thead>
-      <tbody>
-        <tr><td><span class="weak">"Compromisos y pagos por sector"</span></td>
-            <td><span class="strong">"Educación concentra un tercio de la brecha"</span></td></tr>
-        <tr class="on"><td><span class="weak">"Distribución del gasto"</span></td>
-            <td><span class="strong">"Nueve de cada diez pesos comprometidos siguen sin pagarse"</span></td></tr>
-        <tr><td><span class="weak">"Análisis de correlación"</span></td>
-            <td><span class="strong">"Más presupuesto no está produciendo más ejecución"</span></td></tr>
-      </tbody>
-    </table>
+        <rect x="195" y="0" width="180" height="260" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="285" y="40" text-anchor="middle" font-size="16">Tiempo</text>
+        <text class="t sm" x="285" y="75" text-anchor="middle">¿Cómo evoluciona?</text>
+        <path d="M 215 170 L 255 130 L 295 150 L 335 90 L 355 105" fill="none" stroke="var(--accent)" stroke-width="3"/>
+        <text class="lbl" x="285" y="225" text-anchor="middle" font-size="18">Líneas</text>
+
+        <rect x="390" y="0" width="180" height="260" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="480" y="40" text-anchor="middle" font-size="16">Relación</text>
+        <text class="t sm" x="480" y="75" text-anchor="middle">¿Se asocian X e Y?</text>
+        <circle cx="430" cy="160" r="5" fill="var(--accent)"/>
+        <circle cx="460" cy="140" r="5" fill="var(--accent)"/>
+        <circle cx="490" cy="120" r="5" fill="var(--accent)"/>
+        <circle cx="520" cy="95" r="5" fill="var(--accent)"/>
+        <text class="lbl" x="480" y="225" text-anchor="middle" font-size="18">Dispersión</text>
+
+        <rect x="585" y="0" width="180" height="260" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="675" y="40" text-anchor="middle" font-size="16">Distribución</text>
+        <text class="t sm" x="675" y="75" text-anchor="middle">¿Cómo se dispersa?</text>
+        <rect x="605" y="160" width="20" height="30" fill="var(--neutral)"/>
+        <rect x="630" y="120" width="20" height="70" fill="var(--accent)"/>
+        <rect x="655" y="100" width="20" height="90" fill="var(--accent)"/>
+        <rect x="680" y="140" width="20" height="50" fill="var(--neutral)"/>
+        <rect x="705" y="170" width="20" height="20" fill="var(--neutral)"/>
+        <text class="lbl" x="675" y="225" text-anchor="middle" font-size="18">Histograma</text>
+
+        <rect x="780" y="0" width="180" height="260" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="870" y="40" text-anchor="middle" font-size="16">Proporción</text>
+        <text class="t sm" x="870" y="75" text-anchor="middle">¿Composición total?</text>
+        <rect x="800" y="110" width="140" height="25" fill="var(--accent)"/>
+        <rect x="800" y="140" width="140" height="25" fill="var(--neutral)"/>
+        <text class="lbl" x="870" y="225" text-anchor="middle" font-size="18">Barras 100%</text>
+      </g>
+    </svg>
   </div>
-  <p class="lead reveal">El de la izquierda rotula el gráfico. El de la derecha afirma el hallazgo. Solo uno de los dos sobrevive si se apaga el proyector.</p>
+  <p class="lead reveal">El gráfico se deriva de la pregunta del negocio, no del gusto personal ni de la herramienta.</p>
 </section>
 
-<section class="slide" data-block="1" data-title="Anatomía de un título que afirma">
-  <p class="kicker reveal">Cómo se escribe uno, pieza por pieza</p>
-  <h2 class="reveal">Afirmación, cifra, recorte</h2>
-  <div class="cards c3 reveal">
-    <article class="card on"><span class="k">Uno</span><h3>Un verbo que afirma</h3>
-      <p>"Concentra", "sigue sin pagarse", "no está produciendo". Si el título no tiene verbo, es una etiqueta.</p></article>
-    <article class="card"><span class="k">Dos</span><h3>Una cifra, no tres</h3>
-      <p>La cifra hace la afirmación verificable. <b>Tres cifras en un título no es rigor: es indecisión.</b></p></article>
-    <article class="card"><span class="k">Tres</span><h3>Un recorte con nombre</h3>
-      <p>De qué población, de qué año, de qué sector. Una cifra sin su recorte no significa nada.</p></article>
+<section class="slide" data-block="1" data-title="Mapa visual de selección">
+  <p class="kicker reveal">Elección según la pregunta &middot; taxonomía de gráficos</p>
+  <h2 class="reveal">Mapa visual de selección: ¿Qué gráfico elegir?</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 340" role="img"
+         aria-label="Mapa visual de selección de gráficos con cuatro tarjetas: Barras para categorías, Líneas para tiempo, Dispersión para relaciones e Histograma para distribución.">
+      <rect x="15" y="10" width="230" height="315" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+      <text class="lbl acc" x="130" y="40" text-anchor="middle" font-size="19">Categorías</text>
+      <text class="t sm" x="130" y="65" text-anchor="middle">¿Cuál es más grande?</text>
+      <rect class="bar-a" x="35" y="90" width="160" height="24"/>
+      <rect class="bar-n" x="35" y="130" width="120" height="24"/>
+      <rect class="bar-n" x="35" y="170" width="80" height="24"/>
+      <rect class="bar-n" x="35" y="210" width="50" height="24"/>
+      <text class="lbl" x="130" y="275" text-anchor="middle" font-size="20">Barras</text>
+      <text class="t sm on" x="130" y="300" text-anchor="middle">Longitud y posición</text>
+
+      <rect x="260" y="10" width="230" height="315" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+      <text class="lbl acc" x="375" y="40" text-anchor="middle" font-size="19">Tiempo</text>
+      <text class="t sm" x="375" y="65" text-anchor="middle">¿Cómo cambia en el tiempo?</text>
+      <path class="ax" d="M280 235 H470 M280 90 V235"/>
+      <path d="M290 215 L330 175 L370 190 L410 125 L450 100" fill="none" stroke="var(--accent)" stroke-width="4"/>
+      <circle cx="290" cy="215" r="5" fill="var(--accent)"/>
+      <circle cx="330" cy="175" r="5" fill="var(--accent)"/>
+      <circle cx="370" cy="190" r="5" fill="var(--accent)"/>
+      <circle cx="410" cy="125" r="5" fill="var(--accent)"/>
+      <circle cx="450" cy="100" r="5" fill="var(--accent)"/>
+      <text class="lbl" x="375" y="275" text-anchor="middle" font-size="20">Líneas</text>
+      <text class="t sm on" x="375" y="300" text-anchor="middle">Continuidad temporal</text>
+
+      <rect x="505" y="10" width="230" height="315" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+      <text class="lbl acc" x="620" y="40" text-anchor="middle" font-size="19">Relación</text>
+      <text class="t sm" x="620" y="65" text-anchor="middle">¿Existe relación entre 2 vars?</text>
+      <path class="ax" d="M525 235 H715 M525 90 V235"/>
+      <circle cx="550" cy="215" r="5" fill="var(--neutral)"/>
+      <circle cx="570" cy="185" r="5" fill="var(--accent)"/>
+      <circle cx="590" cy="200" r="5" fill="var(--neutral)"/>
+      <circle cx="610" cy="155" r="5" fill="var(--accent)"/>
+      <circle cx="630" cy="135" r="5" fill="var(--accent)"/>
+      <circle cx="650" cy="165" r="5" fill="var(--neutral)"/>
+      <circle cx="670" cy="110" r="5" fill="var(--accent)"/>
+      <circle cx="690" cy="95" r="5" fill="var(--accent)"/>
+      <text class="lbl" x="620" y="275" text-anchor="middle" font-size="20">Dispersión</text>
+      <text class="t sm on" x="620" y="300" text-anchor="middle">Correlación y nubes</text>
+
+      <rect x="750" y="10" width="230" height="315" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="2"/>
+      <text class="lbl acc" x="865" y="40" text-anchor="middle" font-size="19">Distribución</text>
+      <text class="t sm" x="865" y="65" text-anchor="middle">¿Cómo se concentran los datos?</text>
+      <path class="ax" d="M770 235 H960"/>
+      <rect class="bar-n" x="780" y="195" width="25" height="40"/>
+      <rect class="bar-n" x="810" y="145" width="25" height="90"/>
+      <rect class="bar-a" x="840" y="95" width="25" height="140"/>
+      <rect class="bar-n" x="870" y="125" width="25" height="110"/>
+      <rect class="bar-n" x="900" y="175" width="25" height="60"/>
+      <rect class="bar-n" x="930" y="215" width="25" height="20"/>
+      <text class="lbl" x="865" y="275" text-anchor="middle" font-size="20">Histograma</text>
+      <text class="t sm on" x="865" y="300" text-anchor="middle">Frecuencia y forma</text>
+    </svg>
   </div>
-  <div class="callout reveal"><p><b>La prueba de los títulos:</b> lea en voz alta solo los títulos de su deck, seguidos y sin el cuerpo. Si esa secuencia ya cuenta la historia completa, el deck está bien. Si suena a índice, está mal, y no se salva con diseño.</p></div>
+  <p class="lead reveal">Selección según la pregunta: Barras (categorías), Líneas (tiempo), Dispersión (relación), Histograma (distribución).</p>
 </section>
 
-<section class="slide" data-block="1" data-title="Antes y después de una slide con foco">
-  <p class="kicker reveal">Es un ejercicio de resta, no de diseño</p>
-  <div class="pair reveal">
-    <div class="weak">
-      <span class="lb">Antes</span>
-      <p class="t">"Distribución del gasto"</p>
-      <p>Cuatro gráficos, una tabla, un logo, la fuente en letra pequeña y una leyenda con doce categorías. Todo cierto, nada dicho.</p>
-    </div>
-    <div class="strong">
-      <span class="lb">Después</span>
-      <p class="t">"Nueve de cada diez pesos comprometidos siguen sin pagarse"</p>
-      <p>Un gráfico. Dos categorías resaltadas y el resto en gris. Una anotación que señala el punto exacto del que habla el título.</p>
-    </div>
+<section class="slide" data-block="1" data-title="Canales visuales: Pie chart vs Barras">
+  <p class="kicker reveal">Jerarquía de codificación visual &middot; percepción humana</p>
+  <h2 class="reveal">Canales visuales: Gráfico A (Pie Chart) vs Gráfico B (Barras)</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 320" role="img"
+         aria-label="A la izquierda, Gráfico A (Pie chart) con tres porciones de 35, 33 y 32 por ciento: son visualmente indistinguibles. A la derecha, Gráfico B (Barras horizontales) con los mismos valores donde el orden se lee de inmediato.">
+      <!-- PANEL A -->
+      <text class="lbl bad" x="30" y="28">Gráfico A (Inadecuado / Pie Chart)</text>
+      <path d="M150,170 L150,60 A110,110 0 0,1 239.0,234.7 Z" fill="#5A7B72" stroke="var(--bg)" stroke-width="2"></path>
+      <path d="M150,170 L239.0,234.7 A110,110 0 0,1 50.4,216.8 Z" fill="#49675F" stroke="var(--bg)" stroke-width="2"></path>
+      <path d="M150,170 L50.4,216.8 A110,110 0 0,1 150,60 Z" fill="#6D9087" stroke="var(--bg)" stroke-width="2"></path>
+      <text class="t" x="205" y="125">A</text>
+      <text class="t" x="185" y="235">B</text>
+      <text class="t" x="90"  y="170">C</text>
+      <text class="t sm bad" x="30" y="305">Ángulos y áreas: el ojo los compara mal</text>
+
+      <!-- PANEL B -->
+      <text class="lbl acc" x="540" y="28">Gráfico B (Limpio / Barras Horizontales)</text>
+      <rect class="bar-a" x="600" y="70"  width="245" height="46"></rect>
+      <rect class="bar-n" x="600" y="140" width="231" height="46"></rect>
+      <rect class="bar-n" x="600" y="210" width="224" height="46"></rect>
+      <text class="t on" x="590" y="99"  text-anchor="end">A</text>
+      <text class="t"    x="590" y="169" text-anchor="end">B</text>
+      <text class="t"    x="590" y="239" text-anchor="end">C</text>
+      <text class="t on" x="855" y="99">35 %</text>
+      <text class="t"    x="841" y="169">33 %</text>
+      <text class="t"    x="834" y="239">32 %</text>
+      <text class="t sm on" x="540" y="305">Longitud y posición: el ojo las compara bien</text>
+    </svg>
   </div>
-  <p class="lead reveal">Pregunta honesta: si le tapo la pantalla, <strong>¿cuál de las dos me puede explicar de memoria?</strong> Es el data-ink ratio de la clase 7 otra vez, con la narrativa como criterio de qué borrar.</p>
+  <p class="lead reveal">El ojo humano compara longitudes y posiciones sobre una escala común con alta precisión; los ángulos generan imprecisión.</p>
 </section>
 
-<section class="slide" data-block="1" data-title="La línea entre analítica y opinión">
-  <p class="kicker reveal">La frase más peligrosa de la clase</p>
-  <p class="claim reveal">El dato sostiene la descripción. <span>No sostiene la intención.</span></p>
-  <div class="pair reveal">
-    <div class="strong">
-      <span class="lb">Lo que el dato aguanta</span>
-      <p class="t">"Hay 67 billones en contratos firmados cuyos pagos no se han ejecutado."</p>
-    </div>
-    <div class="weak">
-      <span class="lb">Lo que no aguanta</span>
-      <p class="t">"Se robaron la plata." &middot; "Primero pagan lo que les conviene."</p>
-    </div>
+<section class="slide" data-block="1" data-title="Hoy no hay ninguna línea legítima">
+  <p class="kicker reveal">Veracidad de la estructura &middot; Foto vs Película</p>
+  <h2 class="reveal">Hoy no hay ninguna línea legítima</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 340" role="img" aria-label="Comparación entre uso incorrecto de líneas uniendo categorías discretas vs uso correcto de barras para categorías discretas sin tiempo.">
+      <!-- PANEL IZQUIERDA: LINEA EN CATEGORIAS (INCORRECTO) -->
+      <g transform="translate(20,20)">
+        <text class="lbl bad" x="0" y="24">Gráfico de Líneas (INCORRECTO)</text>
+        <line x1="50" y1="240" x2="430" y2="240" stroke="var(--muted)" stroke-width="1"/>
+        <path d="M 80 180 L 180 80 L 280 210 L 380 120" fill="none" stroke="var(--alert)" stroke-width="4"/>
+        <circle cx="80" cy="180" r="6" fill="var(--alert)"/>
+        <circle cx="180" cy="80" r="6" fill="var(--alert)"/>
+        <circle cx="280" cy="210" r="6" fill="var(--alert)"/>
+        <circle cx="380" cy="120" r="6" fill="var(--alert)"/>
+        <text class="t sm" x="80" y="260" text-anchor="middle">Salud</text>
+        <text class="t sm" x="180" y="260" text-anchor="middle">Defensa</text>
+        <text class="t sm" x="280" y="260" text-anchor="middle">Educación</text>
+        <text class="t sm" x="380" y="260" text-anchor="middle">Minas</text>
+        <text class="t sm bad" x="230" y="295" text-anchor="middle">La línea sugiere continuidad entre sectores independientes</text>
+      </g>
+
+      <!-- PANEL DERECHA: BARRAS PARA CATEGORIAS (CORRECTO) -->
+      <g transform="translate(520,20)">
+        <text class="lbl acc" x="0" y="24">Gráfico de Barras Discretas (CORRECTO)</text>
+        <line x1="50" y1="240" x2="430" y2="240" stroke="var(--muted)" stroke-width="1"/>
+        <rect x="60" y="180" width="40" height="60" fill="var(--neutral)"/>
+        <rect x="160" y="80" width="40" height="160" fill="var(--accent)"/>
+        <rect x="260" y="210" width="40" height="30" fill="var(--neutral)"/>
+        <rect x="360" y="120" width="40" height="120" fill="var(--neutral)"/>
+        <text class="t sm" x="80" y="260" text-anchor="middle">Salud</text>
+        <text class="t sm" x="180" y="260" text-anchor="middle">Defensa</text>
+        <text class="t sm" x="280" y="260" text-anchor="middle">Educación</text>
+        <text class="t sm" x="380" y="260" text-anchor="middle">Minas</text>
+        <text class="t sm on" x="230" y="295" text-anchor="middle">Barras separadas reflejan categorías discretas sin tiempo</text>
+      </g>
+    </svg>
   </div>
-  <p class="lead reveal">Puede ser corrupción, puede ser lentitud administrativa, puede ser que el archivo esté cortado a mitad de año. Storytelling <strong>no es maquillar</strong>: es elegir el orden en que se dicen números verdaderos. La prueba es si puede mostrar el cálculo cuando se lo pidan.</p>
+  <p class="lead reveal">Una línea entre categorías afirma una continuidad inexistente. Sin tiempo, use barras.</p>
 </section>
 
-<section class="slide" data-block="1" data-title="El marco de cuatro slides">
-  <p class="kicker reveal">Lo que se construye en el bloque 2 y se replica en el bloque 3</p>
-  <h2 class="reveal">Contexto &rarr; hallazgo &rarr; implicación &rarr; acción</h2>
-  <div class="table-wrap reveal">
-    <table>
-      <caption>Cuatro slides, siempre en ese orden. Ni tres ni seis</caption>
-      <thead><tr><th>Slide</th><th>La pregunta que responde</th><th>El error típico</th></tr></thead>
-      <tbody>
-        <tr><th>1 &middot; Contexto</th><td>¿De qué hablamos y por qué ahora?</td><td><em>Convertirlo en la agenda de la presentación</em></td></tr>
-        <tr class="on"><th>2 &middot; Hallazgo</th><td>¿Qué encontramos, en una frase con cifra?</td><td><em>Meter tres hallazgos</em></td></tr>
-        <tr><th>3 &middot; Implicación</th><td>¿Y eso qué significa para quien decide?</td><td><em>Repetir el hallazgo con otras palabras</em></td></tr>
-        <tr><th>4 &middot; Acción</th><td>¿Qué hay que hacer, quién y cuándo?</td><td><em>Terminar con "gracias, ¿preguntas?"</em></td></tr>
-      </tbody>
-    </table>
+<section class="slide" data-block="1" data-title="Las lecciones de color">
+  <p class="kicker reveal">Cole Nussbaumer Knaflic &middot; Jerarquía visual</p>
+  <h2 class="reveal">Las lecciones de color</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 960 300" role="img" aria-label="Comparación de jerarquía de color: Gráfico A con 5 colores decorativos sin orden vs Gráfico B con 4 barras en gris neutro y 1 acento verde esmeralda destacando Transporte 33%.">
+      <!-- PANEL A: MAL / SIN JERARQUÍA -->
+      <g transform="translate(0, 0)">
+        <text class="lbl bad" x="20" y="30" font-size="16">Gráfico A: Color como decoración</text>
+        <text class="t sm bad" x="20" y="48" font-size="12">El ojo salta sin rumbo (Ruido cognitivo)</text>
+        
+        <!-- Eje horizontal -->
+        <line x1="30" y1="235" x2="435" y2="235" stroke="var(--line)" stroke-width="1.5"/>
+        
+        <!-- 5 Barras con 5 colores brillantes arbitrarios -->
+        <rect x="48" y="175" width="44" height="60" fill="#E76F51" rx="2"/>
+        <text class="t sm" x="70" y="165" text-anchor="middle" fill="var(--fg)">12%</text>
+        <text class="t sm" x="70" y="255" text-anchor="middle">Salud</text>
+        
+        <rect x="123" y="115" width="44" height="120" fill="#2980B9" rx="2"/>
+        <text class="t sm" x="145" y="105" text-anchor="middle" fill="var(--fg)">24%</text>
+        <text class="t sm" x="145" y="255" text-anchor="middle">Educación</text>
+        
+        <rect x="198" y="75" width="44" height="160" fill="#8E44AD" rx="2"/>
+        <text class="t sm" x="220" y="66" text-anchor="middle" fill="var(--fg)">33%</text>
+        <text class="t sm" x="220" y="255" text-anchor="middle">Transporte</text>
+        
+        <rect x="273" y="145" width="44" height="90" fill="#E74C3C" rx="2"/>
+        <text class="t sm" x="295" y="135" text-anchor="middle" fill="var(--fg)">18%</text>
+        <text class="t sm" x="295" y="255" text-anchor="middle">Defensa</text>
+        
+        <rect x="348" y="195" width="44" height="40" fill="#F1C40F" rx="2"/>
+        <text class="t sm" x="370" y="185" text-anchor="middle" fill="var(--fg)">8%</text>
+        <text class="t sm" x="370" y="255" text-anchor="middle">Minas</text>
+      </g>
+      
+      <!-- PANEL B: BIEN / CON JERARQUÍA -->
+      <g transform="translate(495, 0)">
+        <rect x="0" y="0" width="465" height="295" rx="10" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text class="lbl acc" x="20" y="30" font-size="16">Gráfico B: El gris es tu amigo + 1 acento</text>
+        <text class="t sm on" x="20" y="48" font-size="12">El ojo va directo al hallazgo en 0.5s</text>
+        
+        <!-- Eje horizontal -->
+        <line x1="30" y1="235" x2="435" y2="235" stroke="var(--line)" stroke-width="1.5"/>
+        
+        <!-- 5 Barras: 4 en Gris Neutro (#5A7B72) y 1 en Verde Esmeralda (#3EB489) -->
+        <rect x="48" y="175" width="44" height="60" fill="#5A7B72" rx="2"/>
+        <text class="t sm" x="70" y="165" text-anchor="middle" fill="var(--muted)">12%</text>
+        <text class="t sm" x="70" y="255" text-anchor="middle">Salud</text>
+        
+        <rect x="123" y="115" width="44" height="120" fill="#5A7B72" rx="2"/>
+        <text class="t sm" x="145" y="105" text-anchor="middle" fill="var(--muted)">24%</text>
+        <text class="t sm" x="145" y="255" text-anchor="middle">Educación</text>
+        
+        <rect x="198" y="75" width="44" height="160" fill="#3EB489" rx="2"/>
+        <text class="t sm on" x="220" y="66" text-anchor="middle" font-weight="700">Transporte 33%</text>
+        <text class="t sm on" x="220" y="255" text-anchor="middle" font-weight="700">Transporte</text>
+        
+        <rect x="273" y="145" width="44" height="90" fill="#5A7B72" rx="2"/>
+        <text class="t sm" x="295" y="135" text-anchor="middle" fill="var(--muted)">18%</text>
+        <text class="t sm" x="295" y="255" text-anchor="middle">Defensa</text>
+        
+        <rect x="348" y="195" width="44" height="40" fill="#5A7B72" rx="2"/>
+        <text class="t sm" x="370" y="185" text-anchor="middle" fill="var(--muted)">8%</text>
+        <text class="t sm" x="370" y="255" text-anchor="middle">Minas</text>
+      </g>
+    </svg>
   </div>
-  <p class="lead reveal">Este marco se queda escrito en el tablero toda la clase. Los cuatro nudos del tallo son estos cuatro.</p>
+  <p class="lead reveal">El 90% del gráfico vive en gris neutro. El color no adorna: se reserva exclusivamente para dirigir la mirada a la conclusión.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="Uso del color: Arcoíris vs Gris con énfasis">
+  <p class="kicker reveal">Cole Nussbaumer Knaflic &middot; foco en el mensaje</p>
+  <h2 class="reveal">Uso del color: Gráfico A (Arcoíris) vs Gráfico B (Gris con énfasis)</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 370" role="img"
+         aria-label="A la izquierda, Gráfico A (Arcoíris): ocho barras verticales de ocho colores distintos en orden alfabético. A la derecha, Gráfico B (Limpio): barras horizontales grises ordenadas por valor con Transporte resaltado en verde esmeralda.">
+      <!-- PANEL A -->
+      <text class="lbl bad" x="20" y="22">Gráfico A (Inadecuado / Arcoíris)</text>
+      <path class="ax" d="M46 235 H420"></path>
+      <rect x="50"  y="166.4" width="34" height="68.6"  fill="#E76F51"></rect>
+      <rect x="96"  y="90.5"  width="34" height="144.5" fill="#F2B880"></rect>
+      <rect x="142" y="162.3" width="34" height="72.7"  fill="#F1C40F"></rect>
+      <rect x="188" y="175.4" width="34" height="59.6"  fill="#3EB489"></rect>
+      <rect x="234" y="177.5" width="34" height="57.5"  fill="#2980B9"></rect>
+      <rect x="280" y="192.6" width="34" height="42.4"  fill="#8E44AD"></rect>
+      <rect x="326" y="217.5" width="34" height="17.5"  fill="#16A085"></rect>
+      <rect x="372" y="68.3"  width="34" height="166.7" fill="#D35400"></rect>
+      <text class="t sm" style="font-size:9px;" transform="translate(67,245) rotate(55)" text-anchor="start">DEFENSA</text>
+      <text class="t sm" style="font-size:9px;" transform="translate(113,245) rotate(55)" text-anchor="start">EDUCACIÓN</text>
+      <text class="t sm" style="font-size:9px;" transform="translate(159,245) rotate(55)" text-anchor="start">HACIENDA</text>
+      <text class="t sm" style="font-size:9px;" transform="translate(205,245) rotate(55)" text-anchor="start">MINAS</text>
+      <text class="t sm" style="font-size:9px;" transform="translate(251,245) rotate(55)" text-anchor="start">SALUD</text>
+      <text class="t sm" style="font-size:9px;" transform="translate(297,245) rotate(55)" text-anchor="start">SERV. DEUDA</text>
+      <text class="t sm" style="font-size:9px;" transform="translate(343,245) rotate(55)" text-anchor="start">TRABAJO</text>
+      <text class="t sm" style="font-size:9px;" transform="translate(389,245) rotate(55)" text-anchor="start">TRANSPORTE</text>
+      <text class="t sm bad" x="20" y="340">Orden alfabético sin foco visual</text>
+
+      <!-- PANEL B -->
+      <text class="lbl acc" x="520" y="22">Gráfico B (Limpio / Gris con énfasis)</text>
+      <rect class="bar-a" x="700" y="40"  width="183" height="18"></rect>
+      <rect class="bar-n" x="700" y="66"  width="159" height="18"></rect>
+      <rect class="bar-n" x="700" y="92"  width="80"  height="18"></rect>
+      <rect class="bar-n" x="700" y="118" width="75"  height="18"></rect>
+      <rect class="bar-n" x="700" y="144" width="66"  height="18"></rect>
+      <rect class="bar-n" x="700" y="170" width="63"  height="18"></rect>
+      <rect class="bar-n" x="700" y="196" width="47"  height="18"></rect>
+      <rect class="bar-n" x="700" y="222" width="19"  height="18"></rect>
+      <text class="t sm on" x="692" y="54"  text-anchor="end">TRANSPORTE</text>
+      <text class="t sm"    x="692" y="80"  text-anchor="end">EDUCACIÓN</text>
+      <text class="t sm"    x="692" y="106" text-anchor="end">HACIENDA</text>
+      <text class="t sm"    x="692" y="132" text-anchor="end">DEFENSA</text>
+      <text class="t sm"    x="692" y="158" text-anchor="end">MINAS</text>
+      <text class="t sm"    x="692" y="184" text-anchor="end">SALUD</text>
+      <text class="t sm"    x="692" y="210" text-anchor="end">SERV. DEUDA</text>
+      <text class="t sm"    x="692" y="236" text-anchor="end">TRABAJO</text>
+      <text class="t sm on" x="891" y="54">33,3 %</text>
+      <text class="t sm"    x="867" y="80">28,9 %</text>
+      <text class="t sm"    x="788" y="106">14,5 %</text>
+      <text class="t sm"    x="783" y="132">13,7 %</text>
+      <text class="t sm"    x="774" y="158">11,9 %</text>
+      <text class="t sm"    x="771" y="184">11,5 %</text>
+      <text class="t sm"    x="755" y="210">8,5 %</text>
+      <text class="t sm"    x="727" y="236">3,5 %</text>
+      <text class="t sm on" x="520" y="340">Ordenado por valor con verde en la conclusión</text>
+    </svg>
+  </div>
+  <p class="lead reveal">Elimine la paleta arcoíris sin significado; use gris de base y verde esmeralda solo para la conclusión.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="Accesibilidad y daltonismo">
+  <p class="kicker reveal">Diseño inclusivo &middot; Colores a evitar y combinaciones seguras</p>
+  <h2 class="reveal">Accesibilidad y daltonismo</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 350" role="img" aria-label="Comparación de accesibilidad visual: 1. Solo Color (Inseguro), 2. Simulación Daltonismo y 3. Formas y Marcadores (Seguro).">
+      <!-- ================= PANEL 1: SOLO COLOR (INSEGURO) ================= -->
+      <g transform="translate(15,10)">
+        <rect x="0" y="0" width="310" height="330" rx="8" fill="var(--surface)" stroke="var(--alert)" stroke-width="2"/>
+        
+        <text class="lbl bad" x="18" y="32" font-size="15" font-weight="700">1. Solo Color (Inseguro)</text>
+        <text class="t sm bad" x="18" y="52" font-size="12">Rojo vs Verde sin respaldo</text>
+        
+        <!-- Plot Area -->
+        <rect x="18" y="68" width="274" height="205" rx="6" fill="#0F1715" stroke="var(--line)"/>
+        
+        <!-- Axes -->
+        <line x1="38" y1="240" x2="274" y2="240" class="ax"/>
+        <line x1="38" y1="82" x2="38" y2="240" class="ax"/>
+        
+        <!-- Gridlines -->
+        <line x1="38" y1="187" x2="274" y2="187" stroke="var(--line)" stroke-dasharray="3 3"/>
+        <line x1="38" y1="134" x2="274" y2="134" stroke="var(--line)" stroke-dasharray="3 3"/>
+        
+        <!-- Series A (Verde #3EB489) - Identical circles -->
+        <path d="M 48 175 L 100 135 L 152 155 L 204 100 L 255 110" fill="none" stroke="#3EB489" stroke-width="2.5"/>
+        <circle cx="48" cy="175" r="5" fill="#3EB489"/>
+        <circle cx="100" cy="135" r="5" fill="#3EB489"/>
+        <circle cx="152" cy="155" r="5" fill="#3EB489"/>
+        <circle cx="204" cy="100" r="5" fill="#3EB489"/>
+        <circle cx="255" cy="110" r="5" fill="#3EB489"/>
+        
+        <!-- Series B (Rojo #E76F51) - Identical circles -->
+        <path d="M 48 215 L 100 185 L 152 205 L 204 160 L 255 170" fill="none" stroke="#E76F51" stroke-width="2.5"/>
+        <circle cx="48" cy="215" r="5" fill="#E76F51"/>
+        <circle cx="100" cy="185" r="5" fill="#E76F51"/>
+        <circle cx="152" cy="205" r="5" fill="#E76F51"/>
+        <circle cx="204" cy="160" r="5" fill="#E76F51"/>
+        <circle cx="255" cy="170" r="5" fill="#E76F51"/>
+        
+        <!-- Legend inside plot -->
+        <rect x="25" y="74" width="160" height="22" rx="4" fill="rgba(15,23,21,0.92)" stroke="var(--line)"/>
+        <circle cx="35" cy="85" r="4" fill="#3EB489"/>
+        <text class="t sm" x="43" y="89" font-size="10" fill="#3EB489">Verde</text>
+        <circle cx="105" cy="85" r="4" fill="#E76F51"/>
+        <text class="t sm bad" x="113" y="89" font-size="10">Rojo</text>
+        
+        <!-- Footer badge inside Panel 1 -->
+        <rect x="18" y="283" width="274" height="34" rx="4" fill="rgba(231,111,81,0.12)" stroke="var(--alert)" stroke-width="1"/>
+        <text class="t sm bad" x="155" y="304" text-anchor="middle" font-weight="700" font-size="11">Depende 100% del tono cromático</text>
+      </g>
+      
+      <!-- ================= PANEL 2: SIMULACIÓN DALTONISMO ================= -->
+      <g transform="translate(345,10)">
+        <rect x="0" y="0" width="310" height="330" rx="8" fill="var(--surface)" stroke="var(--line)" stroke-width="1.5"/>
+        
+        <text class="lbl bad" x="18" y="32" font-size="15" font-weight="700">2. Simulación Daltonismo</text>
+        <text class="t sm bad" x="18" y="52" font-size="12">Pérdida total de contraste</text>
+        
+        <!-- Plot Area -->
+        <rect x="18" y="68" width="274" height="205" rx="6" fill="#0F1715" stroke="var(--line)"/>
+        
+        <!-- Axes -->
+        <line x1="38" y1="240" x2="274" y2="240" class="ax"/>
+        <line x1="38" y1="82" x2="38" y2="240" class="ax"/>
+        
+        <!-- Gridlines -->
+        <line x1="38" y1="187" x2="274" y2="187" stroke="var(--line)" stroke-dasharray="3 3"/>
+        <line x1="38" y1="134" x2="274" y2="134" stroke="var(--line)" stroke-dasharray="3 3"/>
+        
+        <!-- Deuteranopia Simulation (#7A7067 for both) -->
+        <path d="M 48 175 L 100 135 L 152 155 L 204 100 L 255 110" fill="none" stroke="#7A7067" stroke-width="2.5"/>
+        <circle cx="48" cy="175" r="5" fill="#7A7067"/>
+        <circle cx="100" cy="135" r="5" fill="#7A7067"/>
+        <circle cx="152" cy="155" r="5" fill="#7A7067"/>
+        <circle cx="204" cy="100" r="5" fill="#7A7067"/>
+        <circle cx="255" cy="110" r="5" fill="#7A7067"/>
+        
+        <path d="M 48 215 L 100 185 L 152 205 L 204 160 L 255 170" fill="none" stroke="#7A7067" stroke-width="2.5"/>
+        <circle cx="48" cy="215" r="5" fill="#7A7067"/>
+        <circle cx="100" cy="185" r="5" fill="#7A7067"/>
+        <circle cx="152" cy="205" r="5" fill="#7A7067"/>
+        <circle cx="204" cy="160" r="5" fill="#7A7067"/>
+        <circle cx="255" cy="170" r="5" fill="#7A7067"/>
+        
+        <!-- Legend inside plot -->
+        <rect x="25" y="74" width="160" height="22" rx="4" fill="rgba(15,23,21,0.92)" stroke="var(--line)"/>
+        <circle cx="35" cy="85" r="4" fill="#7A7067"/>
+        <text class="t sm" x="43" y="89" font-size="10" fill="#7A7067">Marrón</text>
+        <circle cx="105" cy="85" r="4" fill="#7A7067"/>
+        <text class="t sm" x="113" y="89" font-size="10" fill="#7A7067">Marrón</text>
+        
+        <!-- Footer badge inside Panel 2 -->
+        <rect x="18" y="283" width="274" height="34" rx="4" fill="rgba(231,111,81,0.12)" stroke="var(--alert)" stroke-width="1"/>
+        <text class="t sm bad" x="155" y="304" text-anchor="middle" font-weight="700" font-size="11">Ambas líneas lucen idénticas</text>
+      </g>
+      
+      <!-- ================= PANEL 3: FORMAS Y MARCADORES ================= -->
+      <g transform="translate(675,10)">
+        <rect x="0" y="0" width="310" height="330" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+        
+        <text class="lbl acc" x="18" y="32" font-size="15" font-weight="700">3. Formas + Marcadores</text>
+        <text class="t sm on" x="18" y="52" font-size="12">Legible incluso en fotocopia B/N</text>
+        
+        <!-- Plot Area -->
+        <rect x="18" y="68" width="274" height="205" rx="6" fill="#0F1715" stroke="var(--line)"/>
+        
+        <!-- Axes -->
+        <line x1="38" y1="240" x2="274" y2="240" class="ax"/>
+        <line x1="38" y1="82" x2="38" y2="240" class="ax"/>
+        
+        <!-- Gridlines -->
+        <line x1="38" y1="187" x2="274" y2="187" stroke="var(--line)" stroke-dasharray="3 3"/>
+        <line x1="38" y1="134" x2="274" y2="134" stroke="var(--line)" stroke-dasharray="3 3"/>
+        
+        <!-- Series 1: Círculos ○ (#3EB489) -->
+        <path d="M 48 165 L 95 125 L 142 145 L 189 90 L 225 100" fill="none" stroke="#3EB489" stroke-width="2.5"/>
+        <circle cx="48" cy="165" r="5" fill="#3EB489"/>
+        <circle cx="95" cy="125" r="5" fill="#3EB489"/>
+        <circle cx="142" cy="145" r="5" fill="#3EB489"/>
+        <circle cx="189" cy="90" r="5" fill="#3EB489"/>
+        <circle cx="225" cy="100" r="5" fill="#3EB489"/>
+        <text class="t sm halo on" x="233" y="104" font-size="10" font-weight="700">Meta ○</text>
+        
+        <!-- Series 2: Triángulos △ (#E67E22) + Línea punteada -->
+        <path d="M 48 215 L 95 185 L 142 205 L 189 160 L 225 170" fill="none" stroke="#E67E22" stroke-width="2.5" stroke-dasharray="6 3"/>
+        <polygon points="48,209 53,219 43,219" fill="#E67E22"/>
+        <polygon points="95,179 100,189 90,189" fill="#E67E22"/>
+        <polygon points="142,199 147,209 137,209" fill="#E67E22"/>
+        <polygon points="189,154 194,164 184,164" fill="#E67E22"/>
+        <polygon points="225,164 230,174 220,174" fill="#E67E22"/>
+        <text class="t sm halo" x="233" y="174" font-size="10" font-weight="700" fill="#E67E22">Alerta ▲</text>
+
+        <!-- Series 3: Cuadrados □ (#799790) -->
+        <path d="M 48 135 L 95 100 L 142 110 L 189 70 L 225 78" fill="none" stroke="#799790" stroke-width="2" stroke-dasharray="2 2"/>
+        <rect x="44" y="131" width="8" height="8" fill="#799790"/>
+        <rect x="91" y="96" width="8" height="8" fill="#799790"/>
+        <rect x="138" y="106" width="8" height="8" fill="#799790"/>
+        <rect x="185" y="66" width="8" height="8" fill="#799790"/>
+        <rect x="221" y="74" width="8" height="8" fill="#799790"/>
+        <text class="t sm halo" x="233" y="76" font-size="10" font-weight="700" fill="#799790">Base ■</text>
+        
+        <!-- Legend inside plot -->
+        <rect x="25" y="74" width="200" height="22" rx="4" fill="rgba(15,23,21,0.92)" stroke="var(--line)"/>
+        <circle cx="35" cy="85" r="4" fill="#3EB489"/>
+        <text class="t sm on" x="43" y="89" font-size="10">Meta</text>
+        
+        <polygon points="98,80 103,89 93,89" fill="#E67E22"/>
+        <text class="t sm" x="107" y="89" font-size="10" fill="#E67E22">Alerta</text>
+        
+        <rect x="156" y="81" width="7" height="7" fill="#799790"/>
+        <text class="t sm" x="167" y="89" font-size="10" fill="var(--muted)">Base</text>
+
+        <!-- Footer badge inside Panel 3 -->
+        <rect x="18" y="283" width="274" height="34" rx="4" fill="rgba(62,180,137,0.12)" stroke="var(--accent)" stroke-width="1"/>
+        <text class="t sm on" x="155" y="304" text-anchor="middle" font-weight="700" font-size="11">Formas ○ □ ▲ + Etiquetas directas</text>
+      </g>
+    </svg>
+  </div>
+  <p class="lead reveal">Evite confiar únicamente en el color. Use formas distintas (círculos, cuadrados, triángulos), posición y contraste de brillo para que los datos sobrevivan a la percepción cromática y a la impresión en blanco y negro.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="Buen título contra mal título">
+  <p class="kicker reveal">El renglón más leído del gráfico</p>
+  <h2 class="reveal">El título dice la conclusión. Los ejes dicen las variables</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 320" role="img" aria-label="Comparación visual entre título descriptivo inadecuado y título conclusivo correcto.">
+      <g transform="translate(20,20)">
+        <rect x="0" y="0" width="460" height="260" rx="8" fill="var(--surface)" stroke="var(--alert)" stroke-width="2"/>
+        <text class="lbl bad" x="230" y="40" text-anchor="middle">Mal Título (Describe ejes)</text>
+        <text class="t bad" x="230" y="83" text-anchor="middle" font-weight="bold" font-size="18">"Apropiación por Sector"</text>
+        <text class="t sm" x="230" y="125" text-anchor="middle">Obliga a escudriñar las barras para saber qué pasó</text>
+        <text class="t sm bad" x="230" y="220" text-anchor="middle">Pérdida de la atención del lector</text>
+      </g>
+      <g transform="translate(520,20)">
+        <rect x="0" y="0" width="460" height="260" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+        <text class="lbl acc" x="230" y="36" text-anchor="middle">Buen Título (Dice la conclusión)</text>
+        <text class="lbl acc" x="230" y="68" text-anchor="middle" style="font-size:14px;">"Deuda y Educación concentran 1/3"</text>
+        <text class="lbl acc" x="230" y="96" text-anchor="middle" style="font-size:14px;">del presupuesto del país</text>
+        <text class="t sm" x="230" y="130" text-anchor="middle">Comunica el hallazgo principal desde el segundo 1</text>
+        <text class="t sm on" x="230" y="220" text-anchor="middle">Verdadero y directo al grano</text>
+      </g>
+    </svg>
+  </div>
+  <p class="lead reveal">Un buen título enuncia una conclusión verdadera; los ejes describen las variables.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="Título con hallazgo: Genérico vs Conclusión">
+  <p class="kicker reveal">Comunicación directa &middot; el renglón más leído del gráfico</p>
+  <h2 class="reveal">Título con hallazgo: Gráfico A (Genérico) vs Gráfico B (Conclusión)</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 340" role="img"
+         aria-label="Comparación entre título genérico y título con hallazgo. A la izquierda, Gráfico A usa el título 'Ejecución por sector' que obliga a escudriñar los datos. A la derecha, Gráfico B usa 'Transporte lidera la ejecución con 33%' destacando el mensaje principal en verde.">
+      <!-- PANEL A -->
+      <text class="lbl bad" x="20" y="24">Gráfico A (Inadecuado / Título genérico)</text>
+      <text class="t bad" x="20" y="50" font-weight="bold" style="font-size:17px;">"Ejecución por sector"</text>
+      <text class="note" x="20" y="78">Describe las variables, pero no comunica ninguna idea</text>
+
+      <rect class="bar-n" x="150" y="100" width="220" height="22"/>
+      <rect class="bar-n" x="150" y="140" width="190" height="22"/>
+      <rect class="bar-n" x="150" y="180" width="100" height="22"/>
+      <rect class="bar-n" x="150" y="220" width="80"  height="22"/>
+      <rect class="bar-n" x="150" y="260" width="50"  height="22"/>
+      <text class="t sm" x="140" y="116" text-anchor="end">TRANSPORTE</text>
+      <text class="t sm" x="140" y="156" text-anchor="end">EDUCACIÓN</text>
+      <text class="t sm" x="140" y="196" text-anchor="end">HACIENDA</text>
+      <text class="t sm" x="140" y="236" text-anchor="end">DEFENSA</text>
+      <text class="t sm" x="140" y="276" text-anchor="end">SALUD</text>
+      <text class="t sm bad" x="20" y="315">El lector debe analizar todo para concluir</text>
+
+      <!-- PANEL B -->
+      <text class="lbl acc" x="520" y="24">Gráfico B (Limpio / Título con hallazgo)</text>
+      <text class="t on" x="520" y="50" font-weight="bold" style="font-size:17px;">"Transporte lidera la ejecución con 33%"</text>
+      <text class="note" x="520" y="78">Comunica la conclusión principal desde el primer segundo</text>
+
+      <rect class="bar-a" x="650" y="100" width="220" height="22"/>
+      <rect class="bar-n" x="650" y="140" width="190" height="22"/>
+      <rect class="bar-n" x="650" y="180" width="100" height="22"/>
+      <rect class="bar-n" x="650" y="220" width="80"  height="22"/>
+      <rect class="bar-n" x="650" y="260" width="50"  height="22"/>
+      <text class="t sm on" x="640" y="116" text-anchor="end">TRANSPORTE</text>
+      <text class="t sm"    x="640" y="156" text-anchor="end">EDUCACIÓN</text>
+      <text class="t sm"    x="640" y="196" text-anchor="end">HACIENDA</text>
+      <text class="t sm"    x="640" y="236" text-anchor="end">DEFENSA</text>
+      <text class="t sm"    x="640" y="276" text-anchor="end">SALUD</text>
+      <text class="t sm on" x="880" y="116">33,3%</text>
+      <text class="t sm on" x="520" y="315">El título y el color verde dirigen el ojo a la respuesta inmediata</text>
+    </svg>
+  </div>
+  <p class="lead reveal">Un título genérico obliga a escudriñar los datos; un título con hallazgo comunica la conclusión de inmediato.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="Honestidad escalar: Eje truncado vs Eje en cero">
+  <p class="kicker reveal">Veracidad de los ejes &middot; magnitud real vs percibida</p>
+  <h2 class="reveal">Honestidad escalar: Gráfico A (Eje truncado) vs Gráfico B (Eje en cero)</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 340" role="img"
+         aria-label="Comparación entre eje Y truncado en 98 y eje Y iniciando en 0. A la izquierda, Gráfico A exagera una pequeña diferencia del 2% haciendo ver la barra B como el doble de la barra A. A la derecha, Gráfico B inicia el eje en 0 y muestra la escala real.">
+      <!-- PANEL A -->
+      <text class="lbl bad" x="20" y="24">Gráfico A (Inadecuado / Eje Y truncado en 98)</text>
+      <line class="ax" x1="80" y1="60" x2="80" y2="260"/>
+      <line class="ax" x1="80" y1="260" x2="440" y2="260"/>
+      <line class="gridline" x1="80" y1="260" x2="440" y2="260"/>
+      <text class="t sm" x="72" y="264" text-anchor="end">98</text>
+      <line class="gridline" x1="80" y1="210" x2="440" y2="210"/>
+      <text class="t sm" x="72" y="214" text-anchor="end">99</text>
+      <line class="gridline" x1="80" y1="160" x2="440" y2="160"/>
+      <text class="t sm" x="72" y="164" text-anchor="end">100</text>
+      <line class="gridline" x1="80" y1="110" x2="440" y2="110"/>
+      <text class="t sm" x="72" y="114" text-anchor="end">101</text>
+      <line class="gridline" x1="80" y1="60" x2="440" y2="60"/>
+      <text class="t sm" x="72" y="64" text-anchor="end">102</text>
+
+      <rect class="bar-x" x="140" y="160" width="80" height="100"/>
+      <text class="t sm bad" x="180" y="150" text-anchor="middle">100 (A)</text>
+      <rect class="bar-x" x="280" y="60" width="80" height="200"/>
+      <text class="t sm bad" x="320" y="50" text-anchor="middle">102 (B)</text>
+
+      <text class="t sm bad" x="260" y="300" text-anchor="middle">Distorsión: la barra B parece 100% más grande que A</text>
+
+      <!-- PANEL B -->
+      <text class="lbl acc" x="520" y="24">Gráfico B (Limpio / Eje Y iniciando en 0)</text>
+      <line class="ax" x1="580" y1="80" x2="580" y2="260"/>
+      <line class="ax" x1="580" y1="260" x2="940" y2="260"/>
+      <line class="gridline" x1="580" y1="260" x2="940" y2="260"/>
+      <text class="t sm" x="572" y="264" text-anchor="end">0</text>
+      <line class="gridline" x1="580" y1="215" x2="940" y2="215"/>
+      <text class="t sm" x="572" y="219" text-anchor="end">30</text>
+      <line class="gridline" x1="580" y1="170" x2="940" y2="170"/>
+      <text class="t sm" x="572" y="174" text-anchor="end">60</text>
+      <line class="gridline" x1="580" y1="125" x2="940" y2="125"/>
+      <text class="t sm" x="572" y="129" text-anchor="end">90</text>
+      <line class="gridline" x1="580" y1="80" x2="940" y2="80"/>
+      <text class="t sm" x="572" y="84" text-anchor="end">120</text>
+
+      <rect class="bar-a" x="640" y="110" width="80" height="150"/>
+      <text class="t sm on" x="680" y="96" text-anchor="middle">100 (A)</text>
+      <rect class="bar-n" x="780" y="107" width="80" height="153"/>
+      <text class="t sm" x="820" y="93" text-anchor="middle">102 (B)</text>
+
+      <text class="t sm on" x="760" y="300" text-anchor="middle">Escala real: diferencia real del 2% entre A y B</text>
+    </svg>
+  </div>
+  <p class="lead reveal">Truncar el eje o sacar datos de contexto distorsiona la veracidad. Ver caso real de fact-checking en Colombia: <a href="https://colombiacheck.com/chequeos/petro-saca-de-contexto-los-datos-de-mortalidad-infantil-y-materna-para-atribuirse-su" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:underline;">ColombiaCheck &middot; Manipulación de datos de mortalidad</a>.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="La checklist de diez puntos">
+  <p class="kicker reveal">Criterio de evaluación &middot; Verificación integral</p>
+  <h2 class="reveal">La checklist de visualización</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 340" role="img" aria-label="Checklist de visualización de 10 puntos organizada en dos columnas de tarjetas visuales.">
+      <g transform="translate(20,10)">
+        <!-- Columna Left -->
+        <rect x="0" y="0" width="450" height="50" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text class="lbl acc" x="20" y="31" font-size="16">01. Prueba 5 segundos (compañero ajeno)</text>
+
+        <rect x="0" y="60" width="450" height="50" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="t sm" x="20" y="91" font-size="16">02. Gráfico según la pregunta</text>
+
+        <rect x="0" y="120" width="450" height="50" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="t sm" x="20" y="151" font-size="16">03. Categorías ordenadas por valor</text>
+
+        <rect x="0" y="180" width="450" height="50" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="t sm" x="20" y="211" font-size="16">04. Eje Y empieza en cero</text>
+
+        <rect x="0" y="240" width="450" height="50" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="t sm" x="20" y="271" font-size="16">05. Tinta innecesaria eliminada (Data-ink)</text>
+
+        <!-- Columna Right -->
+        <rect x="480" y="0" width="450" height="50" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="t sm" x="500" y="31" font-size="16">06. 1 elemento en verde, resto en gris</text>
+
+        <rect x="480" y="60" width="450" height="50" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text class="lbl acc" x="500" y="91" font-size="16">07. Funciona en escala de grises</text>
+
+        <rect x="480" y="120" width="450" height="50" rx="6" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text class="lbl acc" x="500" y="151" font-size="16">08. Título enuncia conclusión verdadera</text>
+
+        <rect x="480" y="180" width="450" height="50" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="t sm" x="500" y="211" font-size="16">09. Ejes con unidades legibles</text>
+
+        <rect x="480" y="240" width="450" height="50" rx="6" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="t sm" x="500" y="271" font-size="16">10. Fuente citada al pie</text>
+      </g>
+    </svg>
+  </div>
+  <p class="lead reveal">Diez puntos de control. Tres no los puede evaluar un script (1, 7 y 8): exigen criterio humano.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="Tradeoffs obvios">
+  <p class="kicker reveal">Decisiones claras &middot; Reglas directas</p>
+  <h2 class="reveal">Tres pares con ganador absoluto</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 320" role="img" aria-label="Tres tradeoffs con ganador directo: Pie vs Barras (Barras gana), Sin ordenar vs Ordenado (Ordenado gana), Arcoíris vs Gris con énfasis (Gris gana).">
+      <g transform="translate(20,20)">
+        <rect x="0" y="0" width="295" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="147" y="40" text-anchor="middle">1. Pie vs Barras</text>
+        <text class="lbl" x="147" y="120" text-anchor="middle" font-size="28" fill="var(--accent)">BARRAS</text>
+        <text class="t sm" x="147" y="170" text-anchor="middle">El ojo compara longitudes,</text>
+        <text class="t sm" x="147" y="195" text-anchor="middle">no ángulos ni áreas</text>
+      </g>
+      <g transform="translate(345,20)">
+        <rect x="0" y="0" width="295" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="147" y="40" text-anchor="middle">2. Desorden vs Orden</text>
+        <text class="lbl" x="147" y="120" text-anchor="middle" font-size="28" fill="var(--accent)">ORDENADO</text>
+        <text class="t sm" x="147" y="170" text-anchor="middle">De mayor a menor,</text>
+        <text class="t sm" x="147" y="195" text-anchor="middle">salvo orden temporal/natural</text>
+      </g>
+      <g transform="translate(670,20)">
+        <rect x="0" y="0" width="295" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="147" y="40" text-anchor="middle">3. Arcoíris vs Gris</text>
+        <text class="lbl" x="147" y="120" text-anchor="middle" font-size="28" fill="var(--accent)">GRIS + ÉNFASIS</text>
+        <text class="t sm" x="147" y="170" text-anchor="middle">Todo en gris; el verde esmeralda</text>
+        <text class="t sm" x="147" y="195" text-anchor="middle">se reserva para el mensaje</text>
+      </g>
+    </svg>
+  </div>
+  <p class="lead reveal">Tres elecciones con ganador absoluto: Barras, Ordenado y Gris de base con énfasis.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="Tradeoff: Histograma vs Boxplot">
+  <p class="kicker reveal">Tradeoffs condicionales &middot; Forma vs Comparación</p>
+  <h2 class="reveal">Histograma vs. Boxplot</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 320" role="img" aria-label="Tradeoff 1: Histograma para analizar la forma de una distribución vs Boxplot para comparar múltiples grupos.">
+      <!-- Panel Izquierdo: Histograma -->
+      <g transform="translate(20,20)">
+        <rect x="0" y="0" width="450" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="225" y="30" text-anchor="middle" style="font-size:16px;">Histograma (1 Distribución)</text>
+        <text class="t sm on" x="225" y="52" text-anchor="middle" style="font-size:12px;">Revela forma, sesgo y bimodalidad</text>
+        
+        <!-- Ejes -->
+        <line x1="50" y1="210" x2="410" y2="210" class="ax"/>
+        <line x1="50" y1="75" x2="50" y2="210" class="ax"/>
+        <text class="t sm" x="40" y="80" text-anchor="end">Frec.</text>
+        
+        <!-- Barras Bimodales -->
+        <rect x="65" y="180" width="26" height="30" class="bar-n" rx="1"/>
+        <rect x="95" y="130" width="26" height="80" class="bar-n" rx="1"/>
+        <rect x="125" y="90" width="26" height="120" class="bar-a" rx="1"/>
+        <rect x="155" y="135" width="26" height="75" class="bar-n" rx="1"/>
+        <rect x="185" y="175" width="26" height="35" class="bar-n" opacity="0.6" rx="1"/>
+        <rect x="215" y="165" width="26" height="45" class="bar-n" rx="1"/>
+        <rect x="245" y="115" width="26" height="95" class="bar-n" rx="1"/>
+        <rect x="275" y="80" width="26" height="130" class="bar-a" rx="1"/>
+        <rect x="305" y="120" width="26" height="90" class="bar-n" rx="1"/>
+        <rect x="335" y="165" width="26" height="45" class="bar-n" rx="1"/>
+        <rect x="365" y="190" width="26" height="20" class="bar-n" opacity="0.6" rx="1"/>
+
+        <!-- Etiquetas de picos -->
+        <text class="t sm halo" x="138" y="82" text-anchor="middle" font-weight="700">Modo 1</text>
+        <text class="t sm halo" x="288" y="73" text-anchor="middle" font-weight="700">Modo 2</text>
+        <text class="t sm" x="230" y="235" text-anchor="middle">Valor de la variable</text>
+      </g>
+
+      <!-- Panel Derecho: Boxplot -->
+      <g transform="translate(510,20)">
+        <rect x="0" y="0" width="450" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="225" y="34" text-anchor="middle">Boxplot (Múltiples Grupos)</text>
+        <text class="t sm" x="225" y="54" text-anchor="middle">Compara 4+ grupos en poco espacio</text>
+
+        <!-- Ejes -->
+        <line x1="50" y1="210" x2="410" y2="210" class="ax"/>
+        <line x1="50" y1="75" x2="50" y2="210" class="ax"/>
+
+        <!-- Grupo A -->
+        <g transform="translate(100,0)">
+          <line x1="0" y1="90" x2="0" y2="195" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="-12" y1="90" x2="12" y2="90" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="-12" y1="195" x2="12" y2="195" stroke="var(--muted)" stroke-width="1.5"/>
+          <rect x="-22" y="120" width="44" height="55" rx="3" fill="var(--surface-2)" stroke="var(--accent)" stroke-width="2"/>
+          <line x1="-22" y1="142" x2="22" y2="142" stroke="var(--accent)" stroke-width="3"/>
+          <circle cx="0" cy="78" r="3" fill="var(--alert)"/>
+          <text class="t sm" x="0" y="230" text-anchor="middle">Grupo A</text>
+        </g>
+
+        <!-- Grupo B -->
+        <g transform="translate(180,0)">
+          <line x1="0" y1="105" x2="0" y2="200" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="-12" y1="105" x2="12" y2="105" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="-12" y1="200" x2="12" y2="200" stroke="var(--muted)" stroke-width="1.5"/>
+          <rect x="-22" y="130" width="44" height="50" rx="3" fill="var(--surface-2)" stroke="var(--neutral)" stroke-width="1.5"/>
+          <line x1="-22" y1="150" x2="22" y2="150" stroke="var(--neutral)" stroke-width="2.5"/>
+          <text class="t sm" x="0" y="230" text-anchor="middle">Grupo B</text>
+        </g>
+
+        <!-- Grupo C -->
+        <g transform="translate(260,0)">
+          <line x1="0" y1="80" x2="0" y2="185" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="-12" y1="80" x2="12" y2="80" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="-12" y1="185" x2="12" y2="185" stroke="var(--muted)" stroke-width="1.5"/>
+          <rect x="-22" y="105" width="44" height="60" rx="3" fill="var(--surface-2)" stroke="var(--neutral)" stroke-width="1.5"/>
+          <line x1="-22" y1="130" x2="22" y2="130" stroke="var(--neutral)" stroke-width="2.5"/>
+          <circle cx="0" cy="202" r="3" fill="var(--alert)"/>
+          <text class="t sm" x="0" y="230" text-anchor="middle">Grupo C</text>
+        </g>
+
+        <!-- Grupo D -->
+        <g transform="translate(340,0)">
+          <line x1="0" y1="115" x2="0" y2="205" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="-12" y1="115" x2="12" y2="115" stroke="var(--muted)" stroke-width="1.5"/>
+          <line x1="-12" y1="205" x2="12" y2="205" stroke="var(--muted)" stroke-width="1.5"/>
+          <rect x="-22" y="140" width="44" height="45" rx="3" fill="var(--surface-2)" stroke="var(--neutral)" stroke-width="1.5"/>
+          <line x1="-22" y1="162" x2="22" y2="162" stroke="var(--neutral)" stroke-width="2.5"/>
+          <text class="t sm" x="0" y="230" text-anchor="middle">Grupo D</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <p class="lead reveal">Histograma para analizar la forma de 1 sola distribución. Boxplot para comparar múltiples grupos en poco espacio.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="Tradeoff: Dispersión vs Hexbin">
+  <p class="kicker reveal">Tradeoffs condicionales &middot; Volumen y densidad</p>
+  <h2 class="reveal">Dispersión vs. Hexbin</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 320" role="img" aria-label="Tradeoff 2: Dispersión para pocos datos (<500 puntos) vs Hexbin para alto volumen (>10.000 puntos).">
+      <!-- Panel Izquierdo: Dispersión -->
+      <g transform="translate(20,20)">
+        <rect x="0" y="0" width="450" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="225" y="34" text-anchor="middle">Dispersión (&lt;500 puntos)</text>
+        <text class="t sm on" x="225" y="54" text-anchor="middle">Cada punto es identificable</text>
+
+        <!-- Ejes -->
+        <line x1="50" y1="210" x2="410" y2="210" class="ax"/>
+        <line x1="50" y1="75" x2="50" y2="210" class="ax"/>
+
+        <!-- Puntos limpios -->
+        <circle cx="75" cy="195" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="95" cy="180" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="115" cy="188" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="130" cy="165" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="150" cy="172" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="170" cy="148" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="185" cy="155" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="210" cy="132" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="230" cy="140" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="245" cy="115" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="265" cy="122" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="285" cy="102" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="305" cy="92" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="325" cy="110" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="345" cy="85" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="370" cy="80" r="4" fill="var(--accent)" opacity="0.85"/>
+        <circle cx="390" cy="88" r="4" fill="var(--accent)" opacity="0.85"/>
+
+        <!-- Outlier de interés -->
+        <circle cx="160" cy="90" r="5" fill="var(--alert)"/>
+        <text class="t sm halo" x="160" y="80" text-anchor="middle" fill="var(--alert)">Anomalía</text>
+
+        <text class="t sm" x="230" y="235" text-anchor="middle">Variable X</text>
+      </g>
+
+      <!-- Panel Derecho: Hexbin -->
+      <g transform="translate(510,20)">
+        <rect x="0" y="0" width="450" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="225" y="34" text-anchor="middle">Hexbin (&gt;10.000 puntos)</text>
+        <text class="t sm" x="225" y="54" text-anchor="middle">Malla de densidad sin sobregraficado</text>
+
+        <!-- Ejes -->
+        <line x1="50" y1="210" x2="410" y2="210" class="ax"/>
+        <line x1="50" y1="75" x2="50" y2="210" class="ax"/>
+
+        <!-- Hexágonos de densidad -->
+        <polygon points="216,90 227,96 227,108 216,114 205,108 205,96" fill="var(--accent)" opacity="0.3"/>
+        <polygon points="246,90 257,96 257,108 246,114 235,108 235,96" fill="var(--accent)" opacity="0.6"/>
+        <polygon points="276,90 287,96 287,108 276,114 265,108 265,96" fill="var(--accent)" opacity="0.4"/>
+
+        <polygon points="171,110 182,116 182,128 171,134 160,128 160,116" fill="var(--accent)" opacity="0.3"/>
+        <polygon points="201,110 212,116 212,128 201,134 190,128 190,116" fill="var(--accent)" opacity="0.7"/>
+        <polygon points="231,110 242,116 242,128 231,134 220,128 220,116" fill="var(--accent)" opacity="0.95"/>
+        <polygon points="261,110 272,116 272,128 261,134 250,128 250,116" fill="var(--accent)" opacity="0.9"/>
+        <polygon points="291,110 302,116 302,128 291,134 280,128 280,116" fill="var(--accent)" opacity="0.5"/>
+
+        <polygon points="156,130 167,136 167,148 156,154 145,148 145,136" fill="var(--accent)" opacity="0.4"/>
+        <polygon points="186,130 197,136 197,148 186,154 175,148 175,136" fill="var(--accent)" opacity="0.8"/>
+        <polygon points="216,130 227,136 227,148 216,154 205,148 205,136" fill="var(--accent)" opacity="1.0"/>
+        <polygon points="246,130 257,136 257,148 246,154 235,148 235,136" fill="var(--accent)" opacity="0.85"/>
+        <polygon points="276,130 287,136 287,148 276,154 265,148 265,136" fill="var(--accent)" opacity="0.4"/>
+
+        <polygon points="141,150 152,156 152,168 141,174 130,168 130,156" fill="var(--accent)" opacity="0.3"/>
+        <polygon points="171,150 182,156 182,168 171,174 160,168 160,156" fill="var(--accent)" opacity="0.6"/>
+        <polygon points="201,150 212,156 212,168 201,174 190,168 190,156" fill="var(--accent)" opacity="0.75"/>
+        <polygon points="231,150 242,156 242,168 231,174 220,168 220,156" fill="var(--accent)" opacity="0.5"/>
+
+        <polygon points="126,170 137,176 137,188 126,194 115,188 115,176" fill="var(--accent)" opacity="0.2"/>
+        <polygon points="156,170 167,176 167,188 156,194 145,188 145,176" fill="var(--accent)" opacity="0.4"/>
+        <polygon points="186,170 197,176 197,188 186,194 175,188 175,176" fill="var(--accent)" opacity="0.3"/>
+
+        <!-- Leyenda -->
+        <g transform="translate(340,90)">
+          <text class="t sm" x="0" y="0">Densidad</text>
+          <rect x="0" y="10" width="12" height="12" fill="var(--accent)" opacity="0.2"/>
+          <rect x="0" y="24" width="12" height="12" fill="var(--accent)" opacity="0.5"/>
+          <rect x="0" y="38" width="12" height="12" fill="var(--accent)" opacity="0.8"/>
+          <rect x="0" y="52" width="12" height="12" fill="var(--accent)" opacity="1.0"/>
+          <text class="t sm" x="18" y="20">Baja</text>
+          <text class="t sm" x="18" y="62">Alta</text>
+        </g>
+
+        <text class="t sm" x="230" y="235" text-anchor="middle">Variable X</text>
+      </g>
+    </svg>
+  </div>
+  <p class="lead reveal">Dispersión para pocos datos (&lt;500 puntos). Hexbin para alto volumen (&gt;10.000) evitando sobregraficado.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="Tradeoff: Treemap vs Barras">
+  <p class="kicker reveal">Tradeoffs condicionales &middot; Precisión vs Estructura</p>
+  <h2 class="reveal">Barras vs. Treemap</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 320" role="img" aria-label="Tradeoff 3: Barras para comparación exacta de magnitudes vs Treemap para mostrar jerarquía y composición del total.">
+      <!-- Panel Izquierdo: Barras Horizontal -->
+      <g transform="translate(20,20)">
+        <rect x="0" y="0" width="450" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="225" y="34" text-anchor="middle">Barras (Comparación Exacta)</text>
+        <text class="t sm on" x="225" y="54" text-anchor="middle">Comparación precisa de magnitudes</text>
+
+        <!-- Eje Y -->
+        <line x1="90" y1="75" x2="90" y2="210" class="ax"/>
+        <!-- Guías de cuadrícula -->
+        <line x1="170" y1="75" x2="170" y2="210" stroke="var(--line)" stroke-dasharray="3 3"/>
+        <line x1="250" y1="75" x2="250" y2="210" stroke="var(--line)" stroke-dasharray="3 3"/>
+        <line x1="330" y1="75" x2="330" y2="210" stroke="var(--line)" stroke-dasharray="3 3"/>
+
+        <!-- Barras -->
+        <text class="t sm" x="80" y="93" text-anchor="end">Cat A</text>
+        <rect x="90" y="78" width="280" height="20" class="bar-a" rx="2"/>
+        <text class="t sm halo" x="376" y="93" font-weight="700">38%</text>
+
+        <text class="t sm" x="80" y="123" text-anchor="end">Cat B</text>
+        <rect x="90" y="108" width="206" height="20" class="bar-n" rx="2"/>
+        <text class="t sm halo" x="302" y="123">28%</text>
+
+        <text class="t sm" x="80" y="153" text-anchor="end">Cat C</text>
+        <rect x="90" y="138" width="140" height="20" class="bar-n" rx="2"/>
+        <text class="t sm halo" x="236" y="153">19%</text>
+
+        <text class="t sm" x="80" y="183" text-anchor="end">Cat D</text>
+        <rect x="90" y="168" width="81" height="20" class="bar-n" rx="2"/>
+        <text class="t sm halo" x="177" y="183">11%</text>
+
+        <text class="t sm" x="80" y="208" text-anchor="end">Cat E</text>
+        <rect x="90" y="195" width="29" height="16" class="bar-n" opacity="0.7" rx="2"/>
+        <text class="t sm halo" x="124" y="208">4%</text>
+      </g>
+
+      <!-- Panel Derecho: Treemap -->
+      <g transform="translate(510,20)">
+        <rect x="0" y="0" width="450" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="225" y="34" text-anchor="middle">Treemap (Jerarquía y Total)</text>
+        <text class="t sm" x="225" y="54" text-anchor="middle">Composición y proporción del 100%</text>
+
+        <!-- Contenedor Treemap -->
+        <g transform="translate(45, 75)">
+          <!-- Cat A (38%) -->
+          <rect x="0" y="0" width="137" height="135" rx="3" fill="var(--accent)" stroke="var(--bg)" stroke-width="2"/>
+          <text class="lbl" x="68" y="65" text-anchor="middle" fill="var(--accent-ink)" font-size="16">Cat A</text>
+          <text class="t sm" x="68" y="85" text-anchor="middle" fill="var(--accent-ink)" font-weight="700">38%</text>
+
+          <!-- Cat B (28%) -->
+          <rect x="139" y="0" width="221" height="72" rx="3" fill="var(--neutral)" stroke="var(--bg)" stroke-width="2"/>
+          <text class="lbl" x="249" y="38" text-anchor="middle" fill="var(--fg)" font-size="15">Cat B (28%)</text>
+
+          <!-- Cat C (19%) -->
+          <rect x="139" y="74" width="135" height="61" rx="3" fill="var(--surface-2)" stroke="var(--bg)" stroke-width="2"/>
+          <text class="t sm" x="206" y="110" text-anchor="middle" fill="var(--fg)" font-weight="600">Cat C (19%)</text>
+
+          <!-- Cat D (11%) -->
+          <rect x="276" y="74" width="84" height="38" rx="3" fill="#233932" stroke="var(--bg)" stroke-width="2"/>
+          <text class="t sm" x="318" y="98" text-anchor="middle" fill="var(--muted)">D (11%)</text>
+
+          <!-- Cat E (4%) -->
+          <rect x="276" y="114" width="84" height="21" rx="3" fill="#172622" stroke="var(--bg)" stroke-width="2"/>
+          <text class="t sm" x="318" y="129" text-anchor="middle" fill="var(--muted)" font-size="11">E (4%)</text>
+        </g>
+
+        <text class="t sm" x="225" y="235" text-anchor="middle">Área total representa el 100% de la entidad</text>
+      </g>
+    </svg>
+  </div>
+  <p class="lead reveal">Barras para comparación exacta de magnitudes. Treemap para mostrar jerarquía y composición del total.</p>
+</section>
+
+<section class="slide" data-block="1" data-title="Tradeoff: Eje en Cero vs Eje Adaptado">
+  <p class="kicker reveal">Tradeoffs condicionales &middot; Área vs Tendencia</p>
+  <h2 class="reveal">Eje en Cero vs. Eje Adaptado</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 320" role="img" aria-label="Tradeoff 4: Eje en Cero obligatorio en Barras vs Eje Adaptado permitido en Líneas para visualizar tendencias.">
+      <!-- Panel Izquierdo: Eje en Cero -->
+      <g transform="translate(20,20)">
+        <rect x="0" y="0" width="450" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="225" y="34" text-anchor="middle">Eje en Cero (Barras)</text>
+        <text class="t sm on" x="225" y="54" text-anchor="middle">Barras exigen Y=0 (honestidad de área)</text>
+
+        <!-- Ejes -->
+        <line x1="70" y1="210" x2="390" y2="210" stroke="var(--accent)" stroke-width="2"/>
+        <line x1="70" y1="75" x2="70" y2="210" class="ax"/>
+        <text class="t sm on" x="60" y="214" text-anchor="end" font-weight="700">Y = 0</text>
+        <text class="t sm" x="60" y="130" text-anchor="end">100</text>
+        <line x1="65" y1="126" x2="390" y2="126" stroke="var(--line)" stroke-dasharray="3 3"/>
+
+        <!-- Barras -->
+        <rect x="130" y="130" width="70" height="80" class="bar-n" rx="3"/>
+        <text class="t sm halo" x="165" y="122" text-anchor="middle">Val: 96</text>
+        <text class="t sm" x="165" y="230" text-anchor="middle">Periodo 1</text>
+
+        <rect x="250" y="118" width="70" height="92" class="bar-a" rx="3"/>
+        <text class="t sm halo" x="285" y="110" text-anchor="middle" font-weight="700">Val: 104</text>
+        <text class="t sm" x="285" y="230" text-anchor="middle">Periodo 2</text>
+      </g>
+
+      <!-- Panel Derecho: Eje Adaptado -->
+      <g transform="translate(510,20)">
+        <rect x="0" y="0" width="450" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="225" y="30" text-anchor="middle" style="font-size:16px;">Eje Adaptado (Líneas)</text>
+        <text class="t sm" x="225" y="52" text-anchor="middle" style="font-size:12px;">Líneas permiten recortar Y para ver tendencia</text>
+
+        <!-- Ejes recortados -->
+        <line x1="70" y1="210" x2="390" y2="210" class="ax"/>
+        <line x1="70" y1="75" x2="70" y2="210" class="ax"/>
+        <text class="t sm bad" x="60" y="214" text-anchor="end" font-weight="700">Y = 90</text>
+        <text class="t sm" x="60" y="145" text-anchor="end">100</text>
+        <text class="t sm" x="60" y="80" text-anchor="end">110</text>
+
+        <line x1="65" y1="141" x2="390" y2="141" stroke="var(--line)" stroke-dasharray="3 3"/>
+
+        <!-- Línea con tendencia recortada Y=[90, 110] -->
+        <path d="M 90 190 L 140 170 L 190 155 L 240 162 L 290 115 L 340 90 L 380 80" fill="none" stroke="var(--accent)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Puntos -->
+        <circle cx="90" cy="190" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+        <circle cx="140" cy="170" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+        <circle cx="190" cy="155" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+        <circle cx="240" cy="162" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+        <circle cx="290" cy="115" r="4" fill="var(--surface)" stroke="var(--accent)" stroke-width="2"/>
+        <circle cx="340" cy="90" r="4" fill="var(--accent)"/>
+        <circle cx="380" cy="80" r="4" fill="var(--accent)"/>
+
+        <text class="t sm halo" x="380" y="70" text-anchor="middle" font-weight="700" fill="var(--accent)">107.5</text>
+        <text class="t sm" x="230" y="230" text-anchor="middle">Eje Y recortado a [90 - 110]</text>
+      </g>
+    </svg>
+  </div>
+  <p class="lead reveal">Barras exigen eje en cero (honestidad de área). Líneas permiten recortar el eje Y para analizar tendencias.</p>
 </section>
 
 <section class="slide" data-block="1" data-title="Resumen del bloque 1">
-  <p class="kicker reveal">Cinco ideas, cero sintaxis</p>
-  <h2 class="reveal">Lo que se lleva de este bloque</h2>
-  <ul class="bullets reveal">
-    <li>La primera frase es <b>la conclusión</b>, no la metodología.</li>
-    <li>Una presentación, <b>una audiencia principal</b>.</li>
-    <li>El título <b>afirma un hallazgo con su cifra</b>; no rotula el gráfico.</li>
-    <li>Si intercambia dos slides y no pasa nada, <b>no hay historia</b>: es <b>¿responde lo que pregunté?</b> y <b>¿cambió algo?</b> sobre un deck.</li>
-    <li>El dato sostiene <b>la descripción</b>, no la intención.</li>
-  </ul>
-  <p class="lead reveal">Ahora sí, la parte que a la audiencia nunca se le muestra: de dónde salen las cifras.</p>
+  <p class="kicker reveal">Síntesis teórica &middot; Criterio visual</p>
+  <h2 class="reveal">Cinco pilares de la visualización</h2>
+  <div class="fig-wrap reveal">
+    <svg class="fig" viewBox="0 0 1000 320" role="img" aria-label="Resumen visual de los 5 pilares del Bloque 1: Pregunta primero, Data-ink alto, Gris con énfasis, Título conclusivo y Prueba de 5 segundos.">
+      <g transform="translate(10,20)">
+        <rect x="0" y="0" width="180" height="260" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text class="lbl acc" x="90" y="40" text-anchor="middle" font-size="16">1. Pregunta</text>
+        <text class="t sm" x="90" y="90" text-anchor="middle">Determina el</text>
+        <text class="t sm" x="90" y="115" text-anchor="middle">tipo de gráfico,</text>
+        <text class="t sm" x="90" y="140" text-anchor="middle">no el gusto</text>
+
+        <rect x="195" y="0" width="180" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="285" y="40" text-anchor="middle" font-size="16">2. Data-Ink</text>
+        <text class="t sm" x="285" y="90" text-anchor="middle">Borre todo</text>
+        <text class="t sm" x="285" y="115" text-anchor="middle">lo que no sea</text>
+        <text class="t sm" x="285" y="140" text-anchor="middle">dato o apoyo</text>
+
+        <rect x="390" y="0" width="180" height="260" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text class="lbl acc" x="480" y="40" text-anchor="middle" font-size="16">3. Gris Base</text>
+        <text class="t sm" x="480" y="90" text-anchor="middle">Todo en gris,</text>
+        <text class="t sm" x="480" y="115" text-anchor="middle">el verde esmeralda</text>
+        <text class="t sm" x="480" y="140" text-anchor="middle">se gana</text>
+
+        <rect x="585" y="0" width="180" height="260" rx="8" fill="var(--surface)" stroke="var(--line)"/>
+        <text class="lbl acc" x="675" y="40" text-anchor="middle" font-size="16">4. Título</text>
+        <text class="t sm" x="675" y="90" text-anchor="middle">Dice la</text>
+        <text class="t sm" x="675" y="115" text-anchor="middle">conclusión y</text>
+        <text class="t sm" x="675" y="140" text-anchor="middle">es verdadero</text>
+
+        <rect x="780" y="0" width="180" height="260" rx="8" fill="var(--surface)" stroke="var(--accent)" stroke-width="1.5"/>
+        <text class="lbl acc" x="870" y="40" text-anchor="middle" font-size="16">5. Prueba 5s</text>
+        <text class="t sm" x="870" y="90" text-anchor="middle">Validación</text>
+        <text class="t sm" x="870" y="115" text-anchor="middle">rápida con</text>
+        <text class="t sm" x="870" y="140" text-anchor="middle">otra persona</text>
+      </g>
+    </svg>
+  </div>
+  <p class="lead reveal">Cinco pilares visuales: pregunta primero, data-ink alto, gris de base, título conclusivo y prueba de 5 segundos.</p>
 </section>
 
 <!-- ======================= DIVISORIA BLOQUE 2 ======================= -->
 <section class="slide divider" data-block="2" data-title="Divisoria · Bloque 2">
   <span class="n">02</span>
+  <div class="rule acc"></div>
   <p class="kicker">Bloque dos</p>
   <h2>Demo &middot; Lo recorre usted</h2>
-  <p class="lead">Abra <span class="term">demo.ipynb</span> y avance solo, a su ritmo. <b>El código ya está escrito:</b> se corre, se entiende y se responden las preguntas de interpretación. Nadie lo va a dictar desde aquí. Yo camino por el salón resolviendo dudas.</p>
+  <p class="lead">Abra <span class="term">demo/demo.ipynb</span> y avance solo, a su ritmo. <b>El código ya está escrito:</b> se corre, se mira la figura y se responden las preguntas de interpretación. Nadie lo va a dictar desde aquí. Yo camino por el salón resolviendo dudas.</p>
 </section>
 
 <section class="slide" data-block="2" data-title="El dataset, antes de tocarlo">
-  <p class="kicker reveal">El archivo con el que trabaja el demo</p>
-  <h2 class="reveal">Ejecución presupuestal nacional</h2>
-  <div class="cards c4 reveal">
-    <article class="card"><span class="k">Tamaño</span><h3>3.645 &times; 21</h3>
-      <p>Un mismo sector aparece en muchas filas. Sin agrupar, es un extracto bancario de 3.645 líneas.</p></article>
-    <article class="card good"><span class="k">Nulos</span><h3>Cero</h3>
-      <p>En las 21 columnas. Es raro y vale decirlo: <b>los datos limpios existen</b> y este es uno.</p></article>
-    <article class="card warn"><span class="k">Encabezados</span><h3>Dos con defecto</h3>
-      <p>Uno le falta una letra y otro tiene una tilde suelta donde va un espacio. <b>No se corrige el archivo fuente:</b> se documenta.</p></article>
-    <article class="card"><span class="k">Magnitudes</span><h3>Doce y trece dígitos</h3>
-      <p>Pesos sin separador. Ilegibles crudos: toda la clase se apoya en dividir entre un billón.</p></article>
+  <p class="kicker reveal">Regla de la casa: nunca se grafica nada sobre un dataset que no se sabe qué es</p>
+  <h2 class="reveal">Ejecución del Presupuesto General de la Nación</h2>
+  <div class="table-wrap reveal">
+    <table>
+      <caption>datasets/EJECUCION_PRESUPUESTAL.csv &middot; 3.645 filas x 21 columnas &middot; origen: datos.gov.co</caption>
+      <thead><tr><th scope="col">Columna</th><th scope="col">Qué es en la práctica</th></tr></thead>
+      <tbody>
+        <tr class="on"><th scope="row"><span class="mono">Apropiación Vigente</span></th><td>Lo que le autorizaron gastar. <b>El techo</b></td></tr>
+        <tr><th scope="row"><span class="mono">Compromisos</span></th><td>Lo que ya comprometió en contratos firmados</td></tr>
+        <tr><th scope="row"><span class="mono">Obligaciones</span></th><td>Lo que ya recibió y debe pagar</td></tr>
+        <tr><th scope="row"><span class="mono">Pagos</span></th><td>Lo que efectivamente salió</td></tr>
+      </tbody>
+    </table>
   </div>
-  <p class="lead reveal">La jerarquía del rubro tiene cinco niveles anidados y hoy solo se usa el primero. <strong>Se ignora información a propósito porque la historia no la necesita.</strong></p>
+  <div class="callout reveal"><p><b>Relación de embudo:</b> apropiación &ge; compromisos &ge; obligaciones &ge; pagos. Y el porcentaje que se usa todo el día es <b>compromisos sobre apropiación vigente</b>. Sin esto los gráficos de hoy no significan nada.</p></div>
 </section>
 
-<section class="slide" data-block="2" data-title="El glosario: cupo, contrato, factura, plata">
-  <p class="kicker reveal">Sin esto, las columnas no significan nada</p>
-  <h2 class="reveal">La cadena del gasto público</h2>
-  <div class="fig-wrap reveal">
-    <svg class="fig" viewBox="0 0 1000 260" role="img" aria-label="Cadena del gasto público: apropiación vigente 546,98 billones, compromisos 92,34, obligaciones 25,51 y pagos 25,32 billones. Cada eslabón es menor o igual al anterior.">
-      <rect class="box" x="10" y="60" width="215" height="96" rx="3"/>
-      <text class="lbl" x="30" y="95">Cupo</text>
-      <text class="t sm" x="30" y="122">Apropiación Vigente</text>
-      <text class="t" x="30" y="146">546,98 bill.</text>
-
-      <rect class="box" x="270" y="60" width="215" height="96" rx="3"/>
-      <text class="lbl" x="290" y="95">Contrato</text>
-      <text class="t sm" x="290" y="122">Compromisos</text>
-      <text class="t" x="290" y="146">92,34 bill.</text>
-
-      <rect class="box" x="530" y="60" width="215" height="96" rx="3"/>
-      <text class="lbl" x="550" y="95">Factura</text>
-      <text class="t sm" x="550" y="122">Obligaciones</text>
-      <text class="t" x="550" y="146">25,51 bill.</text>
-
-      <rect class="box sel" x="790" y="60" width="200" height="96" rx="3"/>
-      <text class="lbl acc" x="810" y="95">Plata</text>
-      <text class="t sm" x="810" y="122">Pagos</text>
-      <text class="t" x="810" y="146">25,32 bill.</text>
-
-      <path class="arrow" d="M225 108 H262"/><path class="arrowhead" d="M262 102 l14 6 -14 6z"/>
-      <path class="arrow" d="M485 108 H522"/><path class="arrowhead" d="M522 102 l14 6 -14 6z"/>
-      <path class="arrow" d="M745 108 H782"/><path class="arrowhead" d="M782 102 l14 6 -14 6z"/>
-
-      <text class="drop" x="228" y="200">aquí se cae el 83%</text>
-      <text class="t sm" x="498" y="200">la brecha que cuenta la historia: 67,02 billones</text>
-    </svg>
+<section class="slide" data-block="2" data-title="Qué tiene de sucio">
+  <p class="kicker reveal">Seis cosas, y cada una enseña algo</p>
+  <div class="cols c3 reveal">
+    <div class="col warn"><span class="k">Uno</span><h3>Magnitudes brutales</h3>
+      <p>El máximo es 4,96e13 pesos. Sin escalar, el eje dice <span class="mono">1e13</span> y nadie entiende nada. <b>Se divide entre 1e12</b> y se dice "billones de pesos" en la etiqueta.</p></div>
+    <div class="col warn"><span class="k">Dos</span><h3>Un espacio invisible</h3>
+      <p><span class="mono">RENTAS PARAFISCALES</span> aparece dos veces: 60 registros y 3. Una de las dos tiene <span class="mono">\xa0</span> en vez de espacio. <b><span class="term">strip()</span> no lo arregla</b>: no está en los extremos.</p></div>
+    <div class="col"><span class="k">Tres</span><h3>Un error de tipografía</h3>
+      <p>La columna se llama <span class="mono">Nombre Niel Dos Rubro</span>. Dice "Niel". <b>Y no se corrige:</b> los nombres de columna son datos, no deseos.</p></div>
+    <div class="col"><span class="k">Cuatro</span><h3>Un apóstrofo que no lo es</h3>
+      <p><span class="mono">Recursos´Presupuestales</span> usa un acento agudo y no tiene espacio. Se escribe exactamente así o pandas no la encuentra.</p></div>
+    <div class="col warn"><span class="k">Cinco</span><h3>Tres filas en cero</h3>
+      <p>Al calcular el porcentaje dividen por cero y producen <span class="mono">inf</span>. Se filtran, y <b>se dice cuántas filas se fueron</b>. Nunca en silencio.</p></div>
+    <div class="col"><span class="k">Seis</span><h3>Ninguna columna de tiempo</h3>
+      <p>Es una foto. Ya lo saben, y es lo que hace didáctico el tercer rediseño.</p></div>
   </div>
-  <p class="lead reveal">Cada eslabón es menor o igual al anterior. <strong>Confundir compromisos con pagos saca la historia al revés</strong>, y es el error más frecuente del bloque.</p>
+  <p class="lead reveal">Los nombres de sector y de entidad, en cambio, están limpios: 32 y 221 valores distintos, sin duplicados por espacios. <b>No gasten tiempo limpiando lo que ya está limpio.</b></p>
+</section>
+
+<section class="slide" data-block="2" data-title="La paleta del día">
+  <p class="kicker reveal">Se define antes del primer gráfico y se usa en los tres rediseños y en las cinco figuras del reto</p>
+  <h2 class="reveal">Cuatro colores, cuatro papeles</h2>
+  <div class="swatches reveal">
+    <div class="sw"><i style="background:#5A7B72"></i><span class="hex">#5A7B72</span>
+      <span class="use"><b>Neutro.</b> Todo, por defecto</span></div>
+    <div class="sw"><i style="background:#3EB489"></i><span class="hex">#3EB489</span>
+      <span class="use"><b>Énfasis.</b> El único elemento que importa</span></div>
+    <div class="sw"><i style="background:#E76F51"></i><span class="hex">#E76F51</span>
+      <span class="use"><b>Alerta.</b> Solo bajo umbral crítico</span></div>
+    <div class="sw"><i style="background:#799790"></i><span class="hex">#799790</span>
+      <span class="use"><b>Referencia.</b> Líneas de meta y anotaciones</span></div>
+  </div>
+  <div class="callout reveal"><p>Verde esmeralda contra gris salvia, o azul contra naranja. <b>Nunca rojo contra verde.</b> Y son los mismos cuatro colores de este deck: lo que ven en el proyector es lo que van a escribir en su celda de paleta.</p></div>
 </section>
 
 <section class="slide" data-block="2" data-title="El recorrido, a nivel general">
-  <p class="kicker reveal">Lo que van a hacer en este bloque, sin desarrollarlo aquí</p>
-  <h2 class="reveal">Un cuaderno con dos mitades</h2>
-  <div class="cards c3 reveal">
-    <article class="card"><span class="k">Primera mitad</span><h3>De dónde salen las cifras</h3>
-      <p>Totalizar, dividir para volver legible, partir por sector y partir por tipo de gasto. Todo con pandas ya conocido: hoy no hay sintaxis nueva.</p></article>
-    <article class="card on"><span class="k">La bisagra</span><h3>El cuaderno cambia de oficio</h3>
-      <p>De herramienta de cálculo a cuaderno de redacción. A partir de ahí no se ejecuta nada: se escribe, se borra y se reescribe en celdas de texto.</p></article>
-    <article class="card good"><span class="k">Segunda mitad</span><h3>La historia de cuatro slides</h3>
-      <p>Contexto, hallazgo, implicación y acción sobre el caso, cada una con su versión mala al lado. Es el marco que el reto replica con los datos del equipo.</p></article>
+  <p class="kicker reveal">Lo que van a hacer en el cuaderno, sin desarrollarlo aquí</p>
+  <h2 class="reveal">Tres gráficos malos, tres rediseños</h2>
+  <div class="cols c3 reveal">
+    <div class="col"><span class="k">Uno</span><h3>El que no se puede leer</h3>
+      <p>Un pie con las 32 categorías de sector. Se le hace una pregunta concreta y el gráfico no la deja responder. El rediseño la contesta de un vistazo.</p></div>
+    <div class="col warn"><span class="k">Dos</span><h3>El que exagera</h3>
+      <p>Barras con el eje truncado. El cuaderno no discute la distorsión: <b>la mide</b>, y compara la razón aparente contra la real.</p></div>
+    <div class="col on"><span class="k">Tres</span><h3>El que miente</h3>
+      <p>Una línea sobre categorías en orden alfabético. Se lee perfectamente y afirma algo falso. Es el peor de los tres, y la razón está en el cuaderno.</p></div>
   </div>
-  <div class="callout reveal"><p><strong>Hay una cifra en ese archivo que no voy a adelantar:</strong> aparece cuando se cambia el recorte, obliga a reescribir la historia entera y explica una contradicción que este curso arrastraba del semestre pasado. Descubrirla ejecutando vale mucho más que oírmela contar.</p></div>
+  <div class="callout reveal"><p><strong>No voy a adelantar cuál es el peor.</strong> Los tres se pasan por la checklist de diez puntos al final del cuaderno, y ahí queda claro que un gráfico ilegible se descarta, mientras que un gráfico legible y falso se cree. Descubrirlo ejecutando vale más que oírmelo contar.</p></div>
 </section>
 
 <section class="slide" data-block="2" data-title="Cómo se recorre el cuaderno">
   <p class="kicker reveal">Se lee antes de ejecutar &middot; nadie va adelantado ni atrasado</p>
   <h2 class="reveal">Cómo se recorre el cuaderno</h2>
-  <div class="cards c3 reveal">
-    <article class="card"><span class="k">Aquí no se teclea</span><h3>El código está escrito</h3>
-      <p>Se ejecuta, se mira la salida y se lee la explicación que está justo encima. <b>Escribir código es el bloque 3</b>, y es lo que se entrega.</p></article>
-    <article class="card on"><span class="k">Doce celdas</span><h3>Preguntas de interpretación</h3>
-      <p>Marcadas <b>Tu respuesta:</b>, en español y sin código, con la respuesta esperada plegada debajo. Se escribe la propia <b>primero</b> y se abre después. Qué significa el resultado, no cuál fue.</p></article>
-    <article class="card"><span class="k">Los recuadros</span><h3>De fundamento</h3>
-      <p>Por qué no se corrige el archivo fuente, dónde está la línea entre analítica y opinión. Si ya lo tiene claro se puede saltar; si no, es lo que más le va a servir en la sustentación.</p></article>
+  <div class="cols c3 reveal">
+    <div class="col"><span class="k">Uno</span><h3>Todo el código está escrito</h3>
+      <p>Aquí no se teclea nada: se ejecuta, se mira la salida y se lee la explicación que está justo encima. Las figuras vienen tituladas, con unidades y con la fuente al pie. Ese es el modelo a copiar en el reto.</p></div>
+    <div class="col on"><span class="k">Dos</span><h3>Preguntas de interpretación</h3>
+      <p>Con la respuesta plegada debajo. Se escribe la propia <b>primero</b> y se abre después. Qué significa la figura, no cómo se dibujó.</p></div>
+    <div class="col"><span class="k">Tres</span><h3>Los recuadros de fundamento</h3>
+      <p>Qué afirma una línea, por qué truncar barras es mentir, cómo se arma un lollipop. Si ya lo tiene claro se puede saltar; si no, es lo que más le va a servir en el reto.</p></div>
   </div>
-  <div class="callout reveal"><p><b>Yo estoy caminando.</b> Levante la mano en el momento en que algo no cuadre, no al final. Y una advertencia que va en serio: quien ejecuta celdas sin leer termina la primera mitad en veinte minutos y no puede responder una sola de las doce preguntas.</p></div>
+  <div class="callout reveal"><p><b>Los tres errores de nombres de columna del cuaderno están provocados a propósito</b> y explicados: el que revienta, el que revienta distinto y el que no avisa. Verlos hoy con calma es mejor que verlos por primera vez a mitad del reto. <strong>Yo estoy caminando:</strong> levante la mano en el momento en que algo no cuadre, no al final.</p></div>
 </section>
 
 <!-- ======================= DIVISORIA BLOQUE 3 ======================= -->
 <section class="slide divider" data-block="3" data-title="Divisoria · Bloque 3">
   <span class="n">03</span>
+  <div class="rule acc"></div>
   <p class="kicker">Bloque tres</p>
-  <h2>Reto &middot; Ahora usted, con sus propios datos</h2>
-  <p class="lead">La misma técnica, otro dataset: el de su equipo, el que viene usando desde el Momento 1.</p>
+  <h2>Reto &middot; Ahora usted, con otras preguntas</h2>
+  <p class="lead">Abra <span class="term">reto/reto_starter.ipynb</span>. Cada tarea trae la pregunta, el concepto y los comandos; usted decide el recorte, el color, el orden y el título. Yo sigo circulando. Esto es lo que se entrega.</p>
 </section>
 
-<section class="slide" data-block="3" data-title="El reto: su proyecto en cuatro slides">
-  <p class="kicker reveal">El entregable de hoy</p>
-  <h2 class="reveal">La historia de su proyecto, en cuatro slides</h2>
+<section class="slide" data-block="3" data-title="Sí, es el mismo dataset. Es a propósito">
+  <p class="kicker reveal">La excepción declarada del semestre</p>
+  <p class="claim reveal">Hoy no les cambio los datos. <span>Les cambio la pregunta.</span></p>
   <ul class="bullets reveal">
-    <li><b>Tres cifras</b> calculadas sobre su dataset, en <span class="term">reto.ipynb</span>.</li>
-    <li><b>Cuatro títulos</b> que cuenten la historia leídos seguidos.</li>
-    <li><b>Un pitch</b> presentado en el salón, sin leer las slides.</li>
-    <li><b>Un formulario de feedback</b> diligenciado para cada equipo que escuchó.</li>
+    <li>En el resto del curso el reto usa datos que no vieron en el demo. <b>Hoy no</b>, y hay una razón.</li>
+    <li>Lo que se transfiere hoy no es una técnica de manipulación de datos: es <b>criterio visual</b>. Con un dataset nuevo, buena parte del bloque se iría en limpieza y llegarían a los gráficos sin aire.</li>
+    <li class="on">Lo que cambia no son los datos: son los gráficos. <b>Cuatro de las cinco figuras son de tipos que no aparecieron en el demo.</b></li>
   </ul>
-  <div class="callout reveal"><p><b>Los cuatro títulos primero, el resto después.</b> El equipo que empieza por el diseño no termina; el que empieza por los títulos siempre llega, aunque el deck quede feo. La meta de hoy no es el deck terminado: es tener los cuatro títulos.</p></div>
+  <div class="callout reveal"><p>Los mismos números, cinco preguntas distintas, cinco gráficos distintos. <b>Si el gráfico correcto dependiera de los datos, esto sería trivial. Depende de la pregunta.</b></p></div>
 </section>
 
-<section class="slide" data-block="3" data-title="El bucle de la clase 3, sobre una narrativa">
-  <p class="kicker reveal">No es método nuevo: es el que ya tienen instalado</p>
-  <h2 class="reveal">Especificar antes de dibujar</h2>
+<section class="slide" data-block="3" data-title="Las cinco figuras">
+  <p class="kicker reveal">Cada una responde una pregunta que ninguna otra responde</p>
   <div class="table-wrap reveal">
     <table>
-      <caption>El bucle de la clase 3, con las nueve tareas de hoy repartidas en sus cuatro tramos</caption>
-      <thead><tr><th>Tramo</th><th>La skill</th><th>Qué es hoy</th></tr></thead>
+      <caption>reto/README.md &middot; diez tareas en tres partes &middot; entregable: el cuaderno más cinco PNG a 300 DPI</caption>
+      <thead><tr><th scope="col">#</th><th scope="col">La pregunta</th><th scope="col">El gráfico</th><th scope="col">¿Estuvo en el demo?</th></tr></thead>
       <tbody>
-        <tr class="on"><th>Especificar</th><td><span class="term">especifica-encargo</span></td><td>A quién le hablo y qué decisión debe habilitar. <b>Antes</b> de calcular nada</td></tr>
-        <tr><th>Planear</th><td><span class="term">planea-trabajo</span></td><td>Qué tres cifras hacen falta y en qué orden salen</td></tr>
-        <tr><th>Ejecutar</th><td><span class="term">ejecuta-plan</span></td><td>Las tareas 1 a 7, una por una, comprobando cada una</td></tr>
-        <tr class="on"><th>Validar</th><td><span class="term">valida-resultado</span></td><td>Las tareas 8 y 9, más las cuatro preguntas y la prueba del intercambio</td></tr>
+        <tr><th scope="row">1</th><td>¿Qué sectores concentran el presupuesto?</td><td><b>Barras horizontales, top 10</b></td><td><em>Sí. Es el calentamiento: hágala rápido</em></td></tr>
+        <tr><th scope="row">2</th><td>¿Dónde es más grande la brecha entre lo autorizado y lo comprometido?</td><td><b>Barras agrupadas, top 8</b></td><td><em>No</em></td></tr>
+        <tr class="on"><th scope="row">3</th><td>¿Qué entidades tienen mucho presupuesto y poca ejecución?</td><td><b>Dispersión con línea de referencia</b></td><td><em>No. Las 221 entidades</em></td></tr>
+        <tr><th scope="row">4</th><td>¿Cómo cambia la composición del gasto entre sectores?</td><td><b>Barras apiladas al 100%</b></td><td><em>No. La más difícil técnicamente</em></td></tr>
+        <tr><th scope="row">5</th><td>¿Qué sectores están por debajo del promedio de ejecución?</td><td><b>Small multiples</b></td><td><em>No</em></td></tr>
       </tbody>
     </table>
   </div>
-  <p class="lead reveal">Una audiencia sin nombre produce un deck que le habla a todo el mundo y no le sirve a nadie. <strong>Especificar antes de dibujar es lo que evita la secuencia de gráficos correctos sin tensión.</strong></p>
+  <p class="lead reveal"><b>Small multiples:</b> una rejilla de gráficos pequeños, todos del mismo tipo y <b>con la misma escala</b>, uno por categoría, para comparar de un vistazo. Son cinco figuras y el bloque es uno: <b>si se le va medio bloque en la primera, no va a terminar.</b></p>
 </section>
 
-<section class="slide" data-block="3" data-title="Parte A · las tres cifras">
-  <p class="kicker reveal">Tareas 1 a 3 &middot; lo que se entrena no es calcular, es elegir qué calcular</p>
-  <h2 class="reveal">Las tres cifras que sostienen la historia</h2>
-  <div class="cards c3 reveal">
-    <article class="card on"><span class="k">T1</span><h3>La cifra principal</h3>
-      <p>Una sola, y no la que fue fácil de calcular: <b>la que cambiaría una decisión</b>. Si al decirla nadie tendría que hacer nada distinto, es una cifra, no la cifra.</p></article>
-    <article class="card"><span class="k">T2</span><h3>El recorte con nombre propio</h3>
-      <p>¿Dónde está concentrado eso? Partir el total por una categórica no cambia ningún dato, y <b>sí cambia la historia</b>.</p></article>
-    <article class="card"><span class="k">T3</span><h3>La segunda evidencia</h3>
-      <p>La que hace que la primera no dependa de la buena fe del que escucha.</p></article>
-  </div>
-  <p class="lead reveal">De su dataset salen cientos de cifras verdaderas y casi todas son irrelevantes. Si sale con más de seis dígitos, divídala: <strong>nadie lee trece dígitos en una slide.</strong></p>
-</section>
-
-<section class="slide" data-block="3" data-title="Parte B · los cuatro títulos">
-  <p class="kicker reveal">Tareas 4 a 7 &middot; una por slide del marco</p>
-  <h2 class="reveal">Escriba primero la versión débil</h2>
-  <ul class="bullets reveal">
-    <li>El bloqueo casi siempre es <b>querer escribir la buena de una</b>. Escriba la mala, mírela, y corríjala.</li>
-    <li>Si el revisor le marca solapamiento, <b>reescriba la slide 3</b>, no la 2.</li>
-    <li>La acción nombra <b>un responsable, una métrica y un punto de arranque</b>. Si falta uno, todavía no es una acción.</li>
-    <li>Declare su <b>audiencia principal</b>: ejecutivo, gerente de área o técnico. Una sola.</li>
-  </ul>
-  <div class="callout warn reveal"><p><b>Un título en verde no es un título bueno: es un título con forma de título.</b> El cuaderno revisa forma — que afirme, que quepa en una línea, que el hallazgo lleve cifra, que la implicación no repita el hallazgo. El juicio lo cierra usted en la autoevaluación, y lo cierra la sala en la clase 11.</p></div>
-</section>
-
-<section class="slide" data-block="3" data-title="Parte C · la cifra recalculada desde cero">
-  <p class="kicker reveal">Tarea 9 &middot; la única comprobación de verdad automática del cuaderno</p>
-  <h2 class="reveal">"¿De dónde sacó ese número?"</h2>
-  <p class="pseudo reveal"><span class="no">No</span> reimprimir la variable de la tarea 1: <b>volver a leer el archivo, repetir la limpieza, calcular otra vez la cifra</b> y compararla con el número tal como quedó escrito en su título.</p>
-  <p class="lead reveal">Las dos celdas ya están rotuladas en el cuaderno: usted solo escribe adentro. Se aceptan como iguales si no se apartan más de un uno por ciento. Los dos errores que esto atrapa son <strong>de unidades y de filtro</strong>: los dos producen una slide correcta en apariencia y falsa en el fondo, y ninguno lanza una excepción.</p>
-</section>
-
-<section class="slide" data-block="3" data-title="Si su limpieza no está en el cuaderno">
-  <p class="kicker reveal">El atasco más incómodo de la tarea 9</p>
-  <p class="claim reveal">"Es que yo eso lo hice <span>en otro archivo</span>."</p>
-  <p class="lead reveal">Entonces la tarea 9 no se puede hacer, y eso ya es un hallazgo sobre su propio trabajo. Tráigala del Momento 1 y péguela en el cuaderno.</p>
-  <div class="callout warn reveal"><p><b>En el Momento 2 la pregunta "¿de dónde salió?" se hace en voz alta y con público.</b> Hoy la hace un verificador que no juzga a nadie. Es la última vez que sale barata.</p></div>
-</section>
-
-<section class="slide" data-block="3" data-title="Requisitos del mini-deck">
-  <p class="kicker reveal">Lo que se revisa del entregable</p>
-  <h2 class="reveal">Requisitos del mini-deck</h2>
-  <ul class="bullets reveal">
-    <li>Exactamente <b>cuatro slides</b>. Ni tres ni seis.</li>
-    <li>Los cuatro títulos son <b>afirmaciones con contenido</b>, no etiquetas.</li>
-    <li>Al menos <b>dos evidencias</b> de su propio EDA: dos cifras, o una cifra y un gráfico.</li>
-    <li>Toda cifra que ponga <b>la puede reproducir</b> en su notebook.</li>
-    <li>La slide de acción nombra <b>qué</b> hacer y <b>quién</b> lo hace.</li>
-  </ul>
-  <div class="callout good reveal"><p><b>Formato libre.</b> HTML, PDF, Google Slides o las cuatro celdas de texto del notebook renderizadas. <b>No hay plantilla obligatoria del curso.</b> Lo que se valora es la estructura narrativa, no la estética: el tiempo que gaste eligiendo colores es tiempo que no gastó puliendo títulos.</p></div>
-</section>
-
-<section class="slide" data-block="3" data-title="El pitch: cuatro reglas">
-  <p class="kicker reveal">Cómo se presenta &middot; el corte es duro y se avisa antes del final</p>
-  <h2 class="reveal">Cuatro reglas del pitch</h2>
-  <div class="cards c4 reveal">
-    <article class="card warn"><span class="k">No</span><h3>No lea las slides</h3>
-      <p>La audiencia lee más rápido que usted y se aburre esperándolo.</p></article>
-    <article class="card"><span class="k">Sí</span><h3>Una frase por gráfico</h3>
-      <p>Y señale el punto exacto del que está hablando.</p></article>
-    <article class="card warn"><span class="k">No</span><h3>No abra disculpándose</h3>
-      <p>"Nuestros datos no eran muy buenos" mata la credibilidad en la primera frase.</p></article>
-    <article class="card on"><span class="k">Sí</span><h3>Cierre con la recomendación</h3>
-      <p>No con "eso es todo, ¿preguntas?". Su última frase es lo que se recuerda.</p></article>
-  </div>
-  <p class="lead reveal">El reparto sugerido de los cuatro tramos está en <span class="term">reto.md</span>. En la clase 11 el corte es real y queda en el acta; hoy es el ensayo.</p>
-</section>
-
-<section class="slide" data-block="3" data-title="Feedback: I like, I wish, What if">
-  <p class="kicker reveal">Después de cada pitch, tres frases por evaluador</p>
-  <h2 class="reveal">I like &middot; I wish &middot; What if</h2>
-  <div class="cards c3 reveal">
-    <article class="card good"><span class="k">I like</span><h3>Qué funcionó</h3>
-      <p>Concreto, no "estuvo bien". <em>"Arrancaste con la cifra de la brecha, entendí el problema de una."</em></p></article>
-    <article class="card"><span class="k">I wish</span><h3>Qué faltó</h3>
-      <p>Sobre el trabajo, <b>nunca sobre la persona</b>. <em>"El título de la tercera slide no dice qué concluir; me tocó deducirlo."</em></p></article>
-    <article class="card on"><span class="k">What if</span><h3>Una propuesta</h3>
-      <p>No una queja. <em>"¿Y si muestras el gráfico por municipio antes del total?"</em></p></article>
-  </div>
-  <div class="callout warn reveal"><p><b>El que presenta no defiende.</b> Escucha y anota. Discutir el feedback consume el turno del siguiente equipo, y no cambia lo que la sala entendió.</p></div>
-</section>
-
-<section class="slide" data-block="3" data-title="Cómo se ve un buen trabajo">
-  <p class="kicker reveal">El mismo instrumento de los momentos evaluativos, sin nota</p>
-  <h2 class="reveal">Saber, Ser y Hacer</h2>
+<section class="slide" data-block="3" data-title="Especificar antes de dibujar">
+  <p class="kicker reveal">El bucle de la clase 3, sobre un artefacto que no es un número</p>
+  <p class="claim reveal">Un gráfico bonito que no responde nada<br><span>salió de un encargo que no preguntaba nada.</span></p>
   <div class="table-wrap reveal">
     <table>
-      <caption>Una banda por dimensión. Los elementos no tienen peso: no se suman ni se promedian</caption>
-      <thead><tr><th>Dimensión</th><th>Qué se mira hoy</th><th>Se cumple cuando</th></tr></thead>
+      <caption>Especificar &middot; planear &middot; ejecutar &middot; validar &middot; una vuelta por figura</caption>
+      <thead><tr><th scope="col">Tramo</th><th scope="col">Qué se escribe, y cuándo</th></tr></thead>
       <tbody>
-        <tr><th>Saber</th><td><em>Evidencia</em></td>
-          <td>Las cifras son reproducibles desde el notebook y sostienen lo que el título afirma</td></tr>
-        <tr class="on"><th>Ser</th><td><em>Títulos &middot; acción</em></td>
-          <td>Leer solo los cuatro títulos seguidos ya cuenta la historia, y alguien podría hacer algo distinto el lunes por haber escuchado esto</td></tr>
-        <tr><th>Hacer</th><td><em>Estructura &middot; foco</em></td>
-          <td>Las cuatro slides están en orden, hay una idea por slide y un solo hallazgo principal, y cupo en el pitch sin correr al final</td></tr>
+        <tr class="on"><th scope="row">Especificar</th><td>La pregunta que la figura responde, quién la mira, y <b>el título que esperan poder escribir al final</b>. Va antes de dibujar, no después</td></tr>
+        <tr><th scope="row">Planear</th><td>El tipo de gráfico y por qué ese y no el vecino, el recorte, la unidad del eje, el elemento que se resalta</td></tr>
+        <tr><th scope="row">Ejecutar</th><td>La figura. Es el tramo que se delega entero, y sigue siendo el único</td></tr>
+        <tr class="on"><th scope="row">Validar</th><td>El título contra la tabla. Si no es verdadero, no se parcha el título: <b>se vuelve a especificar</b></td></tr>
       </tbody>
     </table>
   </div>
-  <p class="lead reveal">Este reto <strong>no tiene nota</strong>. Contéstese la autoevaluación del final del cuaderno antes de presentar: en un ensayo, el resultado útil es saber qué no está listo.</p>
+  <p class="lead reveal">Las cuatro skills están instaladas desde la clase 3 &mdash; <span class="term">especifica-encargo</span>, <span class="term">planea-trabajo</span>, <span class="term">ejecuta-plan</span>, <span class="term">valida-resultado</span> &mdash; y hoy no se vuelven a explicar: se usan. <b>Cinco figuras son cinco vueltas, no una.</b></p>
+</section>
+
+<section class="slide" data-block="3" data-title="Requisitos no negociables">
+  <p class="kicker reveal">Cinco requisitos, y el primero es lo primero que se mira al calificar</p>
+  <ol class="steps reveal">
+    <li><b>Una paleta, definida en una celda al inicio, usada en las cinco figuras.</b> Es lo que separa cinco figuras de un informe.</li>
+    <li><b>Ejes en billones de pesos</b>, no en notación científica. Si el eje dice <span class="mono">1e13</span>, la figura está incompleta.</li>
+    <li><b>Título que enuncia la conclusión, y que es verdadero.</b></li>
+    <li><b>Fuente citada</b> en las cinco.</li>
+    <li><b>Exportación a PNG</b> con los cinco nombres pedidos en el <span class="term">README</span>.</li>
+  </ol>
+  <p class="lead reveal">La llamada a <span class="mono">savefig</span> ya está escrita en el cuaderno; lo que no está escrito es <b>por qué lleva tres ajustes</b>: <span class="mono">dpi</span> en 300 o el PNG sale borroso al proyectarlo, <span class="mono">bbox_inches</span> en <span class="mono">'tight'</span> o se corta la etiqueta más larga del eje, y <span class="mono">facecolor</span> en blanco o el fondo sale transparente. <b>Los tres se notan cuando ya es tarde.</b></p>
+</section>
+
+<section class="slide" data-block="3" data-title="Dónde se va a atascar">
+  <p class="kicker reveal">En orden de frecuencia real &middot; revise esto antes de levantar la mano</p>
+  <div class="table-wrap reveal">
+    <table>
+      <caption>Los siete atascos de hoy, con la salida</caption>
+      <thead><tr><th scope="col">Síntoma</th><th scope="col">La salida</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">El eje dice <span class="mono">1e13</span></th>
+          <td>Divida entre 1e12 y ponga "billones de pesos" en la etiqueta</td></tr>
+        <tr><th scope="row">La tabla se ve bien y <span class="mono">comprobar</span> dice que no coincide</th>
+          <td>Los nombres de las columnas derivadas: <span class="mono">'% Ejecución'</span> y <span class="mono">'Apropiación (billones)'</span>, con tilde y mayúscula</td></tr>
+        <tr><th scope="row">Las filas suman 300, o salen números gigantes</th>
+          <td>Invirtió los <span class="mono">axis</span> al normalizar por fila. Es la tarea 6</td></tr>
+        <tr class="on"><th scope="row">El verificador rechaza los small multiples por escalas distintas</th>
+          <td><span class="mono">sharex=True</span>. Sin eso la comparación visual es falsa, <b>y la figura se ve bien igual</b>. Es el mejor momento del reto</td></tr>
+        <tr><th scope="row">Cinco títulos que describen los ejes</th>
+          <td>Eso dice qué graficó, no qué encontró. <b>¿Qué encontró?</b></td></tr>
+        <tr><th scope="row">Las figuras 1 y 2 con paleta y el resto por defecto</th>
+          <td>matplotlib no adivina: hay que pasar <span class="mono">color=</span> explícito en las cinco</td></tr>
+        <tr><th scope="row">"No sé qué le falta a mi gráfico"</th>
+          <td>El mensaje del verificador lo dice, línea por línea. <b>Léalo.</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="slide" data-block="3" data-title="Cómo se entrega y cómo se valora">
+  <p class="kicker reveal">El entregable de hoy, antes de la clase 9</p>
+  <div class="cols c3 reveal">
+    <div class="col on"><span class="k">Saber</span><h3>El tipo de gráfico</h3>
+      <p>Es el correcto para cada pregunta, y usted puede explicar <b>por qué ese y no el vecino</b>. Un gráfico de líneas sobre categorías le pone techo a esta dimensión.</p></div>
+    <div class="col on"><span class="k">Ser</span><h3>Los títulos y el criterio</h3>
+      <p>Los cinco títulos enuncian una conclusión <b>y son verdaderos</b>, y el análisis crítico muestra criterio propio. Un título que los datos no sostienen es el error más grave de hoy.</p></div>
+    <div class="col on"><span class="k">Hacer</span><h3>Las figuras</h3>
+      <p>Paleta consistente en las cinco, figuras limpias, ejes con unidad legible, fuente citada y exportación a 300 DPI con los nombres pedidos.</p></div>
+  </div>
+  <div class="callout warn reveal"><p><b>Antes de entregar: Kernel &rarr; Restart and Run All</b>, y el punto de control final tiene que decir diez de diez. Un cuaderno que no corre de arriba a abajo le pone techo a Hacer. <b>Este reto es práctica: no produce nota.</b> La retroalimentación usa el mismo instrumento de las sustentaciones para que lleguen familiarizados.</p></div>
 </section>
 
 <!-- ======================= CIERRE ======================= -->
-<section class="slide" data-title="Cierre: qué se lleva de hoy">
-  <p class="kicker reveal">Lo que se lleva de hoy</p>
-  <h2 class="reveal">Cuatro frases y una regla</h2>
-  <ul class="bullets reveal">
-    <li>Si intercambia dos slides y no pasa nada, <b>no hay historia</b>.</li>
-    <li>El título <b>afirma un hallazgo con su cifra</b>.</li>
-    <li>El dato sostiene la descripción, <b>no la intención</b>.</li>
-    <li>Se especifica la audiencia y la decisión <b>antes</b> de escribir el primer título.</li>
-    <li><b>La regla:</b> una cifra que no puede recalcular no va en una slide.</li>
-  </ul>
-  <div class="callout reveal"><p><b>En casa:</b> aplique al menos dos de los tres "I wish" que recibió, ensaye en voz alta el turno completo y pula el gráfico del hallazgo con lo de la clase 7. El ensayo mental no revela ni el tiempo ni las frases torpes.</p></div>
+<section class="slide" data-title="Cierre: las cuatro preguntas, sobre una figura">
+  <p class="kicker reveal">Validar un gráfico es lo mismo que validar un número, con otro objeto</p>
+  <h2 class="reveal">Las cuatro preguntas, y dónde caen en la checklist</h2>
+  <div class="table-wrap reveal">
+    <table>
+      <caption>Las mismas cuatro de la clase 3 &middot; aquí el resultado no es un número, es una figura</caption>
+      <thead><tr><th scope="col">La pregunta</th><th scope="col">Sobre la figura</th><th scope="col">Checklist</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">¿El número tiene sentido?</th><td>Lea el valor en el eje y búsquelo en la tabla. Un eje que dice <span class="mono">1e13</span> no es un número: es una notación</td><td><em>9 y 10</em></td></tr>
+        <tr class="on"><th scope="row">¿La forma cuadra?</th><td>Barras desde cero, paneles con la misma escala, ninguna línea sobre categorías. <b>Aquí la forma es la escala</b></td><td><em>3 y 4</em></td></tr>
+        <tr class="on"><th scope="row">¿Responde lo que pregunté?</th><td>Cinco segundos con alguien de otro equipo, sin explicarle nada. Lo que le devuelva tiene que ser la pregunta que usted escribió al especificar</td><td><em>1, 2 y 8</em></td></tr>
+        <tr><th scope="row">¿Cambió algo?</th><td>Compare con el gráfico por defecto. Si el lector entiende lo mismo, no rediseñó: maquilló</td><td><em>5, 6 y 7</em></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="lead reveal">La checklist es el <b>qué</b>: diez cosas que revisar. Las cuatro preguntas son el <b>orden</b> en que se revisan, y son las mismas que usaron en la clase 3 sobre un número. <b>Un skill que verifique los diez puntos es lo más rentable que pueden escribir esta semana</b>, y lo van a usar en las clases 9, 10 y 11.</p>
 </section>
 
-<section class="slide" data-title="Cierre: puente a la clase 9">
+<section class="slide" data-title="Cierre">
   <p class="kicker reveal">Nos vemos en la clase 9</p>
-  <p class="claim reveal">Ya sabe contarlo con cuatro slides. <span>Ahora hay que dejar que otro lo explore.</span></p>
-  <p class="lead reveal">Plotly y Streamlit: la misma historia, pero interactiva, y en un dashboard que alguien más puede filtrar sin llamarlo a usted. <strong>Traiga <span class="term">streamlit</span> instalado y probado antes de llegar:</strong> instalarlo en clase le cuesta el bloque entero.</p>
+  <p class="claim reveal">Ya saben hacer figuras que no mienten.<br><span>Ahora hay que contar la historia.</span></p>
+  <p class="lead reveal">Hoy cada figura respondió una pregunta suelta. La próxima clase, sobre este mismo dataset, esas figuras se encadenan: una tensión que se resuelve, no una lista de gráficos. Y ahí la narrativa deja de ser un extra y pasa a ser el entregable.</p>
+  <div class="callout reveal"><p>Y por qué esta clase importa aunque le pidan la figura a una IA: a "un gráfico bonito" le responde algo genérico; a "barras horizontales ordenadas, top 10, todas en gris salvo la primera, con etiquetas directas, eje desde cero y sin bordes" le responde exactamente eso. <b>La diferencia entre las dos peticiones es el tramo de especificar, y es lo que aprendieron hoy.</b></p></div>
 </section>
 
 </main>
@@ -1019,8 +2125,6 @@ class SlidePresentation {
     this.index.classList.toggle('open', open);
   }
 
-  /* Anima la entrada de cada slide y mantiene la barra y los dots sincronizados
-     cuando se navega con scroll o swipe en vez de con el teclado. */
   observe(){
     const io = new IntersectionObserver(entries => {
       entries.forEach(en => {
